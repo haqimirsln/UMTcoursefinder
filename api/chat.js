@@ -30,7 +30,8 @@ export default async function handler(req) {
         'X-Title': 'UMT Course Finder',
       },
       body: JSON.stringify({
-model: 'deepseek/deepseek-r1:free',        max_tokens: 500,
+model: 'openrouter/auto',
+        max_tokens: 500,
         messages: body.messages,
       }),
     });

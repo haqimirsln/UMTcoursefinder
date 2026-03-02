@@ -12,47 +12,36 @@ export default async function handler(req) {
 
   try {
     const body = await req.json();
-    const key = process.env.OPENROUTER_API_KEY;
-
-    // Debug: return key info before even calling OpenRouter
-    if (!key) {
-      return new Response(JSON.stringify({
-        content: [{ type: 'text', text: 'DEBUG: OPENROUTER_API_KEY is missing!' }]
-      }), { status: 200, headers: { 'Content-Type': 'application/json', ...corsHeaders } });
-    }
 
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${key}`,
+        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
         'HTTP-Referer': 'https://umt.edu.my',
         'X-Title': 'UMT Course Finder',
       },
       body: JSON.stringify({
-model: 'openrouter/auto',
-        max_tokens: 500,
+        model: 'mistralai/mistral-small-3.1-24b-instruct:free',
+        max_tokens: 800,
         messages: body.messages,
       }),
     });
 
     const data = await response.json();
+    const text = data.choices?.[0]?.message?.content || "Sorry, I couldn't get a response. Please contact UMT directly at +609-633 3333.";
 
-    // Debug: show raw OpenRouter response if no choices
-    if (!data.choices?.[0]?.message?.content) {
-      return new Response(JSON.stringify({
-        content: [{ type: 'text', text: 'DEBUG: ' + JSON.stringify(data) }]
-      }), { status: 200, headers: { 'Content-Type': 'application/json', ...corsHeaders } });
-    }
-
-    const text = data.choices[0].message.content;
     return new Response(JSON.stringify({
       content: [{ type: 'text', text }]
-    }), { status: 200, headers: { 'Content-Type': 'application/json', ...corsHeaders } });
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
 
   } catch (err) {
-    return new Response(JSON.stringify({
-      content: [{ type: 'text', text: 'DEBUG ERROR: ' + err.message }]
-    }), { status: 200, headers: { 'Content-Type': 'application/json', ...corsHeaders } });
+    return new Response(JSON.stringify({ error: err.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
   }
 }

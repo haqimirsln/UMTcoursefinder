@@ -10,33 +10,56 @@ export default async function handler(req) {
   if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: corsHeaders });
   if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 });
 
+  const models = [
+    'mistralai/mistral-small-3.1-24b-instruct:free',
+    'meta-llama/llama-3.3-70b-instruct:free',
+    'qwen/qwen3-8b:free',
+    'google/gemini-2.5-flash-lite:free',
+  ];
+
   try {
     const body = await req.json();
+    let lastError = '';
 
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        'HTTP-Referer': 'https://umt.edu.my',
-        'X-Title': 'UMT Course Finder',
-      },
-      body: JSON.stringify({
-        model: 'mistralai/mistral-small-3.1-24b-instruct:free',
-        max_tokens: 800,
-        messages: body.messages,
-      }),
-    });
+    for (const model of models) {
+      try {
+        const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+            'HTTP-Referer': 'https://umt.edu.my',
+            'X-Title': 'UMT Course Finder',
+          },
+          body: JSON.stringify({
+            model,
+            max_tokens: 800,
+            messages: body.messages,
+          }),
+        });
 
-    const data = await response.json();
-    const text = data.choices?.[0]?.message?.content || "Sorry, I couldn't get a response. Please contact UMT directly at +609-633 3333.";
+        const data = await response.json();
+        const text = data.choices?.[0]?.message?.content;
 
+        if (text) {
+          return new Response(JSON.stringify({
+            content: [{ type: 'text', text }]
+          }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json', ...corsHeaders },
+          });
+        }
+
+        lastError = JSON.stringify(data.error || 'No content');
+      } catch (e) {
+        lastError = e.message;
+      }
+    }
+
+    // All models failed
     return new Response(JSON.stringify({
-      content: [{ type: 'text', text }]
-    }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders },
-    });
+      content: [{ type: 'text', text: `Sorry, all models are currently unavailable. Please contact UMT at +609-633 3333. (${lastError})` }]
+    }), { status: 200, headers: { 'Content-Type': 'application/json', ...corsHeaders } });
 
   } catch (err) {
     return new Response(JSON.stringify({ error: err.message }), {

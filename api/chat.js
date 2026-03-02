@@ -11,12 +11,11 @@ export default async function handler(req) {
   if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 });
 
   const models = [
-    'mistralai/mistral-small-3.1-24b-instruct:free',
-    'meta-llama/llama-3.3-70b-instruct:free',
-    'qwen/qwen3-8b:free',
-    'google/gemini-2.5-flash-lite:free',
+    'arcee-ai/trinity-large-preview:free',
+    'stepfun/step-3-5-flash:free',
+    'z-ai/glm-4.5-air:free',
+    'nvidia/nemotron-3-nano-30b-a3b:free',
   ];
-
   try {
     const body = await req.json();
     let lastError = '';

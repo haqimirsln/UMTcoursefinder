@@ -30,7 +30,7 @@ export default async function handler(req) {
         'X-Title': 'UMT Course Finder',
       },
       body: JSON.stringify({
-        model: 'meta-llama/llama-3.3-70b-instruct:free',
+      model: 'google/gemini-2.0-flash-exp:free',
         max_tokens: 500,
         messages: body.messages,
       }),

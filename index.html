@@ -1525,14 +1525,14 @@ async function sendChat() {
   document.getElementById('chat-status').textContent = 'Typing...';
 
   try {
-   const response = await fetch('/api/chat', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
+      const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-      model: 'claude-sonnet-4-5',
-        max_tokens: 1000,
-        system: UMT_SYSTEM_PROMPT,
-        messages: chatHistory
+        messages: [
+          { role: 'system', content: UMT_SYSTEM_PROMPT },
+          ...chatHistory
+        ]
       })
     });
     const data = await response.json();

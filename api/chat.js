@@ -30,8 +30,7 @@ export default async function handler(req) {
         'X-Title': 'UMT Course Finder',
       },
       body: JSON.stringify({
-      model: 'google/gemini-2.0-flash-exp:free',
-        max_tokens: 500,
+model: 'deepseek/deepseek-r1:free',        max_tokens: 500,
         messages: body.messages,
       }),
     });

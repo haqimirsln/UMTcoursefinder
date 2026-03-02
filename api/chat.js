@@ -7,35 +7,32 @@ export default async function handler(req) {
     'Access-Control-Allow-Headers': 'Content-Type',
   };
 
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { status: 204, headers: corsHeaders });
-  }
-
-  if (req.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 });
-  }
+  if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: corsHeaders });
+  if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 });
 
   try {
     const body = await req.json();
 
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
+        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        'HTTP-Referer': 'https://umt.edu.my',
+        'X-Title': 'UMT Course Finder',
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify({
+        model: 'meta-llama/llama-3.3-70b-instruct:free',
+        max_tokens: 500,
+        messages: body.messages,
+      }),
     });
 
     const data = await response.json();
+    const text = data.choices?.[0]?.message?.content || "Sorry, I couldn't get a response. Please contact UMT directly at +609-633 3333.";
 
-    // Return EVERYTHING including errors so we can see what Anthropic says
     return new Response(JSON.stringify({
-      status: response.status,
-      keyPresent: !!process.env.ANTHROPIC_API_KEY,
-      keyPrefix: process.env.ANTHROPIC_API_KEY?.substring(0, 15),
-      data: data
+      content: [{ type: 'text', text }]
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json', ...corsHeaders },

@@ -934,6 +934,153 @@ footer {
   .card-actions { flex-direction: column; }
   :root { --space-lg: 1.25rem; }
 }
+
+/* =============================================
+   TOP MATCH HERO CARD
+   ============================================= */
+#top-match-hero {
+  margin-bottom: var(--space-lg);
+  animation: fadeUp 0.5s var(--ease) both;
+}
+.top-match-inner {
+  background: var(--umt-navy);
+  border-radius: var(--r-xl);
+  padding: 2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.top-match-inner::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: rgba(201,146,43,0.08);
+  pointer-events: none;
+}
+.top-match-left { flex: 1; min-width: 0; }
+.top-match-kicker {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.75rem; font-weight: 600;
+  color: var(--umt-gold); letter-spacing: 0.06em;
+  text-transform: uppercase; margin-bottom: 0.65rem;
+}
+.top-match-star { font-size: 0.85rem; }
+.top-match-name {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: var(--text-inverse);
+  line-height: 1.15;
+  margin-bottom: 0.65rem;
+}
+.top-match-meta {
+  display: flex; align-items: center; gap: 0.65rem;
+  margin-bottom: 0.85rem; flex-wrap: wrap;
+}
+.top-match-faculty {
+  font-size: 0.78rem; color: rgba(245,242,238,0.5);
+}
+.top-match-desc {
+  font-size: 0.875rem; color: rgba(245,242,238,0.65);
+  line-height: 1.6; margin-bottom: 1.25rem;
+  max-width: 480px;
+}
+.top-match-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.btn-top-detail {
+  padding: 0.65rem 1.5rem;
+  border-radius: var(--r-pill);
+  background: var(--text-inverse);
+  color: var(--umt-navy);
+  font-size: 0.875rem; font-weight: 600;
+  border: none; cursor: pointer;
+  transition: all var(--dur-fast) var(--ease);
+}
+.btn-top-detail:hover { background: var(--paper-dark); transform: translateY(-1px); }
+.btn-top-wa {
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--r-pill);
+  border: 1.5px solid rgba(245,242,238,0.18);
+  background: transparent;
+  color: rgba(245,242,238,0.75);
+  font-size: 0.85rem; font-weight: 500;
+  text-decoration: none;
+  display: flex; align-items: center; gap: 0.4rem;
+  transition: all var(--dur-fast) var(--ease);
+}
+.btn-top-wa:hover { border-color: rgba(245,242,238,0.4); color: var(--text-inverse); }
+.top-match-right {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 0.5rem; flex-shrink: 0;
+}
+.top-match-score-ring { position: relative; width: 80px; height: 80px; }
+.top-match-score-num {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.5rem; color: var(--text-inverse); font-weight: 400;
+}
+.top-match-score-label {
+  font-size: 0.7rem; color: rgba(245,242,238,0.45);
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+.top-match-pills {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0.35rem; margin-top: 0.4rem;
+}
+.top-match-pill {
+  font-size: 0.7rem; color: rgba(245,242,238,0.55);
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 0.2rem 0.65rem; border-radius: var(--r-pill);
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .top-match-inner { flex-direction: column; padding: 1.5rem; }
+  .top-match-right { flex-direction: row; align-items: center; gap: 1rem; }
+  .top-match-pills { flex-direction: row; }
+}
+
+/* =============================================
+   BIG RETAKE / RESTART BANNER
+   ============================================= */
+.retake-banner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1.5rem; flex-wrap: wrap;
+  background: var(--surface-0);
+  border: 1.5px solid var(--surface-border);
+  border-radius: var(--r-xl);
+  padding: 1.75rem 2.5rem;
+  margin-top: var(--space-lg);
+}
+.retake-banner-h {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.25rem; color: var(--text-primary); margin-bottom: 0.2rem;
+}
+.retake-banner-sub { font-size: 0.85rem; color: var(--text-secondary); }
+.btn-retake-big {
+  display: flex; align-items: center; gap: 0.65rem;
+  padding: 0.9rem 2rem;
+  border-radius: var(--r-pill);
+  background: var(--umt-navy);
+  color: var(--text-inverse);
+  font-size: 0.95rem; font-weight: 600;
+  border: none; cursor: pointer;
+  transition: all var(--dur-mid) var(--ease);
+  white-space: nowrap; flex-shrink: 0;
+}
+.btn-retake-big:hover {
+  background: var(--umt-navy-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+.btn-retake-big:active { transform: translateY(0); }
+@media (max-width: 600px) {
+  .retake-banner { padding: 1.25rem; flex-direction: column; align-items: flex-start; }
+  .btn-retake-big { width: 100%; justify-content: center; }
+}
 </style>
 </head>
 <body>
@@ -1247,6 +1394,7 @@ footer {
       <h2 class="display-lg">Programmes matched for you</h2>
       <p class="body-md" style="margin-top:0.75rem">Based on your interests and qualifications</p>
     </div>
+    <div id="top-match-hero" style="display:none"></div>
     <div id="stream-banner"></div>
     <div class="results-toolbar">
       <div class="filter-group" id="filter-group">
@@ -1270,7 +1418,16 @@ footer {
     </div>
     <div class="courses-grid" id="courses-grid"></div>
     <div class="retake-wrap">
-      <button class="btn-retake" onclick="retakeQuiz()">↺ Retake Quiz</button>
+      <div class="retake-banner">
+        <div class="retake-banner-text">
+          <div class="retake-banner-h">Try it for yourself</div>
+          <div class="retake-banner-sub">Answers take ~2 minutes. No wrong answers.</div>
+        </div>
+        <button class="btn-retake-big" onclick="retakeQuiz()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="18" height="18"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
+          Start Over — Next Student
+        </button>
+      </div>
     </div>
   </div>
 </section>
@@ -1433,6 +1590,29 @@ async function loadData() {
 }
 loadData();
 
+// Kiosk / booth mode: auto-scroll straight to quiz, hide nav & footer
+const urlParams = new URLSearchParams(window.location.search);
+const KIOSK = urlParams.get('kiosk') === '1';
+if (KIOSK) {
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('.nav').style.display = 'none';
+    document.querySelector('.hero').style.display = 'none';
+    document.querySelector('#how').style.display = 'none';
+    document.querySelector('footer').style.display = 'none';
+    document.querySelector('.campus').style.display = 'none';
+    document.querySelector('#quiz').style.paddingTop = '2rem';
+  });
+}
+// Always scroll quiz into view on load (skip hero for booth use)
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash;
+  if (!hash || hash === '#quiz') {
+    setTimeout(() => {
+      document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 300);
+  }
+});
+
 // ============================
 // STEP NAVIGATION
 // ============================
@@ -1559,6 +1739,55 @@ function renderResults(ranked, filter) {
   updateCompareBar();
 
   const maxScore = ranked[0]?.score || 1;
+
+  // ── TOP MATCH HERO CARD (always first result, regardless of filter) ──
+  const heroContainer = document.getElementById('top-match-hero');
+  const topPick = ranked[0];
+  if (topPick && heroContainer) {
+    const topPct = maxScore > 0 ? Math.round((topPick.score / maxScore) * 100) : 0;
+    const topWa = encodeURIComponent(`Hello UMT, I'm interested in ${topPick.name}. Please share more information. Thank you!`);
+    heroContainer.style.display = '';
+    heroContainer.innerHTML = `
+      <div class="top-match-inner">
+        <div class="top-match-left">
+          <div class="top-match-kicker">
+            <span class="top-match-star">✦</span> Your top match
+          </div>
+          <div class="top-match-name">${topPick.name}</div>
+          <div class="top-match-meta">
+            <span class="type-badge ${topPick.type}">${topPick.level}</span>
+            <span class="top-match-faculty">${topPick.faculty}</span>
+          </div>
+          <div class="top-match-desc">${topPick.description?.slice(0, 120)}…</div>
+          <div class="top-match-actions">
+            <button class="btn-top-detail" onclick="openDetail('${topPick.id}')">View Details</button>
+            <a href="https://api.whatsapp.com/send?phone=6096333333&text=${topWa}" target="_blank" rel="noopener" class="btn-top-wa">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+              Enquire via WhatsApp
+            </a>
+          </div>
+        </div>
+        <div class="top-match-right">
+          <div class="top-match-score-ring">
+            <svg viewBox="0 0 80 80" width="80" height="80">
+              <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="6"/>
+              <circle cx="40" cy="40" r="34" fill="none" stroke="#C9922B" stroke-width="6"
+                stroke-dasharray="${Math.round(2*Math.PI*34)}"
+                stroke-dashoffset="${Math.round(2*Math.PI*34*(1-topPct/100))}"
+                stroke-linecap="round"
+                transform="rotate(-90 40 40)"/>
+            </svg>
+            <div class="top-match-score-num">${topPct}<span style="font-size:1rem">%</span></div>
+          </div>
+          <div class="top-match-score-label">match score</div>
+          <div class="top-match-pills">
+            <span class="top-match-pill">${topPick.duration}</span>
+            <span class="top-match-pill">${topPick.intake || 'See details'}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
 
   toShow.forEach((p, i) => {
     const pct = maxScore > 0 ? Math.round((p.score / maxScore) * 100) : 0;
@@ -1793,9 +2022,13 @@ function retakeQuiz() {
   document.getElementById('spm-credits').value = '';
   document.getElementById('preuni-qual').value = '';
   document.getElementById('preuni-cgpa').value = '';
+  // Hide top match hero
+  const hero = document.getElementById('top-match-hero');
+  if (hero) { hero.style.display = 'none'; hero.innerHTML = ''; }
   document.getElementById('results').style.display = 'none';
   document.getElementById('quiz').style.display = '';
   setStep(0);
+  setTimeout(() => document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
 }
 
 // ============================

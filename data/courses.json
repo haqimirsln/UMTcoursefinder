@@ -61,18 +61,49 @@
       "entry": {
         "qualificationRequired": "SPM",
         "minCredits": 5,
-        "minAs": 0,
-        "summary": "5 credits in SPM including BM; Grade B in Mathematics/Add Maths; Grade C+ in 3 Science subjects",
-        "summaryBM": "5 kepujian SPM termasuk BM; Gred B dalam Matematik/Matematik Tambahan; Gred C+ dalam 3 mata pelajaran Sains",
-        "mandatorySubjects": [
-          { "subject": "Bahasa Melayu", "minGrade": "C", "note": "Required" },
-          { "subject": "Sejarah", "minGrade": "Pass", "note": "Required from 2013" },
-          { "subject": "Bahasa Inggeris", "minGrade": "C", "note": "Required" }
+        "summary": "5 credits in SPM including BM & pass Sejarah; Grade B in Maths/Add Maths; then qualify via STEM A, STEM B, or STEM C track",
+        "summaryBM": "5 kepujian SPM termasuk BM & lulus Sejarah; Gred B dalam Matematik/Matematik Tambahan; kemudian layak melalui Skim STEM A, B, atau C",
+        "generalRequirements": [
+          { "subject": "Bahasa Melayu", "minGrade": "C" },
+          { "subject": "Bahasa Inggeris", "minGrade": "C" },
+          { "subject": "Sejarah", "minGrade": "Lulus / Pass" },
+          { "subject": "Matematik / Matematik Tambahan", "minGrade": "B" }
         ],
-        "scienceRequirement": "Grade C+ in at least 3 of: Biology, Physics, Chemistry OR Grade C+ in 2 Science subjects + Grade C+ in 1 technical/elective subject",
-        "mathRequirement": "Grade B in Mathematics or Additional Mathematics",
-        "international": "Minimum Grade C in 5 O-Level subjects including Mathematics, Physics, Chemistry",
-        "english": "Minimum Band 3.5 MUET / Band 5 IELTS / 35-45 TOEFL",
+        "tracks": [
+          {
+            "id": "stem-a",
+            "label": "STEM A",
+            "color": "#1D6FA4",
+            "description": "Pure Science — for students who took all 3 core science subjects",
+            "descriptionBM": "Sains Tulen — untuk pelajar yang mengambil ketiga-tiga mata pelajaran sains teras",
+            "requirement": "Grade C+ in ALL 3 of: Biology, Chemistry, Physics",
+            "requirementBM": "Gred C+ dalam KETIGA-TIGA: Biologi, Kimia, Fizik"
+          },
+          {
+            "id": "stem-b",
+            "label": "STEM B",
+            "color": "#C9922B",
+            "description": "Mixed Science — for students with 2 science subjects + 1 elective",
+            "descriptionBM": "Sains Campuran — untuk pelajar dengan 2 mata pelajaran sains + 1 elektif",
+            "requirement": "Grade C+ in ANY 2 of: Biology, Physics, Chemistry AND Grade C+ in 1 elective (STEM / Language / Islamic Studies / Humanities)",
+            "requirementBM": "Gred C+ dalam MANA-MANA 2 daripada: Biologi, Fizik, Kimia DAN Gred C+ dalam 1 elektif (STEM / Bahasa / Pengajian Islam / Sastera)"
+          },
+          {
+            "id": "stem-c",
+            "label": "STEM C / Sastera Ikhtisas",
+            "color": "#B01E2C",
+            "description": "Arts/Humanities pathway — for students without pure science subjects",
+            "descriptionBM": "Laluan Sastera/Ikhtisas — untuk pelajar tanpa mata pelajaran sains tulen",
+            "requirement": "Grade A in Sains / Sains Tambahan AND Grade C+ in 1 elective (STEM / Language / Islamic Studies / Humanities)",
+            "requirementBM": "Gred A dalam Sains / Sains Tambahan DAN Gred C+ dalam 1 elektif (STEM / Bahasa / Pengajian Islam / Sastera)"
+          }
+        ],
+        "applyVia": "UPU Online — upu.mohe.gov.my",
+        "upu_code": "UG00100001",
+        "contact_phone": "09-6683251 / 09-6683710",
+        "contact_fax": "09-6683608",
+        "contact_email": "asasistem@umt.edu.my",
+        "social": { "facebook": "Asasi Stem-UMT", "instagram": "stemumt.official" },
         "fees": { "tuition": "RM 6,000", "total": "RM 6,000", "scholarship": "JPA, PTPTN, UMT Merit" }
       },
       "weights": { "bio": 4, "chem": 4, "phys": 4, "math": 4, "tech": 2, "coding": 1, "nature": 3, "ocean": 2, "engineering": 2, "analytical": 4, "detail": 3 }

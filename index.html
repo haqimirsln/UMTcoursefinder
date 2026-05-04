@@ -727,6 +727,19 @@ button { font-family: inherit; border: none; background: none; }
 }
 .btn-modal-sec:hover { border-color: rgba(10,10,15,0.2); }
 
+
+/* =============================================
+   STEM TRACKS
+   ============================================= */
+.tracks-note { font-size: 0.8rem; color: var(--text-secondary); margin: 0.5rem 0 0.85rem; line-height: 1.5; }
+.tracks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+@media (max-width: 600px) { .tracks-grid { grid-template-columns: 1fr; } }
+.track-card { border: 1.5px solid var(--surface-border); border-radius: var(--r-md); overflow: hidden; background: var(--surface-1); }
+.track-label { color: white; font-size: 0.78rem; font-weight: 700; padding: 0.45rem 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.track-desc { font-size: 0.78rem; color: var(--text-secondary); padding: 0.6rem 0.85rem 0.3rem; line-height: 1.5; }
+.track-req { font-size: 0.76rem; color: var(--text-primary); padding: 0 0.85rem 0.75rem; line-height: 1.55; font-weight: 500; }
+.req-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.4rem; }
+.req-pill { padding: 0.3rem 0.75rem; border-radius: var(--r-pill); border: 1px solid var(--surface-border); background: var(--surface-0); font-size: 0.77rem; color: var(--text-primary); }
 /* =============================================
    CAMPUS SECTION
    ============================================= */
@@ -1666,7 +1679,28 @@ function showModal(id) {
   const waLink = `https://api.whatsapp.com/send?phone=6096333333&text=${waMsg}`;
 
   let entryHtml = '';
-  if (p.type === 'asasi' || p.type === 'diploma') {
+  if (p.type === 'asasi' && p.entry.tracks) {
+    const genReqs = (p.entry.generalRequirements || []).map(r =>
+      `<span class="req-pill"><strong>${r.subject}</strong> — Min ${r.minGrade}</span>`
+    ).join('');
+    const trackCards = p.entry.tracks.map(t => `
+      <div class="track-card">
+        <div class="track-label" style="background:${t.color}">${t.label}</div>
+        <div class="track-desc">${t.description}</div>
+        <div class="track-req">${t.requirement}</div>
+      </div>
+    `).join('');
+    entryHtml = `
+      <div class="entry-type-box"><div class="entry-qual-label">Qualification Required</div><div class="entry-qual-val"><strong>SPM / O-Level</strong> — min. 5 credits incl. Bahasa Melayu &amp; pass Sejarah</div></div>
+      <div class="entry-type-box"><div class="entry-qual-label">Mandatory Subjects</div><div class="req-pills">${genReqs}</div></div>
+      <div class="entry-type-box" style="grid-column:1/-1">
+        <div class="entry-qual-label">Choose Your Track</div>
+        <div class="tracks-note">Pick the track that matches your SPM subjects — you only need to qualify for ONE track.</div>
+        <div class="tracks-grid">${trackCards}</div>
+      </div>
+      <div class="entry-type-box"><div class="entry-qual-label">Apply Via</div><div class="entry-qual-val"><strong>UPU Online</strong> — upu.mohe.gov.my &nbsp;·&nbsp; Code: <strong>${p.entry.upu_code || 'UG00100001'}</strong></div></div>
+    `;
+  } else if (p.type === 'asasi' || p.type === 'diploma') {
     entryHtml = `
       <div class="entry-type-box"><div class="entry-qual-label">Qualification Required</div><div class="entry-qual-val"><strong>SPM / O-Level</strong></div></div>
       <div class="entry-type-box"><div class="entry-qual-label">Entry Summary</div><div class="entry-qual-val">${p.entry.summary || '—'}</div></div>

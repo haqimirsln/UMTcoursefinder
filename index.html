@@ -1088,8 +1088,8 @@ footer {
 <!-- OVERLAY -->
 <div id="calc-overlay">
   <div class="calc-spinner"></div>
-  <div class="calc-label" id="calc-label">Finding your matches…</div>
-  <div class="calc-sub" id="calc-sub">Analysing your interests and qualifications</div>
+  <div class="calc-label" id="calc-label"></div>
+  <div class="calc-sub" id="calc-sub"></div>
 </div>
 
 <!-- TOAST -->
@@ -1112,7 +1112,7 @@ footer {
       <button class="lang-btn active" onclick="setLang('en')">EN</button>
       <button class="lang-btn" onclick="setLang('bm')">BM</button>
     </div>
-    <button class="btn-nav-cta" onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'})">Start Quiz</button>
+    <button class="btn-nav-cta" onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'})">data-i18n="nav.startQuiz">Mula Kuiz</button>
   </div>
 </nav>
 
@@ -1123,14 +1123,13 @@ footer {
   <div class="hero-content">
     <div class="hero-kicker">
       <span class="hero-kicker-dot"></span>
-      Universiti Malaysia Terengganu — 2026 Intake
+      <span data-i18n="hero.kicker">Universiti Malaysia Terengganu — Pengambilan 2026</span>
     </div>
-    <h1 class="display-xl hero-title">
-      Not sure what<br>to study? <em>Let's find out.</em>
+    <h1 class="display-xl hero-title" data-i18n="hero.title">
+      Tidak pasti apa nak belajar? <em>Mari kita cari tahu.</em>
     </h1>
     <p class="body-lg hero-subtitle">
-      Answer a few questions about your qualifications, interests and personality.
-      We'll match you with the right UMT programme — whether you're an SPM leaver or pre-university graduate.
+      <span data-i18n="hero.sub">Jawab beberapa soalan tentang kelayakan, minat dan personaliti anda. Kami akan padankan anda dengan program UMT yang sesuai.</span>
     </p>
     <div class="hero-actions">
       <a href="#quiz" class="btn-primary">
@@ -1155,10 +1154,10 @@ footer {
 <section id="how" class="section how">
   <div class="section-inner">
     <div class="section-header">
-      <span class="label-sm">Simple Process</span>
-      <h2 class="display-md" style="margin-top:0.5rem">How it works</h2>
+      <span class="label-sm">data-i18n="how.kicker">Proses Mudah</span>
+      <h2 class="display-md" style="margin-top:0.5rem" data-i18n="how.title">Cara ia berfungsi</h2>
       <p class="body-md" style="margin-top:0.75rem;max-width:480px;margin-left:auto;margin-right:auto">
-        Six steps — tailored to whether you've done SPM or pre-university.
+        <span data-i18n="how.sub">Enam langkah — disesuaikan mengikut kelayakan anda.</span>
       </p>
     </div>
     <div class="steps-grid">
@@ -1177,129 +1176,129 @@ footer {
 <section id="quiz" class="section quiz-section">
   <div class="section-inner">
     <div class="section-header" style="margin-bottom:2.5rem">
-      <span class="label-sm">Course Recommender</span>
-      <h2 class="display-md" style="margin-top:0.5rem">Find your perfect programme</h2>
-      <p class="body-md" style="margin-top:0.75rem">5 steps · About 2 minutes · No wrong answers</p>
+      <span class="label-sm">data-i18n="quiz.kicker">Pengesyor Kursus</span>
+      <h2 class="display-md" style="margin-top:0.5rem" data-i18n="quiz.title">Cari program yang sesuai untuk anda</h2>
+      <p class="body-md" style="margin-top:0.75rem"><span data-i18n="quiz.sub">5 langkah · Kira-kira 2 minit · Tiada jawapan salah</span></p>
     </div>
     <div class="quiz-shell">
       <div class="quiz-shell-header">
         <span class="label-sm">UMT Course Finder 2.0</span>
-        <div class="display-md" id="q-title-header">Let's get started</div>
+        <div class="display-md" id="q-title-header" data-i18n="quiz.header">Jom mulakan</div>
         <div class="quiz-progress-track"><div class="quiz-progress-fill" id="progress"></div></div>
       </div>
       <div class="quiz-body">
 
         <!-- Step 0: Stream Selection -->
         <div class="quiz-step active" id="step-0">
-          <div class="quiz-q">What is your current education level?</div>
-          <div class="quiz-hint">This determines which programmes we recommend for you.</div>
+          <div class="quiz-q" data-i18n="s0.q">Apakah tahap pendidikan anda sekarang?</div>
+          <div class="quiz-hint" data-i18n="s0.hint">Ini menentukan program yang kami cadangkan untuk anda.</div>
           <div class="stream-cards">
             <div class="stream-card" data-stream="highschool" onclick="selectStream(this)">
               <div class="stream-icon navy">🎓</div>
-              <div class="stream-card-title">SPM / O-Level Leaver</div>
-              <div class="stream-card-desc">I've completed my SPM and am looking for foundation, diploma, or direct entry options.</div>
+              <div class="stream-card-title" data-i18n="s0.spm.title">Lepasan SPM / O-Level</div>
+              <div class="stream-card-desc"><span data-i18n="s0.spm.desc">Saya telah tamat SPM dan sedang mencari pilihan asasi, diploma, atau kemasukan terus.</span></div>
             </div>
             <div class="stream-card" data-stream="preuniversity" onclick="selectStream(this)">
               <div class="stream-icon gold">📚</div>
-              <div class="stream-card-title">Asasi / Matrikulasi / STPM</div>
-              <div class="stream-card-desc">I've completed or am completing pre-university studies and want to enter a degree programme.</div>
+              <div class="stream-card-title" data-i18n="s0.preuni.title">Asasi / Matrikulasi / STPM</div>
+              <div class="stream-card-desc"><span data-i18n="s0.preuni.desc">Saya telah atau sedang menamatkan pengajian pra-universiti dan ingin memasuki program ijazah.</span></div>
             </div>
           </div>
           <div class="quiz-nav">
-            <div class="quiz-step-label">Step 1 of 5</div>
-            <button class="btn-quiz btn-quiz-next" onclick="nextStep(0)" id="next-0">Next →</button>
+            <div class="quiz-step-label" data-i18n="nav.step1of5">Langkah 1 daripada 5</div>
+            <button class="btn-quiz btn-quiz-next" onclick="nextStep(0)" id="next-0" data-i18n="nav.next">Seterusnya →</button>
           </div>
         </div>
 
         <!-- Step 1: Subjects -->
         <div class="quiz-step" id="step-1">
-          <div class="quiz-q">Which subjects did you enjoy most?</div>
-          <div class="quiz-hint">Select all that apply</div>
+          <div class="quiz-q" data-i18n="s1.q">Mata pelajaran manakah yang paling anda gemari?</div>
+          <div class="quiz-hint"><span data-i18n="s1.hint">Pilih semua yang berkenaan</span></div>
           <div id="stream-route-banner-1"></div>
           <div class="opts-grid" id="opts-1">
-            <div class="opt" data-val="tech" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><span class="opt-label">Computer & ICT</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="math" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h10M4 17h6"/><circle cx="18" cy="17" r="3"/></svg></span><span class="opt-label">Mathematics</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="bio" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></span><span class="opt-label">Biology</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="chem" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3h6l1 9H8L9 3z"/><path d="M8 12l-4 8h16l-4-8"/></svg></span><span class="opt-label">Chemistry</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="phys" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span><span class="opt-label">Physics</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="biz" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3h18v18H3z" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="opt-label">Business & Economics</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="social" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="opt-label">Social Sciences</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="geo" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span class="opt-label">Geography & Earth</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="tech" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><span class="opt-label" data-i18n="s1.tech">Komputer & ICT</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="math" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h10M4 17h6"/><circle cx="18" cy="17" r="3"/></svg></span><span class="opt-label" data-i18n="s1.math">Matematik</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="bio" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></span><span class="opt-label" data-i18n="s1.bio">Biologi</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="chem" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3h6l1 9H8L9 3z"/><path d="M8 12l-4 8h16l-4-8"/></svg></span><span class="opt-label" data-i18n="s1.chem">Kimia</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="phys" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span><span class="opt-label" data-i18n="s1.phys">Fizik</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="biz" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3h18v18H3z" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="opt-label" data-i18n="s1.biz">Perniagaan & Ekonomi</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="social" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="opt-label" data-i18n="s1.social">Sains Sosial</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="geo" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span class="opt-label" data-i18n="s1.geo">Geografi & Bumi</span><span class="opt-check"></span></div>
           </div>
           <div class="quiz-nav">
-            <button class="btn-quiz btn-quiz-back" onclick="prevStep(1)">← Back</button>
-            <div class="quiz-step-label">Step 2 of 5</div>
+            <button class="btn-quiz btn-quiz-back" onclick="prevStep(1)" data-i18n="nav.back">← Kembali</button>
+            <div class="quiz-step-label" data-i18n="nav.step2of5">Langkah 2 daripada 5</div>
             <button class="btn-quiz btn-quiz-next" onclick="nextStep(1)">Next →</button>
           </div>
         </div>
 
         <!-- Step 2: Activities -->
         <div class="quiz-step" id="step-2">
-          <div class="quiz-q">What activities excite you?</div>
-          <div class="quiz-hint">Pick your top interests</div>
+          <div class="quiz-q" data-i18n="s2.q">Aktiviti apa yang anda gemari?</div>
+          <div class="quiz-hint"><span data-i18n="s2.hint">Pilih minat utama anda</span></div>
           <div class="opts-grid" id="opts-2">
-            <div class="opt" data-val="coding" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span><span class="opt-label">Coding & Software</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="ocean" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12c1.5-2 3-2 4.5 0s3 2 4.5 0 3-2 4.5 0 3 2 4.5 0"/><path d="M2 17c1.5-2 3-2 4.5 0s3 2 4.5 0 3-2 4.5 0 3 2 4.5 0"/></svg></span><span class="opt-label">Ocean & Marine Life</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="engineering" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41"/></svg></span><span class="opt-label">Building & Engineering</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="business_act" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="opt-label">Business & Finance</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="nature" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 8C8 10 5.9 16.17 3.82 21"/><path d="M9.09 9.09A6 6 0 0 1 20 15c0 3-2 5-5 5"/></svg></span><span class="opt-label">Nature & Conservation</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="food" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/></svg></span><span class="opt-label">Food & Nutrition</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="data" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><span class="opt-label">Data & Analytics</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="ships" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 4 0 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1"/><path d="M4 18l-1-5h18l-2 5"/><path d="M12 2v9M8 8l4-4 4 4"/></svg></span><span class="opt-label">Ships & Navigation</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="energy" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><span class="opt-label">Energy & Renewables</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="helping" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><span class="opt-label">Helping People</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="coding" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span><span class="opt-label" data-i18n="s2.coding">Pengaturcaraan & Perisian</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="ocean" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12c1.5-2 3-2 4.5 0s3 2 4.5 0 3-2 4.5 0 3 2 4.5 0"/><path d="M2 17c1.5-2 3-2 4.5 0s3 2 4.5 0 3-2 4.5 0 3 2 4.5 0"/></svg></span><span class="opt-label" data-i18n="s2.ocean">Lautan & Hidupan Marin</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="engineering" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41"/></svg></span><span class="opt-label" data-i18n="s2.engineering">Pembinaan & Kejuruteraan</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="business_act" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="opt-label" data-i18n="s2.business">Perniagaan & Kewangan</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="nature" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 8C8 10 5.9 16.17 3.82 21"/><path d="M9.09 9.09A6 6 0 0 1 20 15c0 3-2 5-5 5"/></svg></span><span class="opt-label" data-i18n="s2.nature">Alam Semula Jadi & Pemuliharaan</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="food" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/></svg></span><span class="opt-label" data-i18n="s2.food">Makanan & Pemakanan</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="data" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><span class="opt-label" data-i18n="s2.data">Data & Analitik</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="ships" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 4 0 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1"/><path d="M4 18l-1-5h18l-2 5"/><path d="M12 2v9M8 8l4-4 4 4"/></svg></span><span class="opt-label" data-i18n="s2.ships">Kapal & Navigasi</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="energy" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><span class="opt-label" data-i18n="s2.energy">Tenaga & Boleh Diperbaharui</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="helping" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><span class="opt-label" data-i18n="s2.helping">Membantu Masyarakat</span><span class="opt-check"></span></div>
           </div>
           <div class="quiz-nav">
             <button class="btn-quiz btn-quiz-back" onclick="prevStep(2)">← Back</button>
-            <div class="quiz-step-label">Step 3 of 5</div>
+            <div class="quiz-step-label" data-i18n="nav.step3of5">Langkah 3 daripada 5</div>
             <button class="btn-quiz btn-quiz-next" onclick="nextStep(2)">Next →</button>
           </div>
         </div>
 
         <!-- Step 3: Work environment -->
         <div class="quiz-step" id="step-3">
-          <div class="quiz-q">Where do you see yourself working?</div>
-          <div class="quiz-hint">Choose all that feel right</div>
+          <div class="quiz-q" data-i18n="s3.q">Di mana anda bayangkan diri anda bekerja?</div>
+          <div class="quiz-hint"><span data-i18n="s3.hint">Pilih semua yang sesuai</span></div>
           <div class="opts-grid" id="opts-3">
-            <div class="opt" data-val="tech_company" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="opt-label">Tech Company / Startup</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="sea" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1"/><path d="M4 18l-1-5h18l-2 5M12 2v9"/></svg></span><span class="opt-label">At Sea / Maritime</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="gov" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 22h18M6 18v-7M10 18v-7M14 18v-7M18 18v-7M12 2L2 7h20L12 2z"/></svg></span><span class="opt-label">Government / Policy</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="research" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span class="opt-label">Research / Academia</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="corp" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><span class="opt-label">Corporate Finance</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="outdoor" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l4-8 4 5 3-3 4 6H3z"/></svg></span><span class="opt-label">Outdoors / Field Work</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="ngo" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10z"/></svg></span><span class="opt-label">NGO / Conservation</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="hospitality" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 22V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14"/><path d="M10 22V12h4v10"/></svg></span><span class="opt-label">Tourism / Hospitality</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="tech_company" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="opt-label" data-i18n="s3.tech">Syarikat Teknologi / Startup</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="sea" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1"/><path d="M4 18l-1-5h18l-2 5M12 2v9"/></svg></span><span class="opt-label" data-i18n="s3.sea">Di Laut / Maritim</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="gov" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 22h18M6 18v-7M10 18v-7M14 18v-7M18 18v-7M12 2L2 7h20L12 2z"/></svg></span><span class="opt-label" data-i18n="s3.gov">Kerajaan / Dasar Awam</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="research" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span class="opt-label" data-i18n="s3.research">Penyelidikan / Akademik</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="corp" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><span class="opt-label" data-i18n="s3.corp">Kewangan Korporat</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="outdoor" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l4-8 4 5 3-3 4 6H3z"/></svg></span><span class="opt-label" data-i18n="s3.outdoor">Lapangan / Kerja Lapangan</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="ngo" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10z"/></svg></span><span class="opt-label" data-i18n="s3.ngo">NGO / Pemuliharaan</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="hospitality" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 22V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14"/><path d="M10 22V12h4v10"/></svg></span><span class="opt-label" data-i18n="s3.hospitality">Pelancongan / Perhotelan</span><span class="opt-check"></span></div>
           </div>
           <div class="quiz-nav">
             <button class="btn-quiz btn-quiz-back" onclick="prevStep(3)">← Back</button>
-            <div class="quiz-step-label">Step 4 of 5</div>
+            <div class="quiz-step-label" data-i18n="nav.step4of5">Langkah 4 daripada 5</div>
             <button class="btn-quiz btn-quiz-next" onclick="nextStep(3)">Next →</button>
           </div>
         </div>
 
         <!-- Step 4: Personality -->
         <div class="quiz-step" id="step-4">
-          <div class="quiz-q">How would you describe your personality?</div>
-          <div class="quiz-hint">Pick the ones that resonate</div>
+          <div class="quiz-q" data-i18n="s4.q">Bagaimana anda menggambarkan personaliti anda?</div>
+          <div class="quiz-hint"><span data-i18n="s4.hint">Pilih yang berkaitan dengan anda</span></div>
           <div class="opts-grid" id="opts-4">
-            <div class="opt" data-val="analytical" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg></span><span class="opt-label">Analytical & Logical</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="creative" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72"/></svg></span><span class="opt-label">Creative & Innovative</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="leader" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><span class="opt-label">Leader & Organiser</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="caring" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><span class="opt-label">Caring & Empathetic</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="adventurous" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="3 17 9 3 15 17"/><polyline points="3 17 21 17"/></svg></span><span class="opt-label">Adventurous & Bold</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="detail" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span class="opt-label">Detail-oriented</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="analytical" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg></span><span class="opt-label" data-i18n="s4.analytical">Analitikal & Logikal</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="creative" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72"/></svg></span><span class="opt-label" data-i18n="s4.creative">Kreatif & Inovatif</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="leader" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><span class="opt-label" data-i18n="s4.leader">Pemimpin & Penganjur</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="caring" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><span class="opt-label" data-i18n="s4.caring">Penyayang & Empati</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="adventurous" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="3 17 9 3 15 17"/><polyline points="3 17 21 17"/></svg></span><span class="opt-label" data-i18n="s4.adventurous">Berani & Bersemangat</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="detail" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span class="opt-label" data-i18n="s4.detail">Teliti &amp; Cermat</span><span class="opt-check"></span></div>
           </div>
           <div class="quiz-nav">
             <button class="btn-quiz btn-quiz-back" onclick="prevStep(4)">← Back</button>
-            <div class="quiz-step-label">Step 5 of 5 (Optional)</div>
+            <div class="quiz-step-label"><span data-i18n="nav.step5of5">Langkah 5 daripada 5 (Pilihan)</span></div>
             <button class="btn-quiz btn-quiz-next" onclick="nextStep(4)">Next →</button>
           </div>
         </div>
 
         <!-- Step 5: Qualifications -->
         <div class="quiz-step" id="step-5">
-          <div class="quiz-q" id="q5-title">Your qualifications</div>
-          <div class="quiz-hint" id="q5-hint">This helps us check eligibility for each programme — optional but highly recommended.</div>
+          <div class="quiz-q" id="q5-title" data-i18n="s5.q">Kelayakan anda</div>
+          <div class="quiz-hint" id="q5-hint"><span data-i18n="s5.hint">Ini membantu kami semak kelayakan untuk setiap program — pilihan tetapi sangat disyorkan.</span></div>
           <!-- SPM fields (shown for highschool stream) -->
           <div id="spm-fields">
             <div class="spm-grid-2">
@@ -1376,8 +1375,8 @@ footer {
           <div class="spm-note">💡 Haven't got your results yet? Skip this — we'll show all matching programmes and you can check requirements later.</div>
           <div class="quiz-nav">
             <button class="btn-quiz btn-quiz-back" onclick="prevStep(5)">← Back</button>
-            <div class="quiz-step-label">Step 5 of 5</div>
-            <button class="btn-quiz btn-quiz-submit" onclick="submitQuiz()">Find My Programmes →</button>
+            <div class="quiz-step-label" data-i18n="nav.step5">Langkah 5 daripada 5</div>
+            <button class="btn-quiz btn-quiz-submit" onclick="submitQuiz()" data-i18n="nav.submit">Cari Program Saya →</button>
           </div>
         </div>
 
@@ -1390,9 +1389,9 @@ footer {
 <section id="results">
   <div class="results-inner">
     <div class="results-header">
-      <div class="results-kicker">✦ Your personalised matches</div>
-      <h2 class="display-lg">Programmes matched for you</h2>
-      <p class="body-md" style="margin-top:0.75rem">Based on your interests and qualifications</p>
+      <div class="results-kicker" data-i18n="results.kicker">✦ Padanan peribadi anda</div>
+      <h2 class="display-lg" data-i18n="results.title">Program yang sepadan untuk anda</h2>
+      <p class="body-md" style="margin-top:0.75rem" data-i18n="results.sub">Berdasarkan minat dan kelayakan anda</p>
     </div>
     <div id="top-match-hero" style="display:none"></div>
     <div id="stream-banner"></div>
@@ -1420,12 +1419,12 @@ footer {
     <div class="retake-wrap">
       <div class="retake-banner">
         <div class="retake-banner-text">
-          <div class="retake-banner-h">Try it for yourself</div>
-          <div class="retake-banner-sub">Answers take ~2 minutes. No wrong answers.</div>
+          <div class="retake-banner-h" data-i18n="retake.title">Cuba sendiri</div>
+          <div class="retake-banner-sub" data-i18n="retake.sub">Jawapan mengambil ~2 minit. Tiada jawapan salah.</div>
         </div>
         <button class="btn-retake-big" onclick="retakeQuiz()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="18" height="18"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
-          Start Over — Next Student
+          <span data-i18n="retake.btn">Mulakan Semula — Pelajar Seterusnya</span>
         </button>
       </div>
     </div>
@@ -1700,6 +1699,8 @@ function submitQuiz() {
   preuniData.cgpa = document.getElementById('preuni-cgpa').value;
 
   document.getElementById('progress').style.width = '100%';
+  document.getElementById('calc-label').textContent = t('calc.label');
+  document.getElementById('calc-sub').textContent = t('calc.sub');
   const overlay = document.getElementById('calc-overlay');
   overlay.classList.add('show');
 
@@ -1721,12 +1722,7 @@ function renderResults(ranked, filter) {
   sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   // Stream banner
-  const bannerEl = document.getElementById('stream-banner');
-  if (selectedStream === 'highschool') {
-    bannerEl.innerHTML = `<div class="stream-banner spm"><div><strong>SPM / O-Level pathway</strong>We're showing Asasi STEM and Diploma Perikanan — the programmes you can enter directly with SPM. Complete these to unlock degree programmes.</div><div><span class="type-badge asasi">Foundation</span> <span class="type-badge diploma">Diploma</span></div></div>`;
-  } else {
-    bannerEl.innerHTML = `<div class="stream-banner preuni"><div><strong>Pre-University pathway</strong>We're showing degree programmes you can enter with Asasi, Matrikulasi, or STPM qualifications.</div><div><span class="type-badge degree">Degree</span></div></div>`;
-  }
+  renderStreamBanner();
 
   // Filter
   let toShow = ranked;
@@ -1751,7 +1747,7 @@ function renderResults(ranked, filter) {
       <div class="top-match-inner">
         <div class="top-match-left">
           <div class="top-match-kicker">
-            <span class="top-match-star">✦</span> Your top match
+            <span class="top-match-star">✦</span> <span data-i18n="results.topMatch">Your top match</span>
           </div>
           <div class="top-match-name">${topPick.name}</div>
           <div class="top-match-meta">
@@ -1760,10 +1756,10 @@ function renderResults(ranked, filter) {
           </div>
           <div class="top-match-desc">${topPick.description?.slice(0, 120)}…</div>
           <div class="top-match-actions">
-            <button class="btn-top-detail" onclick="showModal('${topPick.id}')">View Details</button>
+            <button class="btn-top-detail" onclick="showModal('${topPick.id}')">${t('results.viewDetails')}</button>
             <a href="https://api.whatsapp.com/send?phone=6096333333&text=${topWa}" target="_blank" rel="noopener" class="btn-top-wa">
               <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-              Enquire via WhatsApp
+              ${t('results.waEnquire')}
             </a>
           </div>
         </div>
@@ -1779,7 +1775,7 @@ function renderResults(ranked, filter) {
             </svg>
             <div class="top-match-score-num">${topPct}<span style="font-size:1rem">%</span></div>
           </div>
-          <div class="top-match-score-label">match score</div>
+          <div class="top-match-score-label" data-i18n="results.matchScore">match score</div>
           <div class="top-match-pills">
             <span class="top-match-pill">${topPick.duration}</span>
             <span class="top-match-pill">${topPick.intake || 'See details'}</span>
@@ -1920,14 +1916,14 @@ function showModal(id) {
       </div>
     `).join('');
     entryHtml = `
-      <div class="entry-type-box"><div class="entry-qual-label">Qualification Required</div><div class="entry-qual-val"><strong>SPM / O-Level</strong> — min. 5 credits incl. Bahasa Melayu &amp; pass Sejarah</div></div>
-      <div class="entry-type-box"><div class="entry-qual-label">Mandatory Subjects</div><div class="req-pills">${genReqs}</div></div>
+      <div class="entry-type-box"><div class="entry-qual-label">${t('modal.qual')}</div><div class="entry-qual-val"><strong>SPM / O-Level</strong> — min. 5 credits incl. Bahasa Melayu &amp; pass Sejarah</div></div>
+      <div class="entry-type-box"><div class="entry-qual-label">${t('modal.mandatory')}</div><div class="req-pills">${genReqs}</div></div>
       <div class="entry-type-box" style="grid-column:1/-1">
-        <div class="entry-qual-label">Choose Your Track</div>
-        <div class="tracks-note">Pick the track that matches your SPM subjects — you only need to qualify for ONE track.</div>
+        <div class="entry-qual-label">${t('modal.track')}</div>
+        <div class="tracks-note">${t('modal.trackNote')}</div>
         <div class="tracks-grid">${trackCards}</div>
       </div>
-      <div class="entry-type-box"><div class="entry-qual-label">Apply Via</div><div class="entry-qual-val"><strong>UPU Online</strong> — upu.mohe.gov.my &nbsp;·&nbsp; Code: <strong>${p.entry.upu_code || 'UG00100001'}</strong></div></div>
+      <div class="entry-type-box"><div class="entry-qual-label">${t('modal.applyVia')}</div><div class="entry-qual-val"><strong>UPU Online</strong> — upu.mohe.gov.my &nbsp;·&nbsp; Code: <strong>${p.entry.upu_code || 'UG00100001'}</strong></div></div>
     `;
   } else if (p.type === 'asasi' || p.type === 'diploma') {
     entryHtml = `
@@ -1951,45 +1947,54 @@ function showModal(id) {
       </div>
     </div>` : '';
 
+  const pName = currentLang === 'bm' && p.nameBM ? p.nameBM : p.name;
+  const pDesc = currentLang === 'bm' && p.descriptionBM ? p.descriptionBM : p.description;
+  const pDuration = currentLang === 'bm' && p.durationBM ? p.durationBM : p.duration;
+  const pIntake = currentLang === 'bm' && p.intakeBM ? p.intakeBM : p.intake;
+  const pMode = currentLang === 'bm' && p.modeBM ? p.modeBM : p.mode;
+  const pCareers = (currentLang === 'bm' && p.careersBM ? p.careersBM : p.careers) || [];
+  const pFaculty = currentLang === 'bm' && p.facultyBM ? p.facultyBM : p.faculty;
+  document.getElementById('modal-title').textContent = pName;
+
   document.getElementById('modal-body').innerHTML = `
     <div class="modal-section">
-      <span class="modal-section-label">Overview</span>
-      <p class="body-md">${p.description}</p>
+      <span class="modal-section-label">\${t('modal.overview')}</span>
+      <p class="body-md">\${pDesc}</p>
     </div>
     <div class="modal-section">
-      <span class="modal-section-label">Programme Details</span>
+      <span class="modal-section-label">\${t('modal.details')}</span>
       <div class="modal-grid-2">
-        <div class="info-box"><div class="info-box-label">Duration</div><div class="info-box-value accent">${p.duration}</div></div>
-        <div class="info-box"><div class="info-box-label">Intake</div><div class="info-box-value">${p.intake}</div></div>
-        <div class="info-box"><div class="info-box-label">Mode</div><div class="info-box-value">${p.mode}</div></div>
-        <div class="info-box"><div class="info-box-label">Language</div><div class="info-box-value">${p.language}</div></div>
+        <div class="info-box"><div class="info-box-label">\${t('modal.duration')}</div><div class="info-box-value accent">\${pDuration}</div></div>
+        <div class="info-box"><div class="info-box-label">\${t('modal.intake')}</div><div class="info-box-value">\${pIntake}</div></div>
+        <div class="info-box"><div class="info-box-label">\${t('modal.mode')}</div><div class="info-box-value">\${pMode}</div></div>
+        <div class="info-box"><div class="info-box-label">\${t('modal.lang')}</div><div class="info-box-value">\${p.language}</div></div>
       </div>
     </div>
     <div class="modal-section">
-      <span class="modal-section-label">Entry Requirements</span>
-      ${entryHtml}
+      <span class="modal-section-label">\${t('modal.entry')}</span>
+      \${entryHtml}
     </div>
     <div class="modal-section">
-      <span class="modal-section-label">Fees & Scholarships</span>
+      <span class="modal-section-label">\${t('modal.fees')}</span>
       <div class="modal-grid-2">
-        <div class="info-box"><div class="info-box-label">Tuition / Year</div><div class="info-box-value green">${p.entry.fees?.tuition || '—'}</div></div>
-        <div class="info-box"><div class="info-box-label">Total Programme</div><div class="info-box-value green">${p.entry.fees?.total || '—'}</div></div>
-        <div class="info-box" style="grid-column:1/-1"><div class="info-box-label">Scholarships Available</div><div class="info-box-value" style="font-size:0.875rem">${p.entry.fees?.scholarship || '—'}</div></div>
+        <div class="info-box"><div class="info-box-label">\${t('modal.tuition')}</div><div class="info-box-value green">\${p.entry.fees?.tuition || '—'}</div></div>
+        <div class="info-box"><div class="info-box-label">\${t('modal.total')}</div><div class="info-box-value green">\${p.entry.fees?.total || '—'}</div></div>
+        <div class="info-box" style="grid-column:1/-1"><div class="info-box-label">\${t('modal.scholar')}</div><div class="info-box-value" style="font-size:0.875rem">\${p.entry.fees?.scholarship || '—'}</div></div>
       </div>
-      <div class="spm-note" style="margin-top:0.75rem">*Estimated fees. Always verify with UMT's official admissions office at umt.edu.my</div>
+      <div class="spm-note" style="margin-top:0.75rem">*Anggaran yuran. Sila sahkan dengan pejabat kemasukan UMT di umt.edu.my</div>
     </div>
-    ${semHtml}
+    \${semHtml}
     <div class="modal-section">
-      <span class="modal-section-label">Career Pathways</span>
-      <div class="career-grid">${(p.careers || []).map(c => `<span class="career-pill">${c}</span>`).join('')}</div>
+      <span class="modal-section-label">\${t('modal.careers')}</span>
+      <div class="career-grid">\${pCareers.map(c => `<span class="career-pill">\${c}</span>`).join('')}</div>
     </div>
-    ${p.contact ? `<div class="modal-section"><span class="modal-section-label">Programme Contact</span><div class="info-box"><div class="info-box-label">${p.contact.role}</div><div class="info-box-value" style="font-size:0.875rem">${p.contact.name}<br><a href="mailto:${p.contact.email}" style="color:var(--umt-sea)">${p.contact.email}</a> · ${p.contact.phone}</div></div></div>` : ''}
+    \${p.contact ? `<div class="modal-section"><span class="modal-section-label">\${t('modal.contact')}</span><div class="info-box"><div class="info-box-label">\${p.contact.role}</div><div class="info-box-value" style="font-size:0.875rem">\${p.contact.name}<br><a href="mailto:\${p.contact.email}" style="color:var(--umt-sea)">\${p.contact.email}</a> · \${p.contact.phone}</div></div></div>` : ''}
   `;
 
   document.getElementById('modal-footer').innerHTML = `
-    <a href="${p.url}" target="_blank" class="btn-modal-primary">View Official Page ↗</a>
-    <a href="${waLink}" target="_blank" class="btn-modal-wa" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>WhatsApp Enquiry</a>
-    <a href="https://www.umt.edu.my/how-to-apply" target="_blank" class="btn-modal-sec">How to Apply</a>
+    <a href="\${p.url}" target="_blank" class="btn-modal-primary">\${t('modal.viewPage')}</a>
+    <a href="\${waLink}" target="_blank" class="btn-modal-wa" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>\${t('modal.waEnquire')}</a>
+    <a href="https://www.umt.edu.my/how-to-apply" target="_blank" class="btn-modal-sec">\${t('modal.howApply')}</a>
   `;
   document.getElementById('modal').classList.add('open');
 }
@@ -2034,11 +2039,204 @@ function retakeQuiz() {
 // ============================
 // LANGUAGE (simplified)
 // ============================
-let currentLang = localStorage.getItem('umt_lang') || 'en';
-function setLang(l) {
-  currentLang = l; localStorage.setItem('umt_lang', l);
-  document.querySelectorAll('.lang-btn').forEach((b, i) => b.classList.toggle('active', (i === 0 && l === 'en') || (i === 1 && l === 'bm')));
+// ============================
+// FULL BILINGUAL ENGINE
+// ============================
+const TRANSLATIONS = {
+  en: {
+    'nav.startQuiz': 'Start Quiz',
+    'hero.kicker': 'Universiti Malaysia Terengganu — 2026 Intake',
+    'hero.title': 'Not sure what<br>to study? <em>Let\'s find out.</em>',
+    'hero.sub': 'Answer a few questions about your qualifications, interests and personality. We\'ll match you with the right UMT programme — whether you\'re an SPM leaver or pre-university graduate.',
+    'how.kicker': 'Simple Process',
+    'how.title': 'How it works',
+    'how.sub': 'Six steps — tailored to whether you\'ve done SPM or pre-university.',
+    'quiz.kicker': 'Course Recommender',
+    'quiz.title': 'Find your perfect programme',
+    'quiz.sub': '5 steps · About 2 minutes · No wrong answers',
+    'quiz.header': 'Let\'s get started',
+    's0.q': 'What is your current education level?',
+    's0.hint': 'This determines which programmes we recommend for you.',
+    's0.spm.title': 'SPM / O-Level Leaver',
+    's0.spm.desc': 'I\'ve completed my SPM and am looking for foundation, diploma, or direct entry options.',
+    's0.preuni.title': 'Asasi / Matrikulasi / STPM',
+    's0.preuni.desc': 'I\'ve completed or am completing pre-university studies and want to enter a degree programme.',
+    's1.q': 'Which subjects did you enjoy most?',
+    's1.hint': 'Select all that apply',
+    's1.tech': 'Computer & ICT', 's1.math': 'Mathematics', 's1.bio': 'Biology',
+    's1.chem': 'Chemistry', 's1.phys': 'Physics', 's1.biz': 'Business & Economics',
+    's1.social': 'Social Sciences', 's1.geo': 'Geography & Earth',
+    's2.q': 'What activities excite you?',
+    's2.hint': 'Pick your top interests',
+    's2.coding': 'Coding & Software', 's2.ocean': 'Ocean & Marine Life',
+    's2.engineering': 'Building & Engineering', 's2.business': 'Business & Finance',
+    's2.nature': 'Nature & Conservation', 's2.food': 'Food & Nutrition',
+    's2.data': 'Data & Analytics', 's2.ships': 'Ships & Navigation',
+    's2.energy': 'Energy & Renewables', 's2.helping': 'Helping People',
+    's3.q': 'Where do you see yourself working?',
+    's3.hint': 'Choose all that feel right',
+    's3.tech': 'Tech Company / Startup', 's3.sea': 'At Sea / Maritime',
+    's3.gov': 'Government / Policy', 's3.research': 'Research / Academia',
+    's3.corp': 'Corporate Finance', 's3.outdoor': 'Outdoors / Field Work',
+    's3.ngo': 'NGO / Conservation', 's3.hospitality': 'Tourism / Hospitality',
+    's4.q': 'How would you describe your personality?',
+    's4.hint': 'Pick the ones that resonate',
+    's4.analytical': 'Analytical & Logical', 's4.creative': 'Creative & Innovative',
+    's4.leader': 'Leader & Organiser', 's4.caring': 'Caring & Empathetic',
+    's4.adventurous': 'Adventurous & Bold', 's4.detail': 'Detail-oriented',
+    's5.q': 'Your qualifications',
+    's5.hint': 'This helps us check eligibility for each programme — optional but highly recommended.',
+    'nav.step1of5': 'Step 1 of 5', 'nav.step2of5': 'Step 2 of 5',
+    'nav.step3of5': 'Step 3 of 5', 'nav.step4of5': 'Step 4 of 5',
+    'nav.step5of5': 'Step 5 of 5 (Optional)', 'nav.step5': 'Step 5 of 5',
+    'nav.next': 'Next →', 'nav.back': '← Back',
+    'nav.submit': 'Find My Programmes →',
+    'results.kicker': '✦ Your personalised matches',
+    'results.title': 'Programmes matched for you',
+    'results.sub': 'Based on your interests and qualifications',
+    'retake.title': 'Try it for yourself',
+    'retake.sub': 'Answers take ~2 minutes. No wrong answers.',
+    'retake.btn': '↺ Start Over — Next Student',
+    // dynamic modal labels
+    'modal.overview': 'Overview', 'modal.details': 'Programme Details',
+    'modal.entry': 'Entry Requirements', 'modal.fees': 'Fees & Scholarships',
+    'modal.careers': 'Career Pathways', 'modal.contact': 'Programme Contact',
+    'modal.sems': 'Semester Breakdown',
+    'modal.duration': 'Duration', 'modal.intake': 'Intake',
+    'modal.mode': 'Mode', 'modal.lang': 'Language',
+    'modal.tuition': 'Tuition / Year', 'modal.total': 'Total Programme',
+    'modal.scholar': 'Scholarships Available',
+    'modal.qual': 'Qualification Required', 'modal.mandatory': 'Mandatory Subjects',
+    'modal.track': 'Choose Your Track', 'modal.trackNote': 'Pick the track that matches your SPM subjects — you only need to qualify for ONE track.',
+    'modal.applyVia': 'Apply Via', 'modal.entrySummary': 'Entry Summary',
+    'modal.english': 'English Requirement',
+    'modal.viewPage': 'View Official Page ↗', 'modal.waEnquire': 'WhatsApp Enquiry', 'modal.howApply': 'How to Apply',
+    'results.matchScore': 'match score', 'results.topMatch': 'Your top match',
+    'results.viewDetails': 'View Details', 'results.waEnquire': 'Enquire via WhatsApp',
+    'stream.spm.title': 'SPM / O-Level pathway',
+    'stream.spm.desc': 'We\'re showing Asasi STEM and Diploma Perikanan — programmes you can enter directly with SPM.',
+    'stream.preuni.title': 'Pre-University pathway',
+    'stream.preuni.desc': 'We\'re showing degree programmes you can enter with Asasi, Matrikulasi, or STPM qualifications.',
+    'calc.label': 'Finding your matches…',
+    'calc.sub': 'Analysing your interests and qualifications',
+  },
+  bm: {
+    'nav.startQuiz': 'Mula Kuiz',
+    'hero.kicker': 'Universiti Malaysia Terengganu — Pengambilan 2026',
+    'hero.title': 'Tidak pasti apa nak belajar? <em>Mari kita cari tahu.</em>',
+    'hero.sub': 'Jawab beberapa soalan tentang kelayakan, minat dan personaliti anda. Kami akan cadangkan program UMT yang paling sesuai untuk anda.',
+    'how.kicker': 'Proses Mudah',
+    'how.title': 'Cara ia berfungsi',
+    'how.sub': 'Enam langkah — disesuaikan mengikut kelayakan anda.',
+    'quiz.kicker': 'Pengesyor Kursus',
+    'quiz.title': 'Cari program yang sesuai untuk anda',
+    'quiz.sub': '5 langkah · Kira-kira 2 minit · Tiada jawapan salah',
+    'quiz.header': 'Jom mulakan',
+    's0.q': 'Apakah tahap pendidikan anda sekarang?',
+    's0.hint': 'Ini menentukan program yang kami cadangkan untuk anda.',
+    's0.spm.title': 'Lepasan SPM / O-Level',
+    's0.spm.desc': 'Saya telah tamat SPM dan mencari pilihan asasi, diploma, atau kemasukan terus.',
+    's0.preuni.title': 'Asasi / Matrikulasi / STPM',
+    's0.preuni.desc': 'Saya telah atau sedang menamatkan pengajian pra-universiti dan ingin memasuki program ijazah.',
+    's1.q': 'Mata pelajaran manakah yang paling anda gemari?',
+    's1.hint': 'Pilih semua yang berkenaan',
+    's1.tech': 'Komputer & ICT', 's1.math': 'Matematik', 's1.bio': 'Biologi',
+    's1.chem': 'Kimia', 's1.phys': 'Fizik', 's1.biz': 'Perniagaan & Ekonomi',
+    's1.social': 'Sains Sosial', 's1.geo': 'Geografi & Bumi',
+    's2.q': 'Aktiviti apa yang anda gemari?',
+    's2.hint': 'Pilih minat utama anda',
+    's2.coding': 'Pengaturcaraan & Perisian', 's2.ocean': 'Lautan & Hidupan Marin',
+    's2.engineering': 'Pembinaan & Kejuruteraan', 's2.business': 'Perniagaan & Kewangan',
+    's2.nature': 'Alam Semula Jadi & Pemuliharaan', 's2.food': 'Makanan & Pemakanan',
+    's2.data': 'Data & Analitik', 's2.ships': 'Kapal & Navigasi',
+    's2.energy': 'Tenaga & Boleh Diperbaharui', 's2.helping': 'Membantu Masyarakat',
+    's3.q': 'Di mana anda bayangkan diri anda bekerja?',
+    's3.hint': 'Pilih semua yang sesuai',
+    's3.tech': 'Syarikat Teknologi / Startup', 's3.sea': 'Di Laut / Maritim',
+    's3.gov': 'Kerajaan / Dasar Awam', 's3.research': 'Penyelidikan / Akademik',
+    's3.corp': 'Kewangan Korporat', 's3.outdoor': 'Lapangan / Kerja Lapangan',
+    's3.ngo': 'NGO / Pemuliharaan', 's3.hospitality': 'Pelancongan / Perhotelan',
+    's4.q': 'Bagaimana anda menggambarkan personaliti anda?',
+    's4.hint': 'Pilih yang berkaitan dengan anda',
+    's4.analytical': 'Analitikal & Logikal', 's4.creative': 'Kreatif & Inovatif',
+    's4.leader': 'Pemimpin & Penganjur', 's4.caring': 'Penyayang & Empati',
+    's4.adventurous': 'Berani & Bersemangat', 's4.detail': 'Teliti & Cermat',
+    's5.q': 'Kelayakan anda',
+    's5.hint': 'Ini membantu kami semak kelayakan untuk setiap program — pilihan tetapi sangat disyorkan.',
+    'nav.step1of5': 'Langkah 1 daripada 5', 'nav.step2of5': 'Langkah 2 daripada 5',
+    'nav.step3of5': 'Langkah 3 daripada 5', 'nav.step4of5': 'Langkah 4 daripada 5',
+    'nav.step5of5': 'Langkah 5 daripada 5 (Pilihan)', 'nav.step5': 'Langkah 5 daripada 5',
+    'nav.next': 'Seterusnya →', 'nav.back': '← Kembali',
+    'nav.submit': 'Cari Program Saya →',
+    'results.kicker': '✦ Padanan peribadi anda',
+    'results.title': 'Program yang sepadan untuk anda',
+    'results.sub': 'Berdasarkan minat dan kelayakan anda',
+    'retake.title': 'Cuba sendiri',
+    'retake.sub': 'Jawapan mengambil ~2 minit. Tiada jawapan salah.',
+    'retake.btn': '↺ Mulakan Semula — Pelajar Seterusnya',
+    // dynamic modal labels
+    'modal.overview': 'Gambaran Keseluruhan', 'modal.details': 'Maklumat Program',
+    'modal.entry': 'Syarat Kemasukan', 'modal.fees': 'Yuran & Biasiswa',
+    'modal.careers': 'Laluan Kerjaya', 'modal.contact': 'Hubungi Program',
+    'modal.sems': 'Pecahan Semester',
+    'modal.duration': 'Tempoh', 'modal.intake': 'Pengambilan',
+    'modal.mode': 'Mod', 'modal.lang': 'Bahasa',
+    'modal.tuition': 'Yuran / Tahun', 'modal.total': 'Jumlah Program',
+    'modal.scholar': 'Biasiswa Tersedia',
+    'modal.qual': 'Kelayakan Diperlukan', 'modal.mandatory': 'Mata Pelajaran Wajib',
+    'modal.track': 'Pilih Skim Anda', 'modal.trackNote': 'Pilih skim yang sepadan dengan mata pelajaran SPM anda — anda hanya perlu layak untuk SATU skim.',
+    'modal.applyVia': 'Cara Memohon', 'modal.entrySummary': 'Ringkasan Syarat',
+    'modal.english': 'Keperluan Bahasa Inggeris',
+    'modal.viewPage': 'Lihat Halaman Rasmi ↗', 'modal.waEnquire': 'Pertanyaan WhatsApp', 'modal.howApply': 'Cara Memohon',
+    'results.matchScore': 'skor padanan', 'results.topMatch': 'Padanan teratas anda',
+    'results.viewDetails': 'Lihat Butiran', 'results.waEnquire': 'Pertanyaan via WhatsApp',
+    'stream.spm.title': 'Laluan SPM / O-Level',
+    'stream.spm.desc': 'Kami menunjukkan Asasi STEM dan Diploma Perikanan — program yang boleh anda masuki terus dengan SPM.',
+    'stream.preuni.title': 'Laluan Pra-Universiti',
+    'stream.preuni.desc': 'Kami menunjukkan program ijazah yang boleh anda masuki dengan Asasi, Matrikulasi, atau kelayakan STPM.',
+    'calc.label': 'Mencari padanan anda…',
+    'calc.sub': 'Menganalisis minat dan kelayakan anda',
+  }
+};
+
+function t(key) {
+  return (TRANSLATIONS[currentLang] || TRANSLATIONS.en)[key] || (TRANSLATIONS.en)[key] || key;
 }
+
+let currentLang = localStorage.getItem('umt_lang') || 'en';
+
+function applyTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const val = t(key);
+    if (val) el.innerHTML = val;
+  });
+  // Update html lang attribute
+  document.documentElement.lang = currentLang === 'bm' ? 'ms' : 'en';
+}
+
+function setLang(l) {
+  currentLang = l;
+  localStorage.setItem('umt_lang', l);
+  document.querySelectorAll('.lang-btn').forEach((b, i) => {
+    b.classList.toggle('active', (i === 0 && l === 'en') || (i === 1 && l === 'bm'));
+  });
+  applyTranslations();
+  // Re-render stream banner if results visible
+  if (document.getElementById('results').style.display !== 'none' && selectedStream) {
+    renderStreamBanner();
+  }
+}
+
+function renderStreamBanner() {
+  const bannerEl = document.getElementById('stream-banner');
+  if (selectedStream === 'highschool') {
+    bannerEl.innerHTML = \`<div class="stream-banner spm"><div><strong>\${t('stream.spm.title')}</strong>\${t('stream.spm.desc')}</div><div><span class="type-badge asasi">Foundation</span> <span class="type-badge diploma">Diploma</span></div></div>\`;
+  } else {
+    bannerEl.innerHTML = \`<div class="stream-banner preuni"><div><strong>\${t('stream.preuni.title')}</strong>\${t('stream.preuni.desc')}</div><div><span class="type-badge degree">Degree</span></div></div>\`;
+  }
+}
+
 setLang(currentLang);
 
 // ============================

@@ -1109,10 +1109,10 @@ footer {
   </ul>
   <div class="nav-right">
     <div class="lang-toggle">
-      <button class="lang-btn active" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" onclick="setLang('bm')">BM</button>
+      <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" data-lang="bm" onclick="setLang('bm')">BM</button>
     </div>
-    <button class="btn-nav-cta" onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'})">data-i18n="nav.startQuiz">Mula Kuiz</button>
+    <button class="btn-nav-cta" data-i18n="nav.startQuiz" onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'})">Start Quiz</button>
   </div>
 </nav>
 
@@ -1154,7 +1154,7 @@ footer {
 <section id="how" class="section how">
   <div class="section-inner">
     <div class="section-header">
-      <span class="label-sm">data-i18n="how.kicker">Proses Mudah</span>
+      <span class="label-sm" data-i18n="how.kicker">Simple Process</span>
       <h2 class="display-md" style="margin-top:0.5rem" data-i18n="how.title">Cara ia berfungsi</h2>
       <p class="body-md" style="margin-top:0.75rem;max-width:480px;margin-left:auto;margin-right:auto">
         <span data-i18n="how.sub">Enam langkah — disesuaikan mengikut kelayakan anda.</span>
@@ -1176,7 +1176,7 @@ footer {
 <section id="quiz" class="section quiz-section">
   <div class="section-inner">
     <div class="section-header" style="margin-bottom:2.5rem">
-      <span class="label-sm">data-i18n="quiz.kicker">Pengesyor Kursus</span>
+      <span class="label-sm" data-i18n="quiz.kicker">Course Recommender</span>
       <h2 class="display-md" style="margin-top:0.5rem" data-i18n="quiz.title">Cari program yang sesuai untuk anda</h2>
       <p class="body-md" style="margin-top:0.75rem"><span data-i18n="quiz.sub">5 langkah · Kira-kira 2 minit · Tiada jawapan salah</span></p>
     </div>
@@ -2218,11 +2218,10 @@ function applyTranslations() {
 function setLang(l) {
   currentLang = l;
   localStorage.setItem('umt_lang', l);
-  document.querySelectorAll('.lang-btn').forEach((b, i) => {
-    b.classList.toggle('active', (i === 0 && l === 'en') || (i === 1 && l === 'bm'));
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === l);
   });
   applyTranslations();
-  // Re-render stream banner if results visible
   if (document.getElementById('results').style.display !== 'none' && selectedStream) {
     renderStreamBanner();
   }
@@ -2237,7 +2236,7 @@ function renderStreamBanner() {
   }
 }
 
-setLang(currentLang);
+document.addEventListener("DOMContentLoaded", () => setLang(currentLang));
 
 // ============================
 // AI CHAT

@@ -1,3 +1,6 @@
+// api/chat.js — Fixed version
+// FIX #10: Added AbortController timeout on OpenRouter fetch
+
 export const config = { runtime: 'edge' };
 
 export default async function handler(req) {
@@ -16,11 +19,16 @@ export default async function handler(req) {
     'z-ai/glm-4.5-air:free',
     'nvidia/nemotron-3-nano-30b-a3b:free',
   ];
+
   try {
     const body = await req.json();
     let lastError = '';
 
     for (const model of models) {
+      // FIX #10: AbortController with 15s timeout per model attempt
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
+
       try {
         const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
           method: 'POST',
@@ -35,8 +43,10 @@ export default async function handler(req) {
             max_tokens: 800,
             messages: body.messages,
           }),
+          signal: controller.signal,
         });
 
+        clearTimeout(timeout);
         const data = await response.json();
         const text = data.choices?.[0]?.message?.content;
 
@@ -51,14 +61,18 @@ export default async function handler(req) {
 
         lastError = JSON.stringify(data.error || 'No content');
       } catch (e) {
-        lastError = e.message;
+        clearTimeout(timeout);
+        lastError = e.name === 'AbortError' ? `Timeout on model ${model}` : e.message;
       }
     }
 
     // All models failed
     return new Response(JSON.stringify({
       content: [{ type: 'text', text: `Sorry, all models are currently unavailable. Please contact UMT at +609-633 3333. (${lastError})` }]
-    }), { status: 200, headers: { 'Content-Type': 'application/json', ...corsHeaders } });
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
 
   } catch (err) {
     return new Response(JSON.stringify({ error: err.message }), {

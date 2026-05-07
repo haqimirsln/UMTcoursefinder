@@ -1395,6 +1395,7 @@ footer {
     </div>
     <div id="top-match-hero" style="display:none"></div>
     <div id="stream-banner"></div>
+     <div id="stem-track-banner"></div>  
     <div class="results-toolbar">
       <div class="filter-group" id="filter-group">
         <button class="filter-btn active" onclick="filterResults('all',this)">All</button>
@@ -1563,9 +1564,6 @@ footer {
 // ============================
 // CONSTANTS
 // ============================
-// ============================
-// CONSTANTS
-// ============================
 const COURSES_URL = '/data/courses.json';
 let ALL_PROGRAMS = [];
 let dataLoaded = false;
@@ -1719,6 +1717,212 @@ function submitQuiz() {
   }, 1800);
 }
 
+// ============================================================
+// STEM TRACK RECOMMENDER
+// Called when stream = highschool AND program = asasi-stem
+// Uses: spmData.subjects (array of subject keys user ticked)
+//       spmData.as (number of A grades)
+//       spmData.credits (total credits)
+//       selections[1] (subject interests), selections[2] (activity interests)
+// ============================================================
+
+/**
+ * TRACK ELIGIBILITY RULES (from courses.json):
+ *
+ * General prereqs (ALL tracks):
+ *   - BM credit (C), BI grade E (pass), Sejarah pass, Maths/Add Maths grade B
+ *
+ * STEM A — Pure Science
+ *   Needs: biology + chemistry + physics all with C+ (credit)
+ *   Best for: students with all 3 sciences, interested in marine, biology, physics, engineering
+ *
+ * STEM B — Mixed Science
+ *   Needs: any 2 of (biology, chemistry, physics) with C+ AND 1 elective C+
+ *   Best for: students with 2 sciences, or science + humanities combo
+ *
+ * STEM C — Arts / Sastera Ikhtisas
+ *   Needs: Grade A in Sains / Sains Tambahan AND 1 elective C+
+ *   Best for: students WITHOUT pure science subjects
+ */
+
+function recommendStemTrack() {
+  const subj = spmData.subjects; // array e.g. ['math','biology','chemistry','physics','english']
+  const interests = [...selections[1], ...selections[2]]; // subject + activity interests
+
+  const hasBio     = subj.includes('biology');
+  const hasChem    = subj.includes('chemistry');
+  const hasPhys    = subj.includes('physics');
+  const hasMath    = subj.includes('math') || subj.includes('addmath');
+  const hasEnglish = subj.includes('english');
+  const hasComputer= subj.includes('computer');
+  const hasEcon    = subj.includes('economics');
+
+  // Count how many core sciences passed with credit
+  const scienceCredits = [hasBio, hasChem, hasPhys].filter(Boolean).length;
+
+  // Interest signals — used to pick BEST track when multiple eligible
+  const likesBio    = interests.some(i => ['bio','ocean','nature','food'].includes(i));
+  const likesPhys   = interests.some(i => ['phys','engineering','ships','energy'].includes(i));
+  const likesTech   = interests.some(i => ['tech','coding','data'].includes(i));
+  const likesSocial = interests.some(i => ['social','biz','helping'].includes(i));
+
+  // ── Determine ELIGIBLE tracks ──────────────────────────────────────────────
+  const eligible = [];
+
+  // STEM A: needs all 3 sciences with credit
+  if (hasBio && hasChem && hasPhys) {
+    eligible.push('stem-a');
+  }
+
+  // STEM B: needs any 2 sciences + 1 elective (computer, english, economics, math all count)
+  if (scienceCredits >= 2 && (hasMath || hasEnglish || hasComputer || hasEcon)) {
+    eligible.push('stem-b');
+  }
+  // STEM B fallback: even 1 science + solid elective combo
+  if (scienceCredits === 1 && (hasMath || hasComputer)) {
+    eligible.push('stem-b');
+  }
+
+  // STEM C: no pure science required — needs Sains/Sains Tambahan (mapped to 'math' or general)
+  // We treat it as always potentially eligible but lowest priority
+  eligible.push('stem-c');
+
+  // ── Pick RECOMMENDED track based on eligibility + interest ─────────────────
+  let recommended = 'stem-c'; // default fallback
+  let reason = '';
+  let interestMatch = '';
+
+  if (eligible.includes('stem-a')) {
+    // Has all 3 sciences — STEM A is possible
+    // But check interest to confirm best fit
+    if (likesBio || likesPhys || likesTech) {
+      recommended = 'stem-a';
+      if (likesBio) interestMatch = 'Your interest in biology & marine science aligns perfectly with STEM A\'s science-heavy curriculum.';
+      else if (likesPhys) interestMatch = 'Your interest in physics & engineering is a great fit for STEM A\'s pure science foundation.';
+      else if (likesTech) interestMatch = 'Tech-minded students thrive in STEM A — strong science base for computing & engineering degrees.';
+      reason = 'You have credits in all 3 sciences (Biology, Chemistry, Physics) — you qualify for the most versatile track.';
+    } else {
+      recommended = 'stem-a';
+      reason = 'You have all 3 science credits. STEM A opens the most degree pathways at UMT.';
+      interestMatch = 'Even without a strong science interest now, STEM A gives you the widest choice of degree programmes later.';
+    }
+  } else if (eligible.includes('stem-b') && !eligible.includes('stem-a')) {
+    recommended = 'stem-b';
+    reason = `You have ${scienceCredits} science subject${scienceCredits > 1 ? 's' : ''} with credit. STEM B is your best fit.`;
+    if (likesTech) interestMatch = 'Your interest in technology & coding pairs well with STEM B — computer science degrees are still fully accessible.';
+    else if (likesBio) interestMatch = 'STEM B with Biology credit keeps marine science & fisheries degrees open for you.';
+    else if (likesSocial) interestMatch = 'STEM B\'s flexible elective structure suits students who blend science with social interests.';
+    else interestMatch = 'STEM B is flexible — you only need to qualify in ONE elective alongside your science subjects.';
+  } else {
+    recommended = 'stem-c';
+    reason = 'Based on your results, STEM C (Sastera Ikhtisas) is the right pathway — it doesn\'t require pure science credits.';
+    interestMatch = likesSocial
+      ? 'Your social & humanities interests make STEM C a natural match.'
+      : 'STEM C still gives you access to Asasi STEM and a range of degree programmes at UMT.';
+  }
+
+  // ── Build result object ─────────────────────────────────────────────────────
+  const trackMeta = {
+    'stem-a': {
+      label: 'STEM A — Pure Science',
+      color: '#1D6FA4',
+      icon: '🔬',
+      shortDesc: 'All 3 sciences (Biology, Chemistry, Physics) with Grade C+',
+      degreePathways: ['Marine Biology', 'Marine Science', 'Naval Architecture', 'Electronics & Instrumentation', 'Renewable Energy', 'Data Analytics', 'CS Software Engineering'],
+    },
+    'stem-b': {
+      label: 'STEM B — Mixed Science',
+      color: '#C9922B',
+      icon: '⚗️',
+      shortDesc: 'Any 2 sciences + 1 elective (Maths, English, Computer Science, etc.) with Grade C+',
+      degreePathways: ['CS Software Engineering', 'CS Mobile Computing', 'Data Analytics', 'Fisheries', 'Food Technology', 'Maritime Management'],
+    },
+    'stem-c': {
+      label: 'STEM C — Sastera Ikhtisas',
+      color: '#B01E2C',
+      icon: '📖',
+      shortDesc: 'Grade A in Sains / Sains Tambahan + 1 elective with Grade C+',
+      degreePathways: ['Business Administration', 'Finance', 'Accounting', 'Maritime Management', 'Counselling', 'Marketing'],
+    },
+  };
+
+  return {
+    recommended,
+    eligible,
+    meta: trackMeta[recommended],
+    allMeta: trackMeta,
+    reason,
+    interestMatch,
+    subjectsSummary: {
+      scienceCredits,
+      hasBio, hasChem, hasPhys, hasMath, hasEnglish, hasComputer
+    }
+  };
+}
+
+// ============================================================
+// RENDER STEM TRACK BANNER — shown in results when stream=highschool
+// and asasi-stem appears in ranked results
+// ============================================================
+function renderStemTrackBanner(container) {
+  // Only show for SPM students
+  if (selectedStream !== 'highschool') return;
+  // Only show if asasi-stem is in top results
+  const hasAsasi = allRanked.some(p => p.id === 'asasi-stem');
+  if (!hasAsasi) return;
+  // Only show if user has entered at least some subjects
+  if (spmData.subjects.length === 0 && !spmData.credits) return;
+
+  const result = recommendStemTrack();
+  const meta = result.meta;
+  const eligible = result.eligible;
+
+  // Badge row for ALL eligible tracks
+  const eligibleBadges = eligible.map(id => {
+    const m = result.allMeta[id];
+    const isRec = id === result.recommended;
+    return `<span style="
+      display:inline-flex;align-items:center;gap:0.35rem;
+      padding:0.25rem 0.75rem;border-radius:999px;font-size:0.72rem;font-weight:700;
+      background:${isRec ? m.color : 'rgba(10,10,15,0.06)'};
+      color:${isRec ? '#fff' : 'var(--text-secondary)'};
+      border:1.5px solid ${isRec ? m.color : 'var(--surface-border)'};
+      ">${m.icon} ${m.label.split('—')[0].trim()}${isRec ? ' ✦ Recommended' : ''}</span>`;
+  }).join('');
+
+  // Degree pathways chips
+  const pathwayChips = meta.degreePathways.map(d =>
+    `<span style="padding:0.2rem 0.65rem;border-radius:999px;font-size:0.7rem;background:rgba(10,10,15,0.05);border:1px solid var(--surface-border);color:var(--text-secondary)">${d}</span>`
+  ).join('');
+
+  container.innerHTML = `
+    <div style="
+      background:var(--surface-0);border:1.5px solid ${meta.color}30;
+      border-radius:var(--r-xl);padding:1.75rem 2rem;margin-bottom:1.5rem;
+      position:relative;overflow:hidden;
+    ">
+      <div style="position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:${meta.color}08;pointer-events:none"></div>
+      <div style="display:flex;align-items:flex-start;gap:1.25rem;flex-wrap:wrap">
+        <div style="width:52px;height:52px;border-radius:14px;background:${meta.color}12;border:1.5px solid ${meta.color}30;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0">${meta.icon}</div>
+        <div style="flex:1;min-width:220px">
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.4rem;flex-wrap:wrap">
+            <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:${meta.color}">Asasi STEM — Track Recommendation</span>
+          </div>
+          <div style="font-family:'Instrument Serif',serif;font-size:1.25rem;color:var(--text-primary);margin-bottom:0.5rem">${meta.label}</div>
+          <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin-bottom:0.85rem">${result.reason} ${result.interestMatch}</p>
+          <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.85rem">${eligibleBadges}</div>
+          <div style="font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:0.4rem">Opens pathways to:</div>
+          <div style="display:flex;gap:0.35rem;flex-wrap:wrap">${pathwayChips}</div>
+        </div>
+      </div>
+      <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--surface-border);font-size:0.78rem;color:var(--text-tertiary)">
+        💡 <strong>Track requirement:</strong> ${meta.shortDesc}. You only need to qualify for ONE track to enter Asasi STEM.
+      </div>
+    </div>
+  `;
+}
+
+
 // ============================
 // RESULTS RENDERING
 // FIX #4: Removed compareList reset from here
@@ -1746,6 +1950,10 @@ function renderResults(ranked, filter) {
   sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   renderStreamBanner();
+
+  // STEM TRACK BANNER — show after stream banner for SPM students
+  const stemBannerEl = document.getElementById('stem-track-banner');
+  if (stemBannerEl) renderStemTrackBanner(stemBannerEl);
 
   let toShow = ranked;
   if (filter !== 'all') toShow = ranked.filter(p => p.category === filter);

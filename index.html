@@ -1563,8 +1563,12 @@ footer {
 // ============================
 // CONSTANTS
 // ============================
+// ============================
+// CONSTANTS
+// ============================
 const COURSES_URL = '/data/courses.json';
 let ALL_PROGRAMS = [];
+let dataLoaded = false;
 let currentStep = 0;
 const totalSteps = 5;
 const selections = {1:[], 2:[], 3:[], 4:[]};
@@ -1576,20 +1580,22 @@ let compareList = [];
 let currentFilter = 'all';
 
 // ============================
-// LOAD DATA
+// LOAD DATA — FIX #3: Guard against race condition
 // ============================
 async function loadData() {
   try {
     const r = await fetch(COURSES_URL);
     const json = await r.json();
     ALL_PROGRAMS = json.programs;
+    dataLoaded = true;
   } catch(e) {
-    console.warn('Could not fetch courses.json, will use inline fallback.');
+    console.warn('Could not fetch courses.json');
+    dataLoaded = false;
   }
 }
 loadData();
 
-// Kiosk / booth mode: auto-scroll straight to quiz, hide nav & footer
+// Kiosk mode
 const urlParams = new URLSearchParams(window.location.search);
 const KIOSK = urlParams.get('kiosk') === '1';
 if (KIOSK) {
@@ -1602,11 +1608,8 @@ if (KIOSK) {
     document.querySelector('#quiz').style.paddingTop = '2rem';
   });
 }
-// Always scroll quiz into view on load (skip hero for booth use)
 window.addEventListener('DOMContentLoaded', () => {
-  // Apply translations first
   setLang(currentLang);
-  // Then scroll
   const hash = window.location.hash;
   if (!hash || hash === '#quiz') {
     setTimeout(() => {
@@ -1634,7 +1637,6 @@ function selectStream(el) {
   document.querySelectorAll('.stream-card').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
   selectedStream = el.dataset.stream;
-  // Show/hide qualification fields
   document.getElementById('spm-fields').style.display = selectedStream === 'highschool' ? '' : 'none';
   document.getElementById('preuni-fields').style.display = selectedStream === 'preuniversity' ? '' : 'none';
 }
@@ -1659,12 +1661,9 @@ function toggleSubj(el) {
 // ============================
 function computeScores() {
   const userTags = [...selections[1], ...selections[2], ...selections[3], ...selections[4]];
-
-  // Filter by stream
   let pool;
   if (selectedStream === 'highschool') {
     pool = ALL_PROGRAMS.filter(p => p.type === 'asasi' || p.type === 'diploma');
-    // Show foundation + diploma filters
     document.getElementById('filter-Foundation').style.display = '';
     document.getElementById('filter-Diploma').style.display = '';
     document.getElementById('filter-IT').style.display = 'none';
@@ -1682,20 +1681,23 @@ function computeScores() {
     document.getElementById('filter-Business').style.display = '';
     document.getElementById('filter-Maritime').style.display = '';
   }
-
   return pool.map(p => {
     let score = 0;
-    userTags.forEach(t => { if (p.weights && p.weights[t]) score += p.weights[t]; });
-    // Soft penalties
-    const hasTech = userTags.some(t => ['coding','tech','data'].includes(t));
+    userTags.forEach(tag => { if (p.weights && p.weights[tag]) score += p.weights[tag]; });
+    const hasTech = userTags.some(tag => ['coding','tech','data'].includes(tag));
     if (!hasTech && p.category === 'IT') score = Math.max(0, score - 5);
-    const hasMarine = userTags.some(t => ['ocean','nature','bio','geo'].includes(t));
+    const hasMarine = userTags.some(tag => ['ocean','nature','bio','geo'].includes(tag));
     if (!hasMarine && p.category === 'Marine') score = Math.max(0, score - 3);
     return { ...p, score };
   }).sort((a, b) => b.score - a.score);
 }
 
 function submitQuiz() {
+  // FIX #3: Guard against race condition
+  if (!dataLoaded || ALL_PROGRAMS.length === 0) {
+    showToast('Programme data still loading, please wait a moment…');
+    return;
+  }
   spmData.as = document.getElementById('spm-as').value;
   spmData.credits = document.getElementById('spm-credits').value;
   preuniData.qual = document.getElementById('preuni-qual').value;
@@ -1707,6 +1709,9 @@ function submitQuiz() {
   const overlay = document.getElementById('calc-overlay');
   overlay.classList.add('show');
 
+  // FIX #4: Reset compareList only here, not in renderResults
+  compareList = [];
+
   setTimeout(() => {
     allRanked = computeScores();
     overlay.classList.remove('show');
@@ -1716,30 +1721,45 @@ function submitQuiz() {
 
 // ============================
 // RESULTS RENDERING
+// FIX #4: Removed compareList reset from here
+// FIX #7: Reset active filter button at start
 // ============================
 function renderResults(ranked, filter) {
   currentFilter = filter;
+
+  // FIX #7: Always reset filter button state
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  // Re-activate the correct filter button
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  filterBtns.forEach(b => {
+    const isAll = b.textContent.trim() === 'All' && filter === 'all';
+    const matchesFilter = b.getAttribute('onclick')?.includes(`'${filter}'`);
+    if (isAll || (filter !== 'all' && matchesFilter)) b.classList.add('active');
+  });
+  // fallback: activate first visible filter btn if nothing matched
+  const anyActive = document.querySelector('.filter-btn.active');
+  if (!anyActive) document.querySelector('.filter-btn')?.classList.add('active');
+
   document.getElementById('quiz').style.display = 'none';
   const sec = document.getElementById('results');
   sec.style.display = 'block';
   sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-  // Stream banner
   renderStreamBanner();
 
-  // Filter
   let toShow = ranked;
   if (filter !== 'all') toShow = ranked.filter(p => p.category === filter);
   if (toShow.length === 0 && filter !== 'all') toShow = ranked.slice(0, 3);
 
   const grid = document.getElementById('courses-grid');
   grid.innerHTML = '';
-  compareList = [];
+
+  // FIX #4: Do NOT reset compareList here anymore
   updateCompareBar();
 
   const maxScore = ranked[0]?.score || 1;
 
-  // ── TOP MATCH HERO CARD (always first result, regardless of filter) ──
+  // TOP MATCH HERO
   const heroContainer = document.getElementById('top-match-hero');
   const topPick = ranked[0];
   if (topPick && heroContainer) {
@@ -1750,14 +1770,14 @@ function renderResults(ranked, filter) {
       <div class="top-match-inner">
         <div class="top-match-left">
           <div class="top-match-kicker">
-            <span class="top-match-star">✦</span> <span data-i18n="results.topMatch">Your top match</span>
+            <span class="top-match-star">✦</span> <span>${t('results.topMatch')}</span>
           </div>
           <div class="top-match-name">${topPick.name}</div>
           <div class="top-match-meta">
             <span class="type-badge ${topPick.type}">${topPick.level}</span>
             <span class="top-match-faculty">${topPick.faculty}</span>
           </div>
-          <div class="top-match-desc">${topPick.description?.slice(0, 120)}…</div>
+          <div class="top-match-desc">${(topPick.description || '').slice(0, 120)}…</div>
           <div class="top-match-actions">
             <button class="btn-top-detail" onclick="showModal('${topPick.id}')">View Details</button>
             <a href="https://api.whatsapp.com/send?phone=6096333333&text=${topWa}" target="_blank" rel="noopener" class="btn-top-wa">
@@ -1778,7 +1798,7 @@ function renderResults(ranked, filter) {
             </svg>
             <div class="top-match-score-num">${topPct}<span style="font-size:1rem">%</span></div>
           </div>
-          <div class="top-match-score-label" data-i18n="results.matchScore">match score</div>
+          <div class="top-match-score-label">${t('results.matchScore')}</div>
           <div class="top-match-pills">
             <span class="top-match-pill">${topPick.duration}</span>
             <span class="top-match-pill">${topPick.intake || 'See details'}</span>
@@ -1797,12 +1817,11 @@ function renderResults(ranked, filter) {
     card.className = 'course-card';
     card.id = 'card-' + p.id;
     card.style.animationDelay = (i * 0.06) + 's';
-    card.classList.add('fade-in');
 
-    const typeBadge = `<span class="type-badge ${p.type}">${p.level}</span>`;
     const matchDisplay = p.score > 0 ? `<span class="match-score">${pct}% match</span>` : '';
     const accentCat = p.type === 'asasi' ? 'Foundation' : p.type === 'diploma' ? 'Diploma' : p.category;
 
+    // FIX #6: Renamed 'tag' arrow param to avoid shadowing global t() function
     card.innerHTML = `
       <div class="course-card-accent ${accentCat}"></div>
       <div class="course-card-top">
@@ -1811,7 +1830,7 @@ function renderResults(ranked, filter) {
           ${matchDisplay}
         </div>
         <div class="course-name">${p.name}</div>
-        <div class="course-tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        <div class="course-tags">${(p.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
       </div>
       <div class="course-card-bottom">
         <div class="course-info-row">
@@ -1896,6 +1915,8 @@ function openCompare() {
 
 // ============================
 // DETAIL MODAL
+// FIX #1: Removed all \${} escapes — plain ${} throughout
+// FIX #6: Renamed tag params to avoid shadowing t()
 // ============================
 function showModal(id) {
   const p = ALL_PROGRAMS.find(x => x.id === id);
@@ -1911,11 +1932,11 @@ function showModal(id) {
     const genReqs = (p.entry.generalRequirements || []).map(r =>
       `<span class="req-pill"><strong>${r.subject}</strong> — Min ${r.minGrade}</span>`
     ).join('');
-    const trackCards = p.entry.tracks.map(t => `
+    const trackCards = p.entry.tracks.map(tr => `
       <div class="track-card">
-        <div class="track-label" style="background:${t.color}">${t.label}</div>
-        <div class="track-desc">${t.description}</div>
-        <div class="track-req">${t.requirement}</div>
+        <div class="track-label" style="background:${tr.color}">${tr.label}</div>
+        <div class="track-desc">${tr.description}</div>
+        <div class="track-req">${tr.requirement}</div>
       </div>
     `).join('');
     entryHtml = `
@@ -1944,7 +1965,7 @@ function showModal(id) {
 
   const semHtml = p.semDetails ? `
     <div class="modal-section">
-      <span class="modal-section-label">Semester Breakdown</span>
+      <span class="modal-section-label">${t('modal.sems')}</span>
       <div class="sem-list">
         ${p.semDetails.map((s, i) => `<div class="sem-item"><div class="sem-num">S${i+1}</div><div><div class="sem-title">${s.title}</div><div class="sem-desc">${s.desc}</div></div></div>`).join('')}
       </div>
@@ -1956,48 +1977,47 @@ function showModal(id) {
   const pIntake = currentLang === 'bm' && p.intakeBM ? p.intakeBM : p.intake;
   const pMode = currentLang === 'bm' && p.modeBM ? p.modeBM : p.mode;
   const pCareers = (currentLang === 'bm' && p.careersBM ? p.careersBM : p.careers) || [];
-  const pFaculty = currentLang === 'bm' && p.facultyBM ? p.facultyBM : p.faculty;
   document.getElementById('modal-title').textContent = pName;
 
   document.getElementById('modal-body').innerHTML = `
     <div class="modal-section">
-      <span class="modal-section-label">\${t('modal.overview')}</span>
-      <p class="body-md">\${pDesc}</p>
+      <span class="modal-section-label">${t('modal.overview')}</span>
+      <p class="body-md">${pDesc}</p>
     </div>
     <div class="modal-section">
-      <span class="modal-section-label">\${t('modal.details')}</span>
+      <span class="modal-section-label">${t('modal.details')}</span>
       <div class="modal-grid-2">
-        <div class="info-box"><div class="info-box-label">\${t('modal.duration')}</div><div class="info-box-value accent">\${pDuration}</div></div>
-        <div class="info-box"><div class="info-box-label">\${t('modal.intake')}</div><div class="info-box-value">\${pIntake}</div></div>
-        <div class="info-box"><div class="info-box-label">\${t('modal.mode')}</div><div class="info-box-value">\${pMode}</div></div>
-        <div class="info-box"><div class="info-box-label">\${t('modal.lang')}</div><div class="info-box-value">\${p.language}</div></div>
+        <div class="info-box"><div class="info-box-label">${t('modal.duration')}</div><div class="info-box-value accent">${pDuration}</div></div>
+        <div class="info-box"><div class="info-box-label">${t('modal.intake')}</div><div class="info-box-value">${pIntake}</div></div>
+        <div class="info-box"><div class="info-box-label">${t('modal.mode')}</div><div class="info-box-value">${pMode}</div></div>
+        <div class="info-box"><div class="info-box-label">${t('modal.lang')}</div><div class="info-box-value">${p.language}</div></div>
       </div>
     </div>
     <div class="modal-section">
-      <span class="modal-section-label">\${t('modal.entry')}</span>
-      \${entryHtml}
+      <span class="modal-section-label">${t('modal.entry')}</span>
+      ${entryHtml}
     </div>
     <div class="modal-section">
-      <span class="modal-section-label">\${t('modal.fees')}</span>
+      <span class="modal-section-label">${t('modal.fees')}</span>
       <div class="modal-grid-2">
-        <div class="info-box"><div class="info-box-label">\${t('modal.tuition')}</div><div class="info-box-value green">\${p.entry.fees?.tuition || '—'}</div></div>
-        <div class="info-box"><div class="info-box-label">\${t('modal.total')}</div><div class="info-box-value green">\${p.entry.fees?.total || '—'}</div></div>
-        <div class="info-box" style="grid-column:1/-1"><div class="info-box-label">\${t('modal.scholar')}</div><div class="info-box-value" style="font-size:0.875rem">\${p.entry.fees?.scholarship || '—'}</div></div>
+        <div class="info-box"><div class="info-box-label">${t('modal.tuition')}</div><div class="info-box-value green">${p.entry.fees?.tuition || '—'}</div></div>
+        <div class="info-box"><div class="info-box-label">${t('modal.total')}</div><div class="info-box-value green">${p.entry.fees?.total || '—'}</div></div>
+        <div class="info-box" style="grid-column:1/-1"><div class="info-box-label">${t('modal.scholar')}</div><div class="info-box-value" style="font-size:0.875rem">${p.entry.fees?.scholarship || '—'}</div></div>
       </div>
       <div class="spm-note" style="margin-top:0.75rem">*Anggaran yuran. Sila sahkan dengan pejabat kemasukan UMT di umt.edu.my</div>
     </div>
-    \${semHtml}
+    ${semHtml}
     <div class="modal-section">
-      <span class="modal-section-label">\${t('modal.careers')}</span>
-      <div class="career-grid">\${pCareers.map(c => `<span class="career-pill">\${c}</span>`).join('')}</div>
+      <span class="modal-section-label">${t('modal.careers')}</span>
+      <div class="career-grid">${pCareers.map(c => `<span class="career-pill">${c}</span>`).join('')}</div>
     </div>
-    \${p.contact ? `<div class="modal-section"><span class="modal-section-label">\${t('modal.contact')}</span><div class="info-box"><div class="info-box-label">\${p.contact.role}</div><div class="info-box-value" style="font-size:0.875rem">\${p.contact.name}<br><a href="mailto:\${p.contact.email}" style="color:var(--umt-sea)">\${p.contact.email}</a> · \${p.contact.phone}</div></div></div>` : ''}
+    ${p.contact ? `<div class="modal-section"><span class="modal-section-label">${t('modal.contact')}</span><div class="info-box"><div class="info-box-label">${p.contact.role}</div><div class="info-box-value" style="font-size:0.875rem">${p.contact.name}<br><a href="mailto:${p.contact.email}" style="color:var(--umt-sea)">${p.contact.email}</a> · ${p.contact.phone}</div></div></div>` : ''}
   `;
 
   document.getElementById('modal-footer').innerHTML = `
-    <a href="\${p.url}" target="_blank" class="btn-modal-primary">\${t('modal.viewPage')}</a>
-    <a href="\${waLink}" target="_blank" class="btn-modal-wa" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>\${t('modal.waEnquire')}</a>
-    <a href="https://www.umt.edu.my/how-to-apply" target="_blank" class="btn-modal-sec">\${t('modal.howApply')}</a>
+    <a href="${p.url}" target="_blank" class="btn-modal-primary">${t('modal.viewPage')}</a>
+    <a href="${waLink}" target="_blank" class="btn-modal-wa" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>${t('modal.waEnquire')}</a>
+    <a href="https://www.umt.edu.my/how-to-apply" target="_blank" class="btn-modal-sec">${t('modal.howApply')}</a>
   `;
   document.getElementById('modal').classList.add('open');
 }
@@ -2014,22 +2034,28 @@ function shareResults() {
 }
 
 function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3000);
 }
 
+// FIX #5: Reset filter button state on retake
 function retakeQuiz() {
   [1,2,3,4].forEach(s => selections[s] = []);
   spmData = { as:'', credits:'', subjects:[] };
   preuniData = { qual:'', cgpa:'' };
   selectedStream = '';
+  compareList = [];
+  currentFilter = 'all';
   document.querySelectorAll('.opt.selected, .spm-subj.selected, .stream-card.selected').forEach(el => el.classList.remove('selected'));
   document.getElementById('spm-as').value = '';
   document.getElementById('spm-credits').value = '';
   document.getElementById('preuni-qual').value = '';
   document.getElementById('preuni-cgpa').value = '';
+  // FIX #5: Reset filter buttons
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.filter-btn')?.classList.add('active');
   // Hide top match hero
   const hero = document.getElementById('top-match-hero');
   if (hero) { hero.style.display = 'none'; hero.innerHTML = ''; }
@@ -2040,10 +2066,8 @@ function retakeQuiz() {
 }
 
 // ============================
-// LANGUAGE (simplified)
-// ============================
-// ============================
-// FULL BILINGUAL ENGINE
+// LANGUAGE ENGINE
+// FIX #9: Safe localStorage with try/catch for Incognito
 // ============================
 const TRANSLATIONS = {
   en: {
@@ -2100,7 +2124,6 @@ const TRANSLATIONS = {
     'retake.title': 'Try it for yourself',
     'retake.sub': 'Answers take ~2 minutes. No wrong answers.',
     'retake.btn': '↺ Start Over — Next Student',
-    // dynamic modal labels
     'modal.overview': 'Overview', 'modal.details': 'Programme Details',
     'modal.entry': 'Entry Requirements', 'modal.fees': 'Fees & Scholarships',
     'modal.careers': 'Career Pathways', 'modal.contact': 'Programme Contact',
@@ -2122,18 +2145,18 @@ const TRANSLATIONS = {
     'stream.preuni.desc': 'We\'re showing degree programmes you can enter with Asasi, Matrikulasi, or STPM qualifications.',
     'calc.label': 'Finding your matches…',
     'calc.sub': 'Analysing your interests and qualifications',
-    'step1.h': 'Choose Your Level', 'step1.p': "Tell us if you're an SPM leaver or a pre-university graduate. This shapes which programmes we show.",
-    'step2.h': 'Pick Your Interests', 'step2.p': 'Select the subjects and activities that excite you — from marine biology to coding to ship design.',
-    'step3.h': 'Share Your Goals', 'step3.p': 'Where do you see yourself working? What kind of person are you? More data = better match.',
-    'step4.h': 'Enter Qualifications', 'step4.p': 'SPM results or CGPA — optional but unlocks personalised eligibility checks for every programme.',
-    'step5.h': 'Get Matched', 'step5.p': 'Our weighted algorithm surfaces the best-fit programmes for your stream, interests, and results.',
-    'step6.h': 'Explore & Apply', 'step6.p': 'Full programme details — semesters, careers, fees, entry requirements — then apply directly.',
+    'step1.h': 'Choose Your Level', 'step1.p': "Tell us if you're an SPM leaver or a pre-university graduate.",
+    'step2.h': 'Pick Your Interests', 'step2.p': 'Select the subjects and activities that excite you.',
+    'step3.h': 'Share Your Goals', 'step3.p': 'Where do you see yourself working?',
+    'step4.h': 'Enter Qualifications', 'step4.p': 'SPM results or CGPA — optional.',
+    'step5.h': 'Get Matched', 'step5.p': 'Our weighted algorithm surfaces the best-fit programmes.',
+    'step6.h': 'Explore & Apply', 'step6.p': 'Full programme details — then apply directly.',
   },
   bm: {
     'nav.startQuiz': 'Mula Kuiz',
     'hero.kicker': 'Universiti Malaysia Terengganu — Pengambilan 2026',
     'hero.title': 'Tidak pasti apa nak belajar? <em>Mari kita cari tahu.</em>',
-    'hero.sub': 'Jawab beberapa soalan tentang kelayakan, minat dan personaliti anda. Kami akan cadangkan program UMT yang paling sesuai untuk anda.',
+    'hero.sub': 'Jawab beberapa soalan tentang kelayakan, minat dan personaliti anda. Kami akan cadangkan program UMT yang paling sesuai.',
     'how.kicker': 'Proses Mudah',
     'how.title': 'Cara ia berfungsi',
     'how.sub': 'Enam langkah — disesuaikan mengikut kelayakan anda.',
@@ -2183,7 +2206,6 @@ const TRANSLATIONS = {
     'retake.title': 'Cuba sendiri',
     'retake.sub': 'Jawapan mengambil ~2 minit. Tiada jawapan salah.',
     'retake.btn': '↺ Mulakan Semula — Pelajar Seterusnya',
-    // dynamic modal labels
     'modal.overview': 'Gambaran Keseluruhan', 'modal.details': 'Maklumat Program',
     'modal.entry': 'Syarat Kemasukan', 'modal.fees': 'Yuran & Biasiswa',
     'modal.careers': 'Laluan Kerjaya', 'modal.contact': 'Hubungi Program',
@@ -2205,12 +2227,12 @@ const TRANSLATIONS = {
     'stream.preuni.desc': 'Kami menunjukkan program ijazah yang boleh anda masuki dengan Asasi, Matrikulasi, atau kelayakan STPM.',
     'calc.label': 'Mencari padanan anda…',
     'calc.sub': 'Menganalisis minat dan kelayakan anda',
-    'step1.h': 'Pilih Tahap Anda', 'step1.p': 'Beritahu kami sama ada anda lepasan SPM atau pra-universiti. Ini menentukan program yang kami tunjukkan.',
-    'step2.h': 'Pilih Minat Anda', 'step2.p': 'Pilih mata pelajaran dan aktiviti yang anda gemari — daripada biologi marin hinggalah pengaturcaraan.',
-    'step3.h': 'Kongsi Matlamat Anda', 'step3.p': 'Di mana anda bayangkan diri bekerja? Lebih banyak data = padanan lebih baik.',
-    'step4.h': 'Masukkan Kelayakan', 'step4.p': 'Keputusan SPM atau CGPA — pilihan tetapi membantu semakan kelayakan untuk setiap program.',
-    'step5.h': 'Dapatkan Padanan', 'step5.p': 'Algoritma kami mencari program paling sesuai berdasarkan aliran, minat, dan keputusan anda.',
-    'step6.h': 'Terokai & Mohon', 'step6.p': 'Butiran penuh program — semester, kerjaya, yuran, syarat kemasukan — kemudian mohon terus.',
+    'step1.h': 'Pilih Tahap Anda', 'step1.p': 'Beritahu kami sama ada anda lepasan SPM atau pra-universiti.',
+    'step2.h': 'Pilih Minat Anda', 'step2.p': 'Pilih mata pelajaran dan aktiviti yang anda gemari.',
+    'step3.h': 'Kongsi Matlamat Anda', 'step3.p': 'Di mana anda bayangkan diri bekerja?',
+    'step4.h': 'Masukkan Kelayakan', 'step4.p': 'Keputusan SPM atau CGPA — pilihan.',
+    'step5.h': 'Dapatkan Padanan', 'step5.p': 'Algoritma kami mencari program paling sesuai.',
+    'step6.h': 'Terokai & Mohon', 'step6.p': 'Butiran penuh program — kemudian mohon terus.',
   }
 };
 
@@ -2218,7 +2240,10 @@ function t(key) {
   return (TRANSLATIONS[currentLang] || TRANSLATIONS.en)[key] || (TRANSLATIONS.en)[key] || key;
 }
 
-let currentLang = localStorage.getItem('umt_lang') || 'en';
+// FIX #9: Safe localStorage for Incognito mode
+let currentLang = (() => {
+  try { return localStorage.getItem('umt_lang') || 'en'; } catch(e) { return 'en'; }
+})();
 
 function applyTranslations() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -2226,13 +2251,13 @@ function applyTranslations() {
     const val = t(key);
     if (val) el.innerHTML = val;
   });
-  // Update html lang attribute
   document.documentElement.lang = currentLang === 'bm' ? 'ms' : 'en';
 }
 
 function setLang(l) {
   currentLang = l;
-  localStorage.setItem('umt_lang', l);
+  // FIX #9: Safe localStorage write
+  try { localStorage.setItem('umt_lang', l); } catch(e) {}
   document.querySelectorAll('.lang-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.lang === l);
   });
@@ -2242,16 +2267,15 @@ function setLang(l) {
   }
 }
 
+// FIX #2: Removed backslash escapes before backtick — was \` which is a syntax error
 function renderStreamBanner() {
   const bannerEl = document.getElementById('stream-banner');
   if (selectedStream === 'highschool') {
-    bannerEl.innerHTML = \`<div class="stream-banner spm"><div><strong>\${t('stream.spm.title')}</strong>\${t('stream.spm.desc')}</div><div><span class="type-badge asasi">Foundation</span> <span class="type-badge diploma">Diploma</span></div></div>\`;
+    bannerEl.innerHTML = `<div class="stream-banner spm"><div><strong>${t('stream.spm.title')}</strong> ${t('stream.spm.desc')}</div><div><span class="type-badge asasi">Foundation</span> <span class="type-badge diploma">Diploma</span></div></div>`;
   } else {
-    bannerEl.innerHTML = \`<div class="stream-banner preuni"><div><strong>\${t('stream.preuni.title')}</strong>\${t('stream.preuni.desc')}</div><div><span class="type-badge degree">Degree</span></div></div>\`;
+    bannerEl.innerHTML = `<div class="stream-banner preuni"><div><strong>${t('stream.preuni.title')}</strong> ${t('stream.preuni.desc')}</div><div><span class="type-badge degree">Degree</span></div></div>`;
   }
 }
-
-
 
 // ============================
 // AI CHAT
@@ -2296,6 +2320,7 @@ function addTyping() {
   m.appendChild(d); m.scrollTop = m.scrollHeight;
 }
 
+// FIX #10: Added AbortController timeout (15s) on fetch
 async function sendChat() {
   const inp = document.getElementById('ai-input');
   const text = inp.value.trim(); if (!text) return;
@@ -2305,20 +2330,31 @@ async function sendChat() {
   chatHistory.push({ role: 'user', content: text });
   addTyping();
   document.getElementById('ai-status').textContent = 'Typing…';
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
+
   try {
     const res = await fetch('/api/chat', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: [{ role: 'system', content: SYSTEM }, ...chatHistory] })
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: [{ role: 'system', content: SYSTEM }, ...chatHistory] }),
+      signal: controller.signal,
     });
+    clearTimeout(timeout);
     const data = await res.json();
     const reply = data.content?.[0]?.text || "Sorry, I couldn't connect. Please contact UMT at +609-633 3333.";
     document.getElementById('typing')?.remove();
     addAIMsg(reply.replace(/\n/g, '<br>'));
     chatHistory.push({ role: 'assistant', content: reply });
     if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
-  } catch {
+  } catch(err) {
+    clearTimeout(timeout);
     document.getElementById('typing')?.remove();
-    addAIMsg("Connection issue. Contact UMT at <strong>+609-633 3333</strong> or <strong>pro@umt.edu.my</strong>.");
+    const msg = err.name === 'AbortError'
+      ? "Response timed out. Contact UMT at <strong>+609-633 3333</strong> or <strong>pro@umt.edu.my</strong>."
+      : "Connection issue. Contact UMT at <strong>+609-633 3333</strong> or <strong>pro@umt.edu.my</strong>.";
+    addAIMsg(msg);
   }
   document.getElementById('ai-status').textContent = 'Online';
 }

@@ -13,1089 +13,391 @@
 <style>
 /* =============================================
    DESIGN TOKENS — UMT Premium 2.0
-   Aesthetic: Refined Maritime Luxury
-   Typeface: Instrument Serif (display) + DM Sans (body)
    ============================================= */
 :root {
-  /* Core palette */
-  --ink: #0A0A0F;
-  --ink-80: rgba(10,10,15,0.8);
-  --ink-40: rgba(10,10,15,0.4);
-  --paper: #F5F2EE;
-  --paper-dark: #EAE6DF;
-
-  /* UMT brand */
-  --umt-navy: #0C1E3A;
-  --umt-navy-light: #1A3460;
-  --umt-crimson: #B01E2C;
-  --umt-gold: #C9922B;
-  --umt-gold-light: #F0C84A;
-  --umt-sea: #1D6FA4;
-  --umt-sea-light: #3D9DC8;
-
-  /* Surfaces */
-  --surface-0: #FFFFFF;
-  --surface-1: #F8F6F3;
-  --surface-2: #F0EDE8;
+  --ink: #0A0A0F; --ink-80: rgba(10,10,15,0.8); --ink-40: rgba(10,10,15,0.4);
+  --paper: #F5F2EE; --paper-dark: #EAE6DF;
+  --umt-navy: #0C1E3A; --umt-navy-light: #1A3460;
+  --umt-crimson: #B01E2C; --umt-gold: #C9922B; --umt-gold-light: #F0C84A;
+  --umt-sea: #1D6FA4; --umt-sea-light: #3D9DC8;
+  --surface-0: #FFFFFF; --surface-1: #F8F6F3; --surface-2: #F0EDE8;
   --surface-border: rgba(10,10,15,0.09);
-
-  /* Text */
-  --text-primary: #0A0A0F;
-  --text-secondary: #4A4A58;
-  --text-tertiary: #8A8A98;
-  --text-inverse: #F5F2EE;
-
-  /* Spacing */
-  --space-xs: 0.5rem;
-  --space-sm: 0.875rem;
-  --space-md: 1.5rem;
-  --space-lg: 2.5rem;
-  --space-xl: 4rem;
-  --space-2xl: 7rem;
-
-  /* Radius */
-  --r-sm: 8px;
-  --r-md: 16px;
-  --r-lg: 24px;
-  --r-xl: 36px;
-  --r-pill: 999px;
-
-  /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(10,10,15,0.07), 0 1px 2px rgba(10,10,15,0.05);
-  --shadow-md: 0 4px 16px rgba(10,10,15,0.08), 0 2px 6px rgba(10,10,15,0.05);
-  --shadow-lg: 0 16px 48px rgba(10,10,15,0.12), 0 4px 16px rgba(10,10,15,0.06);
-  --shadow-xl: 0 32px 80px rgba(10,10,15,0.18), 0 8px 24px rgba(10,10,15,0.08);
-
-  /* Transitions */
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-out: cubic-bezier(0, 0, 0.2, 1);
-  --dur-fast: 160ms;
-  --dur-mid: 280ms;
-  --dur-slow: 500ms;
-}
-
-/* =============================================
-   RESET & BASE
-   ============================================= */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-body {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  background: var(--surface-1);
-  color: var(--text-primary);
-  overflow-x: hidden;
-  line-height: 1.6;
-}
-img { display: block; max-width: 100%; }
-button, a { cursor: pointer; }
-button { font-family: inherit; border: none; background: none; }
-
-/* =============================================
-   TYPOGRAPHY SYSTEM
-   ============================================= */
-.display-xl {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: clamp(3rem, 7vw, 5.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  font-weight: 400;
-}
-.display-lg {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: clamp(2rem, 4.5vw, 3.5rem);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  font-weight: 400;
-}
-.display-md {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  font-weight: 400;
-}
-.label-sm {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-}
-.body-lg { font-size: 1.05rem; line-height: 1.7; color: var(--text-secondary); }
-.body-md { font-size: 0.925rem; line-height: 1.6; color: var(--text-secondary); }
-.body-sm { font-size: 0.8rem; line-height: 1.55; color: var(--text-tertiary); }
-
-/* =============================================
-   NAV
-   ============================================= */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 var(--space-lg);
-  height: 64px;
-  background: rgba(248,246,243,0.85);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border-bottom: 1px solid var(--surface-border);
-}
-.nav-logo {
-  display: flex; align-items: center; gap: 0.75rem; text-decoration: none;
-}
-.nav-logo img { height: 36px; }
-.nav-logo-text {
-  font-family: 'Instrument Serif', serif;
-  font-size: 1rem;
-  color: var(--text-primary);
-  line-height: 1.25;
-  max-width: 140px;
-}
-.nav-right { display: flex; align-items: center; gap: var(--space-sm); }
-.nav-links {
-  display: flex; gap: 0; list-style: none;
-}
-.nav-links a {
-  padding: 0.4rem 0.9rem;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  text-decoration: none;
-  border-radius: var(--r-pill);
-  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
-}
-.nav-links a:hover { color: var(--text-primary); background: var(--surface-border); }
-.lang-toggle {
-  display: flex; gap: 2px; background: var(--surface-2); border-radius: var(--r-pill); padding: 3px;
-}
-.lang-btn {
-  padding: 0.25rem 0.7rem; border-radius: var(--r-pill); font-size: 0.75rem; font-weight: 600;
-  color: var(--text-tertiary); transition: all var(--dur-fast) var(--ease);
-}
-.lang-btn.active { background: var(--surface-0); color: var(--text-primary); box-shadow: var(--shadow-sm); }
-.btn-nav-cta {
-  padding: 0.5rem 1.2rem; border-radius: var(--r-pill);
-  background: var(--umt-navy); color: var(--text-inverse);
-  font-size: 0.85rem; font-weight: 500;
-  transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
-}
-.btn-nav-cta:hover { background: var(--umt-navy-light); transform: translateY(-1px); }
-
-/* =============================================
-   HERO
-   ============================================= */
-.hero {
-  min-height: 100svh;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 7rem var(--space-lg) var(--space-xl);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.hero-bg {
-  position: absolute; inset: 0; z-index: 0;
-  background:
-    radial-gradient(ellipse 70% 60% at 30% 20%, rgba(12,30,58,0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(176,30,44,0.04) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 60% -10%, rgba(201,146,43,0.05) 0%, transparent 70%);
-}
-.hero-texture {
-  position: absolute; inset: 0; z-index: 0; opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230A0A0F' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
-.hero-content { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; }
-.hero-kicker {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.35rem 1rem; border-radius: var(--r-pill);
-  border: 1px solid var(--surface-border);
-  background: var(--surface-0);
-  font-size: 0.78rem; font-weight: 500; color: var(--text-secondary);
-  margin-bottom: 2rem;
-  box-shadow: var(--shadow-sm);
-  animation: fadeUp 0.8s var(--ease) both;
-}
-.hero-kicker-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--umt-gold); box-shadow: 0 0 6px var(--umt-gold);
-}
-.hero-title {
-  animation: fadeUp 0.8s 0.1s var(--ease) both;
-  margin-bottom: 1.5rem;
-  color: var(--text-primary);
-}
-.hero-title em {
-  font-style: italic; color: var(--umt-crimson);
-}
-.hero-subtitle {
-  animation: fadeUp 0.8s 0.2s var(--ease) both;
-  margin-bottom: 2.5rem;
-  max-width: 520px; margin-left: auto; margin-right: auto;
-}
-.hero-actions {
-  display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
-  animation: fadeUp 0.8s 0.3s var(--ease) both;
-  margin-bottom: 3.5rem;
-}
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.875rem 2rem; border-radius: var(--r-pill);
-  background: var(--umt-navy); color: var(--text-inverse);
-  font-size: 0.95rem; font-weight: 500; text-decoration: none;
-  box-shadow: 0 4px 24px rgba(12,30,58,0.25);
-  transition: all var(--dur-mid) var(--ease);
-}
-.btn-primary:hover { background: var(--umt-navy-light); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(12,30,58,0.3); }
-.btn-secondary {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.875rem 1.75rem; border-radius: var(--r-pill);
-  border: 1px solid var(--surface-border); background: var(--surface-0);
-  color: var(--text-primary); font-size: 0.95rem; font-weight: 500; text-decoration: none;
-  box-shadow: var(--shadow-sm);
-  transition: all var(--dur-mid) var(--ease);
-}
-.btn-secondary:hover { border-color: rgba(10,10,15,0.2); box-shadow: var(--shadow-md); transform: translateY(-1px); }
-.hero-stats {
-  display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap;
-  animation: fadeUp 0.8s 0.4s var(--ease) both;
-  padding-top: 2.5rem;
-  border-top: 1px solid var(--surface-border);
-}
-.stat-num {
-  font-family: 'Instrument Serif', serif;
-  font-size: 2rem; color: var(--umt-navy);
-  line-height: 1;
-}
-.stat-label { font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.25rem; }
-
-/* =============================================
-   SECTION LAYOUTS
-   ============================================= */
-.section { padding: var(--space-2xl) var(--space-lg); }
-.section-inner { max-width: 1100px; margin: 0 auto; }
-.section-header { text-align: center; margin-bottom: var(--space-xl); }
-.section-header .label-sm { margin-bottom: 0.75rem; display: block; }
-.divider { height: 1px; background: var(--surface-border); max-width: 1100px; margin: 0 auto; }
-
-/* =============================================
-   HOW IT WORKS
-   ============================================= */
-.how { background: var(--surface-0); }
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-}
-.step-card {
-  padding: 1.5rem;
-  border: 1px solid var(--surface-border);
-  border-radius: var(--r-lg);
-  background: var(--surface-1);
-  transition: border-color var(--dur-mid) var(--ease), box-shadow var(--dur-mid) var(--ease);
-}
-.step-card:hover { border-color: rgba(10,10,15,0.15); box-shadow: var(--shadow-sm); }
-.step-num {
-  width: 40px; height: 40px; border-radius: var(--r-md);
-  background: var(--umt-navy); color: var(--text-inverse);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Instrument Serif', serif; font-size: 1.1rem;
-  margin-bottom: 1rem;
-}
-.step-h { font-family: 'Instrument Serif', serif; font-size: 1rem; margin-bottom: 0.4rem; }
-
-/* =============================================
-   QUIZ SECTION
-   ============================================= */
-.quiz-section { background: var(--surface-1); }
-.quiz-shell {
-  max-width: 700px; margin: 0 auto;
-  background: var(--surface-0);
-  border: 1px solid var(--surface-border);
-  border-radius: var(--r-xl);
-  box-shadow: var(--shadow-lg);
-  overflow: hidden;
-}
-.quiz-shell-header {
-  padding: var(--space-lg) var(--space-lg) var(--space-md);
-  border-bottom: 1px solid var(--surface-border);
-  background: var(--umt-navy);
-  color: var(--text-inverse);
-}
-.quiz-shell-header .label-sm { color: rgba(245,242,238,0.5); }
-.quiz-shell-header .display-md { color: var(--text-inverse); margin-top: 0.4rem; }
-.quiz-progress-track {
-  height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px;
-  margin-top: var(--space-md); overflow: hidden;
-}
-.quiz-progress-fill {
-  height: 100%; background: var(--umt-gold-light);
-  border-radius: 2px; transition: width 0.5s var(--ease);
-  width: 0%;
-}
-.quiz-body { padding: var(--space-lg); }
-
-.quiz-step { display: none; animation: fadeUp 0.35s var(--ease); }
-.quiz-step.active { display: block; }
-
-.quiz-q { font-family: 'Instrument Serif', serif; font-size: 1.35rem; margin-bottom: 0.4rem; }
-.quiz-hint { font-size: 0.82rem; color: var(--text-tertiary); margin-bottom: 1.75rem; }
-
-/* Stream selector — special first step */
-.stream-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.stream-card {
-  padding: 1.5rem; border-radius: var(--r-lg); cursor: pointer;
-  border: 2px solid var(--surface-border);
-  background: var(--surface-1);
-  transition: all var(--dur-mid) var(--ease);
-  text-align: left;
-}
-.stream-card:hover { border-color: rgba(10,10,15,0.25); box-shadow: var(--shadow-md); transform: translateY(-2px); }
-.stream-card.selected { border-color: var(--umt-navy); background: rgba(12,30,58,0.04); }
-.stream-icon {
-  width: 44px; height: 44px; border-radius: var(--r-md);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 1rem; font-size: 1.3rem;
-}
-.stream-icon.navy { background: rgba(12,30,58,0.08); }
-.stream-icon.gold { background: rgba(201,146,43,0.1); }
-.stream-card-title { font-family: 'Instrument Serif', serif; font-size: 1.05rem; margin-bottom: 0.3rem; }
-.stream-card-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; }
-
-/* Option grid */
-.opts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); gap: 0.65rem; }
-.opt {
-  display: flex; align-items: center; gap: 0.65rem;
-  padding: 0.8rem 1rem; border-radius: var(--r-md);
-  border: 1.5px solid var(--surface-border);
-  background: var(--surface-1); cursor: pointer;
-  transition: all var(--dur-fast) var(--ease);
-  user-select: none;
-}
-.opt:hover { border-color: rgba(10,10,15,0.2); background: var(--surface-0); }
-.opt.selected { border-color: var(--umt-navy); background: rgba(12,30,58,0.05); }
-.opt-icon { width: 28px; height: 28px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-.opt-icon svg { width: 18px; height: 18px; stroke: var(--text-tertiary); transition: stroke var(--dur-fast) var(--ease); }
-.opt.selected .opt-icon svg { stroke: var(--umt-navy); }
-.opt-label { font-size: 0.85rem; font-weight: 500; flex: 1; }
-.opt-check {
-  width: 18px; height: 18px; border-radius: 50%;
-  border: 1.5px solid var(--surface-border); flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  transition: all var(--dur-fast) var(--ease);
-}
-.opt.selected .opt-check { background: var(--umt-navy); border-color: var(--umt-navy); }
-.opt.selected .opt-check::after { content: ''; width: 5px; height: 5px; border-radius: 50%; background: white; }
-
-/* SPM inputs */
-.spm-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
-.field-group { display: flex; flex-direction: column; gap: 0.4rem; }
-.field-label { font-size: 0.75rem; font-weight: 600; color: var(--text-tertiary); letter-spacing: 0.06em; text-transform: uppercase; }
-.field-select {
-  padding: 0.7rem 1rem; border-radius: var(--r-md);
-  border: 1.5px solid var(--surface-border); background: var(--surface-1);
-  color: var(--text-primary); font-family: inherit; font-size: 0.9rem;
-  transition: border-color var(--dur-fast) var(--ease);
-  appearance: none; -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%234A4A58' stroke-width='1.8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: calc(100% - 12px) center;
-  padding-right: 2rem;
-}
-.field-select:focus { outline: none; border-color: var(--umt-navy); }
-.spm-subj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.5rem; margin-top: 0.75rem; }
-.spm-subj {
-  display: flex; align-items: center; gap: 0.5rem;
-  padding: 0.55rem 0.85rem; border-radius: var(--r-sm);
-  border: 1.5px solid var(--surface-border); background: var(--surface-1);
-  cursor: pointer; font-size: 0.8rem; font-weight: 500;
-  transition: all var(--dur-fast) var(--ease); user-select: none;
-}
-.spm-subj:hover { border-color: rgba(10,10,15,0.2); }
-.spm-subj.selected { border-color: var(--umt-navy); background: rgba(12,30,58,0.05); }
-.spm-chk {
-  width: 14px; height: 14px; border-radius: 3px;
-  border: 1.5px solid var(--surface-border); flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  transition: all var(--dur-fast) var(--ease);
-}
-.spm-subj.selected .spm-chk { background: var(--umt-navy); border-color: var(--umt-navy); }
-.spm-subj.selected .spm-chk::after { content: '✓'; color: white; font-size: 0.6rem; }
-.spm-note {
-  margin-top: 1rem; padding: 0.85rem 1rem; border-radius: var(--r-md);
-  background: rgba(201,146,43,0.06); border: 1px solid rgba(201,146,43,0.2);
-  font-size: 0.82rem; color: #7A5A1E;
-}
-
-/* Info callout for stream routing */
-.stream-route-info {
-  padding: 1rem 1.25rem; border-radius: var(--r-md);
-  margin-bottom: 1.5rem;
-  display: flex; align-items: flex-start; gap: 0.75rem;
-}
-.stream-route-info.spm { background: rgba(176,30,44,0.05); border: 1px solid rgba(176,30,44,0.15); }
-.stream-route-info.preuni { background: rgba(12,30,58,0.05); border: 1px solid rgba(12,30,58,0.15); }
-.stream-route-icon { flex-shrink: 0; margin-top: 1px; }
-.stream-route-text { font-size: 0.85rem; line-height: 1.55; }
-.stream-route-text strong { display: block; font-weight: 600; margin-bottom: 0.15rem; }
-
-/* Nav row */
-.quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; gap: 1rem; flex-wrap: wrap; }
-.quiz-step-label { font-size: 0.8rem; color: var(--text-tertiary); }
-.btn-quiz {
-  padding: 0.7rem 1.75rem; border-radius: var(--r-pill);
-  font-size: 0.9rem; font-weight: 500;
-  transition: all var(--dur-fast) var(--ease);
-}
-.btn-quiz-next { background: var(--umt-navy); color: var(--text-inverse); }
-.btn-quiz-next:hover { background: var(--umt-navy-light); transform: translateY(-1px); }
-.btn-quiz-back {
-  background: transparent; border: 1.5px solid var(--surface-border);
-  color: var(--text-secondary);
-}
-.btn-quiz-back:hover { border-color: rgba(10,10,15,0.2); color: var(--text-primary); }
-.btn-quiz-submit { background: var(--umt-crimson); color: var(--text-inverse); }
-.btn-quiz-submit:hover { background: #8E1622; transform: translateY(-1px); }
-
-/* =============================================
-   CALCULATING OVERLAY
-   ============================================= */
-#calc-overlay {
-  display: none; position: fixed; inset: 0; z-index: 500;
-  background: rgba(248,246,243,0.92); backdrop-filter: blur(20px);
-  align-items: center; justify-content: center; flex-direction: column; gap: 1.5rem;
-}
-#calc-overlay.show { display: flex; }
-.calc-spinner {
-  width: 48px; height: 48px; border-radius: 50%;
-  border: 2px solid var(--surface-border);
-  border-top: 2px solid var(--umt-navy);
-  animation: spin 0.9s linear infinite;
-}
-.calc-label { font-family: 'Instrument Serif', serif; font-size: 1.4rem; }
-.calc-sub { font-size: 0.85rem; color: var(--text-tertiary); }
-
-/* =============================================
-   RESULTS
-   ============================================= */
-#results { display: none; background: var(--surface-1); padding: var(--space-2xl) var(--space-lg); }
-.results-inner { max-width: 1140px; margin: 0 auto; }
-.results-header { text-align: center; margin-bottom: var(--space-xl); }
-.results-kicker {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  padding: 0.3rem 0.9rem; border-radius: var(--r-pill);
-  background: rgba(201,146,43,0.1); border: 1px solid rgba(201,146,43,0.25);
-  font-size: 0.75rem; font-weight: 600; color: #7A5A1E;
-  margin-bottom: 1rem;
-}
-
-/* Type badge */
-.type-badge {
-  display: inline-flex; align-items: center; gap: 0.35rem;
-  padding: 0.2rem 0.65rem; border-radius: var(--r-pill);
-  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
-}
-.type-badge.asasi { background: rgba(12,30,58,0.08); color: var(--umt-navy); }
-.type-badge.diploma { background: rgba(29,111,164,0.1); color: var(--umt-sea); }
-.type-badge.degree { background: rgba(176,30,44,0.08); color: var(--umt-crimson); }
-
-/* Stream banner */
-.stream-banner {
-  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
-  padding: 1rem 1.5rem; border-radius: var(--r-lg);
-  margin-bottom: var(--space-lg);
-}
-.stream-banner.spm { background: rgba(176,30,44,0.05); border: 1px solid rgba(176,30,44,0.15); }
-.stream-banner.preuni { background: rgba(12,30,58,0.05); border: 1px solid rgba(12,30,58,0.15); }
-.stream-banner-text { flex: 1; font-size: 0.88rem; color: var(--text-secondary); }
-.stream-banner-text strong { display: block; font-size: 0.95rem; color: var(--text-primary); margin-bottom: 0.2rem; }
-
-/* Toolbar */
-.results-toolbar {
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
-  gap: 0.75rem; margin-bottom: 1.5rem;
-}
-.filter-group { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-.filter-btn {
-  padding: 0.4rem 1rem; border-radius: var(--r-pill);
-  border: 1.5px solid var(--surface-border); background: var(--surface-0);
-  font-size: 0.8rem; font-weight: 500; color: var(--text-secondary);
-  transition: all var(--dur-fast) var(--ease);
-}
-.filter-btn:hover { border-color: rgba(10,10,15,0.2); color: var(--text-primary); }
-.filter-btn.active { background: var(--umt-navy); border-color: var(--umt-navy); color: var(--text-inverse); }
-.share-btn {
-  display: flex; align-items: center; gap: 0.4rem;
-  padding: 0.4rem 1rem; border-radius: var(--r-pill);
-  border: 1.5px solid rgba(34,197,94,0.3); background: rgba(34,197,94,0.06);
-  font-size: 0.8rem; font-weight: 500; color: #166534;
-  transition: all var(--dur-fast) var(--ease);
-}
-.share-btn:hover { background: rgba(34,197,94,0.12); }
-
-/* Compare bar */
-.compare-bar {
-  display: none; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-  padding: 0.85rem 1.25rem; border-radius: var(--r-md);
-  background: rgba(201,146,43,0.07); border: 1px solid rgba(201,146,43,0.25);
-  margin-bottom: 1.25rem;
-}
-.compare-bar.show { display: flex; }
-.compare-bar-text { font-size: 0.85rem; color: #7A5A1E; }
-.btn-compare-now {
-  padding: 0.4rem 1.1rem; border-radius: var(--r-pill);
-  background: var(--umt-gold); color: #0A0A0F;
-  font-size: 0.82rem; font-weight: 700;
-  transition: opacity var(--dur-fast) var(--ease);
-}
-.btn-compare-now:disabled { opacity: 0.4; cursor: not-allowed; }
-.btn-compare-now:not(:disabled):hover { opacity: 0.88; }
-
-/* Courses grid */
-.courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1.25rem; }
-
-/* Course card */
-.course-card {
-  background: var(--surface-0);
-  border: 1px solid var(--surface-border);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  transition: all var(--dur-mid) var(--ease);
-  display: flex; flex-direction: column;
-}
-.course-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); border-color: rgba(10,10,15,0.12); }
-.course-card.compare-selected { border-color: var(--umt-gold); box-shadow: 0 0 0 2px rgba(201,146,43,0.25); }
-.course-card-accent { height: 3px; }
-.course-card-accent.IT { background: linear-gradient(90deg, var(--umt-sea), var(--umt-sea-light)); }
-.course-card-accent.Marine { background: linear-gradient(90deg, #0E7490, #22D3EE); }
-.course-card-accent.Engineering { background: linear-gradient(90deg, #7C3AED, #A78BFA); }
-.course-card-accent.Business { background: linear-gradient(90deg, var(--umt-crimson), #F87171); }
-.course-card-accent.Maritime { background: linear-gradient(90deg, var(--umt-navy), #3B82F6); }
-.course-card-accent.Foundation { background: linear-gradient(90deg, var(--umt-gold), var(--umt-gold-light)); }
-.course-card-accent.Diploma { background: linear-gradient(90deg, var(--umt-sea), #34D399); }
-
-.course-card-top { padding: 1.25rem 1.25rem 1rem; border-bottom: 1px solid var(--surface-border); flex: 1; }
-.course-card-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
-.course-faculty { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); }
-.match-score {
-  font-size: 0.7rem; font-weight: 700;
-  padding: 0.15rem 0.55rem; border-radius: var(--r-pill);
-  background: rgba(12,30,58,0.07); color: var(--umt-navy);
-}
-.course-name { font-family: 'Instrument Serif', serif; font-size: 1rem; line-height: 1.35; margin-bottom: 0.75rem; }
-.course-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
-.tag {
-  font-size: 0.68rem; font-weight: 500; padding: 0.15rem 0.55rem;
-  border-radius: var(--r-pill); border: 1px solid var(--surface-border);
-  color: var(--text-secondary); background: var(--surface-1);
-}
-
-.course-card-bottom { padding: 0.9rem 1.25rem; }
-.course-info-row {
-  display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.85rem;
-}
-.info-chip {
-  display: flex; align-items: center; gap: 0.3rem;
-  font-size: 0.75rem; color: var(--text-tertiary);
-}
-.info-chip svg { width: 12px; height: 12px; flex-shrink: 0; }
-
-.card-actions { display: flex; gap: 0.5rem; }
-.btn-card-detail {
-  flex: 1; padding: 0.55rem 1rem; border-radius: var(--r-sm);
-  border: 1.5px solid var(--surface-border); background: var(--surface-1);
-  font-size: 0.82rem; font-weight: 500; color: var(--text-primary);
-  transition: all var(--dur-fast) var(--ease);
-  display: flex; align-items: center; justify-content: center; gap: 0.25rem;
-}
-.btn-card-detail:hover { border-color: rgba(10,10,15,0.2); background: var(--surface-0); }
-.btn-card-wa {
-  padding: 0.55rem 0.8rem; border-radius: var(--r-sm);
-  border: 1.5px solid rgba(34,197,94,0.3); background: rgba(34,197,94,0.06);
-  font-size: 0.8rem; font-weight: 500; color: #166534;
-  display: flex; align-items: center; gap: 0.3rem; text-decoration: none;
-  transition: all var(--dur-fast) var(--ease);
-}
-.btn-card-wa:hover { background: rgba(34,197,94,0.12); }
-.btn-card-compare {
-  padding: 0.55rem 0.75rem; border-radius: var(--r-sm);
-  border: 1.5px solid rgba(201,146,43,0.3); background: rgba(201,146,43,0.06);
-  font-size: 0.78rem; font-weight: 500; color: #7A5A1E;
-  white-space: nowrap;
-  transition: all var(--dur-fast) var(--ease);
-}
-.btn-card-compare:hover { background: rgba(201,146,43,0.12); }
-.btn-card-compare.added { background: rgba(201,146,43,0.2); border-color: var(--umt-gold); }
-
-.retake-wrap { text-align: center; margin-top: var(--space-lg); }
-.btn-retake {
-  padding: 0.7rem 2rem; border-radius: var(--r-pill);
-  border: 1.5px solid var(--surface-border); background: transparent;
-  font-size: 0.9rem; color: var(--text-secondary);
-  transition: all var(--dur-fast) var(--ease);
-}
-.btn-retake:hover { border-color: rgba(10,10,15,0.2); color: var(--text-primary); }
-
-/* =============================================
-   MODAL
-   ============================================= */
-.modal-overlay {
-  display: none; position: fixed; inset: 0; z-index: 300;
-  background: rgba(10,10,15,0.4); backdrop-filter: blur(8px);
-  align-items: center; justify-content: center; padding: 1rem;
-}
-.modal-overlay.open { display: flex; }
-.modal {
-  background: var(--surface-0); border: 1px solid var(--surface-border);
-  border-radius: var(--r-xl); max-width: 680px; width: 100%;
-  max-height: 92vh; overflow-y: auto;
-  animation: scaleIn 0.25s var(--ease);
-  box-shadow: var(--shadow-xl);
-}
-.modal::-webkit-scrollbar { width: 4px; }
-.modal::-webkit-scrollbar-thumb { background: var(--surface-border); border-radius: 4px; }
-.modal-header {
-  padding: 1.75rem 2rem 1.25rem; position: sticky; top: 0;
-  background: var(--surface-0); z-index: 1;
-  border-bottom: 1px solid var(--surface-border);
-  display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
-}
-.modal-close {
-  width: 32px; height: 32px; border-radius: 50%;
-  border: 1px solid var(--surface-border); background: var(--surface-1);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.85rem; color: var(--text-secondary); flex-shrink: 0;
-  transition: all var(--dur-fast) var(--ease);
-}
-.modal-close:hover { background: var(--surface-2); color: var(--text-primary); }
-.modal-body { padding: 1.75rem 2rem; }
-.modal-section { margin-bottom: 1.75rem; }
-.modal-section-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--umt-gold); margin-bottom: 0.85rem; display: block; }
-.modal-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-.info-box { padding: 0.85rem 1rem; border-radius: var(--r-md); border: 1px solid var(--surface-border); background: var(--surface-1); }
-.info-box-label { font-size: 0.7rem; color: var(--text-tertiary); margin-bottom: 0.2rem; }
-.info-box-value { font-family: 'Instrument Serif', serif; font-size: 1rem; }
-.info-box-value.accent { color: var(--umt-navy); }
-.info-box-value.green { color: #166534; }
-.career-grid { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-.career-pill {
-  padding: 0.25rem 0.8rem; border-radius: var(--r-pill);
-  background: rgba(176,30,44,0.07); border: 1px solid rgba(176,30,44,0.15);
-  color: var(--umt-crimson); font-size: 0.78rem;
-}
-.sem-list { display: flex; flex-direction: column; gap: 0.5rem; }
-.sem-item {
-  display: flex; align-items: flex-start; gap: 0.85rem;
-  padding: 0.75rem 1rem; border-radius: var(--r-md);
-  border: 1px solid var(--surface-border); background: var(--surface-1);
-}
-.sem-num {
-  width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
-  background: var(--umt-navy); color: white;
-  display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 700;
-}
-.sem-title { font-size: 0.88rem; font-weight: 500; }
-.sem-desc { font-size: 0.78rem; color: var(--text-tertiary); }
-.entry-type-box {
-  padding: 0.85rem 1rem; border-radius: var(--r-md);
-  border: 1px solid var(--surface-border); background: var(--surface-1);
-  margin-bottom: 0.5rem;
-}
-.entry-qual-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 0.3rem; }
-.entry-qual-val { font-size: 0.875rem; color: var(--text-primary); }
-.modal-footer {
-  padding: 1.25rem 2rem; border-top: 1px solid var(--surface-border);
-  display: flex; gap: 0.65rem; flex-wrap: wrap;
-}
-.btn-modal-primary {
-  flex: 1; padding: 0.75rem; border-radius: var(--r-md); text-align: center;
-  background: var(--umt-navy); color: var(--text-inverse);
-  font-size: 0.9rem; font-weight: 500; text-decoration: none;
-  display: flex; align-items: center; justify-content: center; gap: 0.35rem;
-  transition: all var(--dur-fast) var(--ease);
-}
-.btn-modal-primary:hover { background: var(--umt-navy-light); }
-.btn-modal-wa {
-  padding: 0.75rem 1.1rem; border-radius: var(--r-md);
-  border: 1.5px solid rgba(34,197,94,0.3); background: rgba(34,197,94,0.06);
-  color: #166534; font-size: 0.88rem; font-weight: 500; text-decoration: none;
-  display: flex; align-items: center; gap: 0.4rem;
-  transition: all var(--dur-fast) var(--ease);
-}
-.btn-modal-wa:hover { background: rgba(34,197,94,0.12); }
-.btn-modal-sec {
-  padding: 0.75rem 1.1rem; border-radius: var(--r-md);
-  border: 1.5px solid var(--surface-border); background: var(--surface-1);
-  color: var(--text-primary); font-size: 0.88rem; text-decoration: none;
-  display: flex; align-items: center; gap: 0.35rem;
-  transition: all var(--dur-fast) var(--ease);
-}
-.btn-modal-sec:hover { border-color: rgba(10,10,15,0.2); }
-
-
-/* =============================================
-   STEM TRACKS
-   ============================================= */
-.tracks-note { font-size: 0.8rem; color: var(--text-secondary); margin: 0.5rem 0 0.85rem; line-height: 1.5; }
-.tracks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
-@media (max-width: 600px) { .tracks-grid { grid-template-columns: 1fr; } }
-.track-card { border: 1.5px solid var(--surface-border); border-radius: var(--r-md); overflow: hidden; background: var(--surface-1); }
-.track-label { color: white; font-size: 0.78rem; font-weight: 700; padding: 0.45rem 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; }
-.track-desc { font-size: 0.78rem; color: var(--text-secondary); padding: 0.6rem 0.85rem 0.3rem; line-height: 1.5; }
-.track-req { font-size: 0.76rem; color: var(--text-primary); padding: 0 0.85rem 0.75rem; line-height: 1.55; font-weight: 500; }
-.req-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.4rem; }
-.req-pill { padding: 0.3rem 0.75rem; border-radius: var(--r-pill); border: 1px solid var(--surface-border); background: var(--surface-0); font-size: 0.77rem; color: var(--text-primary); }
-/* =============================================
-   CAMPUS SECTION
-   ============================================= */
-.campus { background: var(--surface-0); }
-.campus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: start; }
-.campus-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1.5rem; }
-.campus-stat-box { padding: 1.25rem; border-radius: var(--r-md); border: 1px solid var(--surface-border); text-align: center; }
-.campus-stat-val { font-family: 'Instrument Serif', serif; font-size: 1.6rem; color: var(--umt-navy); }
-.campus-stat-lbl { font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.15rem; }
-.feat-list { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.5rem; }
-.feat-item {
-  display: flex; align-items: flex-start; gap: 0.85rem;
-  padding: 1rem 1.1rem; border-radius: var(--r-md);
-  border: 1px solid var(--surface-border); background: var(--surface-1);
-}
-.feat-icon-box {
-  width: 38px; height: 38px; border-radius: var(--r-sm); flex-shrink: 0;
-  border: 1px solid var(--surface-border); background: var(--surface-0);
-  display: flex; align-items: center; justify-content: center;
-}
-.feat-icon-box svg { width: 18px; height: 18px; stroke: var(--umt-navy); }
-.feat-h { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.2rem; }
-.feat-p { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; }
-.wa-link {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.65rem 1.4rem; border-radius: var(--r-pill); margin-top: 1.25rem;
-  border: 1.5px solid rgba(34,197,94,0.35); background: rgba(34,197,94,0.06);
-  color: #166534; font-size: 0.88rem; font-weight: 600; text-decoration: none;
-  transition: all var(--dur-fast) var(--ease);
-}
-.wa-link:hover { background: rgba(34,197,94,0.14); }
-
-/* =============================================
-   FOOTER
-   ============================================= */
-footer {
-  background: var(--umt-navy); color: var(--text-inverse);
-  padding: var(--space-xl) var(--space-lg) var(--space-lg);
-}
-.footer-inner { max-width: 1100px; margin: 0 auto; }
-.footer-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 2rem; margin-bottom: var(--space-lg); padding-bottom: var(--space-lg); border-bottom: 1px solid rgba(255,255,255,0.1); }
-.footer-logo img { height: 40px; filter: brightness(1.2); }
-.footer-logo-txt { font-family: 'Instrument Serif', serif; font-size: 1.1rem; color: var(--text-inverse); margin-top: 0.5rem; }
-.footer-links { display: flex; gap: var(--space-lg); flex-wrap: wrap; }
-.footer-links a { color: rgba(245,242,238,0.6); text-decoration: none; font-size: 0.85rem; transition: color var(--dur-fast) var(--ease); }
-.footer-links a:hover { color: var(--text-inverse); }
-.footer-socmed { display: flex; gap: 0.5rem; }
-.socmed-btn {
-  width: 36px; height: 36px; border-radius: var(--r-sm);
-  border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06);
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(245,242,238,0.6); text-decoration: none;
-  transition: all var(--dur-fast) var(--ease);
-}
-.socmed-btn:hover { background: rgba(255,255,255,0.12); color: var(--text-inverse); transform: translateY(-1px); }
-.footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-.footer-copy { font-size: 0.78rem; color: rgba(245,242,238,0.4); }
-
-/* =============================================
-   AI CHAT
-   ============================================= */
-.ai-fab {
-  position: fixed; bottom: 1.75rem; right: 1.75rem; z-index: 400;
-  width: 56px; height: 56px; border-radius: 50%;
-  background: var(--umt-navy);
-  box-shadow: var(--shadow-lg);
-  display: flex; align-items: center; justify-content: center;
-  transition: all var(--dur-mid) var(--ease);
-  border: none;
-  animation: fadeUp 0.8s 1s var(--ease) both;
-}
-.ai-fab:hover { transform: scale(1.08); box-shadow: var(--shadow-xl); background: var(--umt-navy-light); }
-.ai-fab svg { width: 24px; height: 24px; }
-.ai-fab-badge {
-  position: absolute; top: -3px; right: -3px;
-  width: 18px; height: 18px; border-radius: 50%;
-  background: var(--umt-gold); color: #000;
-  font-size: 0.58rem; font-weight: 800;
-  display: flex; align-items: center; justify-content: center;
-  border: 2px solid var(--surface-1);
-}
-.ai-panel {
-  position: fixed; bottom: 5.5rem; right: 1.75rem; z-index: 399;
-  width: 360px; max-height: 520px;
-  background: var(--surface-0);
-  border: 1px solid var(--surface-border);
-  border-radius: var(--r-xl);
-  display: none; flex-direction: column;
-  box-shadow: var(--shadow-xl);
-  overflow: hidden;
-}
-.ai-panel.open { display: flex; animation: scaleIn 0.22s var(--ease); }
-.ai-panel-header {
-  padding: 1rem 1.25rem; border-bottom: 1px solid var(--surface-border);
-  display: flex; align-items: center; gap: 0.75rem;
-  background: var(--umt-navy);
-}
-.ai-avatar {
-  width: 34px; height: 34px; border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-.ai-name { font-size: 0.9rem; font-weight: 600; color: white; }
-.ai-status { font-size: 0.7rem; color: rgba(255,255,255,0.6); display: flex; align-items: center; gap: 0.3rem; }
-.ai-status::before { content:''; width: 5px; height: 5px; border-radius: 50%; background: #4ADE80; flex-shrink: 0; }
-.ai-close-btn {
-  margin-left: auto; width: 28px; height: 28px; border-radius: 50%;
-  background: rgba(255,255,255,0.1); color: white; font-size: 0.85rem;
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  transition: background var(--dur-fast);
-}
-.ai-close-btn:hover { background: rgba(255,255,255,0.18); }
-.ai-messages { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
-.ai-messages::-webkit-scrollbar { width: 3px; }
-.ai-messages::-webkit-scrollbar-thumb { background: var(--surface-border); }
-.chat-msg { display: flex; gap: 0.5rem; align-items: flex-start; animation: fadeUp 0.25s var(--ease); }
-.chat-msg.user { flex-direction: row-reverse; }
-.chat-bubble { max-width: 80%; padding: 0.65rem 0.9rem; border-radius: 14px; font-size: 0.83rem; line-height: 1.55; }
-.chat-msg.ai .chat-bubble { background: var(--surface-1); border: 1px solid var(--surface-border); border-bottom-left-radius: 4px; }
-.chat-msg.user .chat-bubble { background: var(--umt-navy); color: white; border-bottom-right-radius: 4px; }
-.chat-avtr { width: 26px; height: 26px; border-radius: 50%; background: var(--surface-2); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0; }
-.chat-typing { display: flex; gap: 3px; align-items: center; padding: 0.4rem 0.6rem; }
-.chat-typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--text-tertiary); animation: typing 1.2s infinite; }
-.chat-typing span:nth-child(2) { animation-delay: 0.2s; }
-.chat-typing span:nth-child(3) { animation-delay: 0.4s; }
-.ai-suggestions { display: flex; gap: 0.4rem; padding: 0.65rem 1rem; flex-wrap: wrap; border-top: 1px solid var(--surface-border); }
-.ai-sug {
-  padding: 0.3rem 0.75rem; border-radius: var(--r-pill);
-  border: 1px solid var(--surface-border); background: var(--surface-1);
-  font-size: 0.73rem; font-weight: 500; color: var(--text-secondary);
-  cursor: pointer; transition: all var(--dur-fast) var(--ease); white-space: nowrap;
-}
-.ai-sug:hover { border-color: rgba(10,10,15,0.2); color: var(--text-primary); }
-.ai-input-row { display: flex; gap: 0.5rem; padding: 0.85rem 1rem; border-top: 1px solid var(--surface-border); }
-.ai-input {
-  flex: 1; padding: 0.55rem 0.9rem; border-radius: var(--r-pill);
-  border: 1.5px solid var(--surface-border); background: var(--surface-1);
-  font-family: inherit; font-size: 0.83rem; color: var(--text-primary);
-  transition: border-color var(--dur-fast) var(--ease);
-}
-.ai-input:focus { outline: none; border-color: var(--umt-navy); }
-.ai-send {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: var(--umt-navy); color: white; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  transition: opacity var(--dur-fast) var(--ease);
-}
-.ai-send:hover { opacity: 0.85; }
-.ai-send svg { width: 14px; height: 14px; }
-.ai-disclaimer { font-size: 0.65rem; color: var(--text-tertiary); text-align: center; padding: 0 1rem 0.7rem; }
-
-/* =============================================
-   TOAST
-   ============================================= */
-.toast {
-  position: fixed; bottom: 1.75rem; left: 50%;
-  transform: translateX(-50%) translateY(80px);
-  background: var(--text-primary); color: var(--text-inverse);
-  padding: 0.65rem 1.5rem; border-radius: var(--r-pill);
-  font-size: 0.85rem; font-weight: 500; z-index: 999;
-  transition: transform 0.3s var(--ease); pointer-events: none;
-}
-.toast.show { transform: translateX(-50%) translateY(0); }
-
-/* =============================================
-   ANIMATIONS
-   ============================================= */
-@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-@keyframes spin { to { transform: rotate(360deg); } }
-@keyframes typing { 0%,60%,100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-4px); opacity: 1; } }
-
-/* =============================================
-   RESPONSIVE
-   ============================================= */
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-  .campus-grid { grid-template-columns: 1fr; }
-  .modal-grid-2 { grid-template-columns: 1fr; }
-  .modal-footer { flex-direction: column; }
-  .stream-cards { grid-template-columns: 1fr; }
-  .opts-grid { grid-template-columns: 1fr 1fr; }
-  .spm-grid-2 { grid-template-columns: 1fr; }
-  .hero-stats { gap: 1.5rem; }
-  .ai-panel { width: calc(100vw - 2rem); right: 1rem; }
-  .results-toolbar { flex-direction: column; align-items: flex-start; }
-  .footer-top { flex-direction: column; }
-}
-@media (max-width: 480px) {
-  .opts-grid { grid-template-columns: 1fr; }
-  .courses-grid { grid-template-columns: 1fr; }
-  .card-actions { flex-direction: column; }
-  :root { --space-lg: 1.25rem; }
-}
-
-/* =============================================
-   TOP MATCH HERO CARD
-   ============================================= */
-#top-match-hero {
-  margin-bottom: var(--space-lg);
-  animation: fadeUp 0.5s var(--ease) both;
-}
-.top-match-inner {
-  background: var(--umt-navy);
-  border-radius: var(--r-xl);
-  padding: 2rem 2.5rem;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-.top-match-inner::before {
-  content: '';
-  position: absolute;
-  top: -60px; right: -60px;
-  width: 240px; height: 240px;
-  border-radius: 50%;
-  background: rgba(201,146,43,0.08);
-  pointer-events: none;
-}
-.top-match-left { flex: 1; min-width: 0; }
-.top-match-kicker {
-  display: flex; align-items: center; gap: 0.4rem;
-  font-size: 0.75rem; font-weight: 600;
-  color: var(--umt-gold); letter-spacing: 0.06em;
-  text-transform: uppercase; margin-bottom: 0.65rem;
-}
-.top-match-star { font-size: 0.85rem; }
-.top-match-name {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  color: var(--text-inverse);
-  line-height: 1.15;
-  margin-bottom: 0.65rem;
-}
-.top-match-meta {
-  display: flex; align-items: center; gap: 0.65rem;
-  margin-bottom: 0.85rem; flex-wrap: wrap;
-}
-.top-match-faculty {
-  font-size: 0.78rem; color: rgba(245,242,238,0.5);
-}
-.top-match-desc {
-  font-size: 0.875rem; color: rgba(245,242,238,0.65);
-  line-height: 1.6; margin-bottom: 1.25rem;
-  max-width: 480px;
-}
-.top-match-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-.btn-top-detail {
-  padding: 0.65rem 1.5rem;
-  border-radius: var(--r-pill);
-  background: var(--text-inverse);
-  color: var(--umt-navy);
-  font-size: 0.875rem; font-weight: 600;
-  border: none; cursor: pointer;
-  transition: all var(--dur-fast) var(--ease);
-}
-.btn-top-detail:hover { background: var(--paper-dark); transform: translateY(-1px); }
-.btn-top-wa {
-  padding: 0.65rem 1.25rem;
-  border-radius: var(--r-pill);
-  border: 1.5px solid rgba(245,242,238,0.18);
-  background: transparent;
-  color: rgba(245,242,238,0.75);
-  font-size: 0.85rem; font-weight: 500;
-  text-decoration: none;
-  display: flex; align-items: center; gap: 0.4rem;
-  transition: all var(--dur-fast) var(--ease);
-}
-.btn-top-wa:hover { border-color: rgba(245,242,238,0.4); color: var(--text-inverse); }
-.top-match-right {
-  display: flex; flex-direction: column;
-  align-items: center; gap: 0.5rem; flex-shrink: 0;
-}
-.top-match-score-ring { position: relative; width: 80px; height: 80px; }
-.top-match-score-num {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Instrument Serif', serif;
-  font-size: 1.5rem; color: var(--text-inverse); font-weight: 400;
-}
-.top-match-score-label {
-  font-size: 0.7rem; color: rgba(245,242,238,0.45);
-  letter-spacing: 0.05em; text-transform: uppercase;
-}
-.top-match-pills {
-  display: flex; flex-direction: column; align-items: center;
-  gap: 0.35rem; margin-top: 0.4rem;
-}
-.top-match-pill {
-  font-size: 0.7rem; color: rgba(245,242,238,0.55);
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 0.2rem 0.65rem; border-radius: var(--r-pill);
-  white-space: nowrap;
-}
-@media (max-width: 600px) {
-  .top-match-inner { flex-direction: column; padding: 1.5rem; }
-  .top-match-right { flex-direction: row; align-items: center; gap: 1rem; }
-  .top-match-pills { flex-direction: row; }
-}
-
-/* =============================================
-   BIG RETAKE / RESTART BANNER
-   ============================================= */
-.retake-banner {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 1.5rem; flex-wrap: wrap;
-  background: var(--surface-0);
-  border: 1.5px solid var(--surface-border);
-  border-radius: var(--r-xl);
-  padding: 1.75rem 2.5rem;
-  margin-top: var(--space-lg);
-}
-.retake-banner-h {
-  font-family: 'Instrument Serif', serif;
-  font-size: 1.25rem; color: var(--text-primary); margin-bottom: 0.2rem;
-}
-.retake-banner-sub { font-size: 0.85rem; color: var(--text-secondary); }
-.btn-retake-big {
-  display: flex; align-items: center; gap: 0.65rem;
-  padding: 0.9rem 2rem;
-  border-radius: var(--r-pill);
-  background: var(--umt-navy);
-  color: var(--text-inverse);
-  font-size: 0.95rem; font-weight: 600;
-  border: none; cursor: pointer;
-  transition: all var(--dur-mid) var(--ease);
-  white-space: nowrap; flex-shrink: 0;
-}
-.btn-retake-big:hover {
-  background: var(--umt-navy-light);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-}
-.btn-retake-big:active { transform: translateY(0); }
-@media (max-width: 600px) {
-  .retake-banner { padding: 1.25rem; flex-direction: column; align-items: flex-start; }
-  .btn-retake-big { width: 100%; justify-content: center; }
+  --text-primary: #0A0A0F; --text-secondary: #4A4A58;
+  --text-tertiary: #8A8A98; --text-inverse: #F5F2EE;
+  --space-xs: 0.5rem; --space-sm: 0.875rem; --space-md: 1.5rem;
+  --space-lg: 2.5rem; --space-xl: 4rem; --space-2xl: 7rem;
+  --r-sm: 8px; --r-md: 16px; --r-lg: 24px; --r-xl: 36px; --r-pill: 999px;
+  --shadow-sm: 0 1px 3px rgba(10,10,15,0.07),0 1px 2px rgba(10,10,15,0.05);
+  --shadow-md: 0 4px 16px rgba(10,10,15,0.08),0 2px 6px rgba(10,10,15,0.05);
+  --shadow-lg: 0 16px 48px rgba(10,10,15,0.12),0 4px 16px rgba(10,10,15,0.06);
+  --shadow-xl: 0 32px 80px rgba(10,10,15,0.18),0 8px 24px rgba(10,10,15,0.08);
+  --ease: cubic-bezier(0.22,1,0.36,1); --ease-out: cubic-bezier(0,0,0.2,1);
+  --dur-fast: 160ms; --dur-mid: 280ms; --dur-slow: 500ms;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--surface-1);color:var(--text-primary);overflow-x:hidden;line-height:1.6}
+img{display:block;max-width:100%}
+button,a{cursor:pointer}
+button{font-family:inherit;border:none;background:none}
+.display-xl{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(3rem,7vw,5.5rem);line-height:1.05;letter-spacing:-0.02em;font-weight:400}
+.display-lg{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(2rem,4.5vw,3.5rem);line-height:1.1;letter-spacing:-0.02em;font-weight:400}
+.display-md{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(1.4rem,3vw,2rem);line-height:1.2;letter-spacing:-0.01em;font-weight:400}
+.label-sm{font-size:0.7rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-tertiary)}
+.body-lg{font-size:1.05rem;line-height:1.7;color:var(--text-secondary)}
+.body-md{font-size:0.925rem;line-height:1.6;color:var(--text-secondary)}
+.body-sm{font-size:0.8rem;line-height:1.55;color:var(--text-tertiary)}
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 var(--space-lg);height:64px;background:rgba(248,246,243,0.85);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid var(--surface-border)}
+.nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none}
+.nav-logo img{height:36px}
+.nav-logo-text{font-family:'Instrument Serif',serif;font-size:1rem;color:var(--text-primary);line-height:1.25;max-width:140px}
+.nav-right{display:flex;align-items:center;gap:var(--space-sm)}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{padding:0.4rem 0.9rem;font-size:0.85rem;color:var(--text-secondary);text-decoration:none;border-radius:var(--r-pill);transition:color var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease)}
+.nav-links a:hover{color:var(--text-primary);background:var(--surface-border)}
+.lang-toggle{display:flex;gap:2px;background:var(--surface-2);border-radius:var(--r-pill);padding:3px}
+.lang-btn{padding:0.25rem 0.7rem;border-radius:var(--r-pill);font-size:0.75rem;font-weight:600;color:var(--text-tertiary);transition:all var(--dur-fast) var(--ease)}
+.lang-btn.active{background:var(--surface-0);color:var(--text-primary);box-shadow:var(--shadow-sm)}
+.btn-nav-cta{padding:0.5rem 1.2rem;border-radius:var(--r-pill);background:var(--umt-navy);color:var(--text-inverse);font-size:0.85rem;font-weight:500;transition:background var(--dur-fast) var(--ease),transform var(--dur-fast) var(--ease)}
+.btn-nav-cta:hover{background:var(--umt-navy-light);transform:translateY(-1px)}
+/* HERO */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:7rem var(--space-lg) var(--space-xl);text-align:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 70% 60% at 30% 20%,rgba(12,30,58,0.06) 0%,transparent 70%),radial-gradient(ellipse 50% 50% at 80% 80%,rgba(176,30,44,0.04) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 60% -10%,rgba(201,146,43,0.05) 0%,transparent 70%)}
+.hero-texture{position:absolute;inset:0;z-index:0;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230A0A0F' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-content{position:relative;z-index:1;max-width:780px;margin:0 auto}
+.hero-kicker{display:inline-flex;align-items:center;gap:0.5rem;padding:0.35rem 1rem;border-radius:var(--r-pill);border:1px solid var(--surface-border);background:var(--surface-0);font-size:0.78rem;font-weight:500;color:var(--text-secondary);margin-bottom:2rem;box-shadow:var(--shadow-sm);animation:fadeUp 0.8s var(--ease) both}
+.hero-kicker-dot{width:6px;height:6px;border-radius:50%;background:var(--umt-gold);box-shadow:0 0 6px var(--umt-gold)}
+.hero-title{animation:fadeUp 0.8s 0.1s var(--ease) both;margin-bottom:1.5rem;color:var(--text-primary)}
+.hero-title em{font-style:italic;color:var(--umt-crimson)}
+.hero-subtitle{animation:fadeUp 0.8s 0.2s var(--ease) both;margin-bottom:2.5rem;max-width:520px;margin-left:auto;margin-right:auto}
+.hero-actions{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;animation:fadeUp 0.8s 0.3s var(--ease) both;margin-bottom:3.5rem}
+.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.875rem 2rem;border-radius:var(--r-pill);background:var(--umt-navy);color:var(--text-inverse);font-size:0.95rem;font-weight:500;text-decoration:none;box-shadow:0 4px 24px rgba(12,30,58,0.25);transition:all var(--dur-mid) var(--ease)}
+.btn-primary:hover{background:var(--umt-navy-light);transform:translateY(-2px);box-shadow:0 8px 32px rgba(12,30,58,0.3)}
+.btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.875rem 1.75rem;border-radius:var(--r-pill);border:1px solid var(--surface-border);background:var(--surface-0);color:var(--text-primary);font-size:0.95rem;font-weight:500;text-decoration:none;box-shadow:var(--shadow-sm);transition:all var(--dur-mid) var(--ease)}
+.btn-secondary:hover{border-color:rgba(10,10,15,0.2);box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.hero-stats{display:flex;gap:3rem;justify-content:center;flex-wrap:wrap;animation:fadeUp 0.8s 0.4s var(--ease) both;padding-top:2.5rem;border-top:1px solid var(--surface-border)}
+.stat-num{font-family:'Instrument Serif',serif;font-size:2rem;color:var(--umt-navy);line-height:1}
+.stat-label{font-size:0.75rem;color:var(--text-tertiary);margin-top:0.25rem}
+/* SECTIONS */
+.section{padding:var(--space-2xl) var(--space-lg)}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:var(--space-xl)}
+.section-header .label-sm{margin-bottom:0.75rem;display:block}
+.divider{height:1px;background:var(--surface-border);max-width:1100px;margin:0 auto}
+/* HOW */
+.how{background:var(--surface-0)}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem}
+.step-card{padding:1.5rem;border:1px solid var(--surface-border);border-radius:var(--r-lg);background:var(--surface-1);transition:border-color var(--dur-mid) var(--ease),box-shadow var(--dur-mid) var(--ease)}
+.step-card:hover{border-color:rgba(10,10,15,0.15);box-shadow:var(--shadow-sm)}
+.step-num{width:40px;height:40px;border-radius:var(--r-md);background:var(--umt-navy);color:var(--text-inverse);display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:1.1rem;margin-bottom:1rem}
+.step-h{font-family:'Instrument Serif',serif;font-size:1rem;margin-bottom:0.4rem}
+/* QUIZ */
+.quiz-section{background:var(--surface-1)}
+.quiz-shell{max-width:700px;margin:0 auto;background:var(--surface-0);border:1px solid var(--surface-border);border-radius:var(--r-xl);box-shadow:var(--shadow-lg);overflow:hidden}
+.quiz-shell-header{padding:var(--space-lg) var(--space-lg) var(--space-md);border-bottom:1px solid var(--surface-border);background:var(--umt-navy);color:var(--text-inverse)}
+.quiz-shell-header .label-sm{color:rgba(245,242,238,0.5)}
+.quiz-shell-header .display-md{color:var(--text-inverse);margin-top:0.4rem}
+.quiz-progress-track{height:3px;background:rgba(255,255,255,0.1);border-radius:2px;margin-top:var(--space-md);overflow:hidden}
+.quiz-progress-fill{height:100%;background:var(--umt-gold-light);border-radius:2px;transition:width 0.5s var(--ease);width:0%}
+.quiz-body{padding:var(--space-lg)}
+.quiz-step{display:none;animation:fadeUp 0.35s var(--ease)}
+.quiz-step.active{display:block}
+.quiz-q{font-family:'Instrument Serif',serif;font-size:1.35rem;margin-bottom:0.4rem}
+.quiz-hint{font-size:0.82rem;color:var(--text-tertiary);margin-bottom:1.75rem}
+.stream-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.stream-card{padding:1.5rem;border-radius:var(--r-lg);cursor:pointer;border:2px solid var(--surface-border);background:var(--surface-1);transition:all var(--dur-mid) var(--ease);text-align:left}
+.stream-card:hover{border-color:rgba(10,10,15,0.25);box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.stream-card.selected{border-color:var(--umt-navy);background:rgba(12,30,58,0.04)}
+.stream-icon{width:44px;height:44px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.3rem}
+.stream-icon.navy{background:rgba(12,30,58,0.08)}
+.stream-icon.gold{background:rgba(201,146,43,0.1)}
+.stream-card-title{font-family:'Instrument Serif',serif;font-size:1.05rem;margin-bottom:0.3rem}
+.stream-card-desc{font-size:0.8rem;color:var(--text-secondary);line-height:1.5}
+.opts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:0.65rem}
+.opt{display:flex;align-items:center;gap:0.65rem;padding:0.8rem 1rem;border-radius:var(--r-md);border:1.5px solid var(--surface-border);background:var(--surface-1);cursor:pointer;transition:all var(--dur-fast) var(--ease);user-select:none}
+.opt:hover{border-color:rgba(10,10,15,0.2);background:var(--surface-0)}
+.opt.selected{border-color:var(--umt-navy);background:rgba(12,30,58,0.05)}
+.opt-icon{width:28px;height:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.opt-icon svg{width:18px;height:18px;stroke:var(--text-tertiary);transition:stroke var(--dur-fast) var(--ease)}
+.opt.selected .opt-icon svg{stroke:var(--umt-navy)}
+.opt-label{font-size:0.85rem;font-weight:500;flex:1}
+.opt-check{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--surface-border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all var(--dur-fast) var(--ease)}
+.opt.selected .opt-check{background:var(--umt-navy);border-color:var(--umt-navy)}
+.opt.selected .opt-check::after{content:'';width:5px;height:5px;border-radius:50%;background:white}
+.spm-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+.field-group{display:flex;flex-direction:column;gap:0.4rem}
+.field-label{font-size:0.75rem;font-weight:600;color:var(--text-tertiary);letter-spacing:0.06em;text-transform:uppercase}
+.field-select{padding:0.7rem 1rem;border-radius:var(--r-md);border:1.5px solid var(--surface-border);background:var(--surface-1);color:var(--text-primary);font-family:inherit;font-size:0.9rem;transition:border-color var(--dur-fast) var(--ease);appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%234A4A58' stroke-width='1.8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:calc(100% - 12px) center;padding-right:2rem}
+.field-select:focus{outline:none;border-color:var(--umt-navy)}
+.spm-subj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:0.5rem;margin-top:0.75rem}
+.spm-subj{display:flex;align-items:center;gap:0.5rem;padding:0.55rem 0.85rem;border-radius:var(--r-sm);border:1.5px solid var(--surface-border);background:var(--surface-1);cursor:pointer;font-size:0.8rem;font-weight:500;transition:all var(--dur-fast) var(--ease);user-select:none}
+.spm-subj:hover{border-color:rgba(10,10,15,0.2)}
+.spm-subj.selected{border-color:var(--umt-navy);background:rgba(12,30,58,0.05)}
+.spm-chk{width:14px;height:14px;border-radius:3px;border:1.5px solid var(--surface-border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all var(--dur-fast) var(--ease)}
+.spm-subj.selected .spm-chk{background:var(--umt-navy);border-color:var(--umt-navy)}
+.spm-subj.selected .spm-chk::after{content:'✓';color:white;font-size:0.6rem}
+.spm-note{margin-top:1rem;padding:0.85rem 1rem;border-radius:var(--r-md);background:rgba(201,146,43,0.06);border:1px solid rgba(201,146,43,0.2);font-size:0.82rem;color:#7A5A1E}
+.stream-route-info{padding:1rem 1.25rem;border-radius:var(--r-md);margin-bottom:1.5rem;display:flex;align-items:flex-start;gap:0.75rem}
+.stream-route-info.spm{background:rgba(176,30,44,0.05);border:1px solid rgba(176,30,44,0.15)}
+.stream-route-info.preuni{background:rgba(12,30,58,0.05);border:1px solid rgba(12,30,58,0.15)}
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;gap:1rem;flex-wrap:wrap}
+.quiz-step-label{font-size:0.8rem;color:var(--text-tertiary)}
+.btn-quiz{padding:0.7rem 1.75rem;border-radius:var(--r-pill);font-size:0.9rem;font-weight:500;transition:all var(--dur-fast) var(--ease)}
+.btn-quiz-next{background:var(--umt-navy);color:var(--text-inverse)}
+.btn-quiz-next:hover{background:var(--umt-navy-light);transform:translateY(-1px)}
+.btn-quiz-back{background:transparent;border:1.5px solid var(--surface-border);color:var(--text-secondary)}
+.btn-quiz-back:hover{border-color:rgba(10,10,15,0.2);color:var(--text-primary)}
+.btn-quiz-submit{background:var(--umt-crimson);color:var(--text-inverse)}
+.btn-quiz-submit:hover{background:#8E1622;transform:translateY(-1px)}
+/* TRACKS */
+.tracks-note{font-size:0.8rem;color:var(--text-secondary);margin:0.5rem 0 0.85rem;line-height:1.5}
+.tracks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem}
+@media(max-width:600px){.tracks-grid{grid-template-columns:1fr}}
+.track-card{border:1.5px solid var(--surface-border);border-radius:var(--r-md);overflow:hidden;background:var(--surface-1)}
+.track-label{color:white;font-size:0.78rem;font-weight:700;padding:0.45rem 0.85rem;letter-spacing:0.04em;text-transform:uppercase}
+.track-desc{font-size:0.78rem;color:var(--text-secondary);padding:0.6rem 0.85rem 0.3rem;line-height:1.5}
+.track-req{font-size:0.76rem;color:var(--text-primary);padding:0 0.85rem 0.75rem;line-height:1.55;font-weight:500}
+.req-pills{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.4rem}
+.req-pill{padding:0.3rem 0.75rem;border-radius:var(--r-pill);border:1px solid var(--surface-border);background:var(--surface-0);font-size:0.77rem;color:var(--text-primary)}
+/* CALCULATING */
+#calc-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(248,246,243,0.92);backdrop-filter:blur(20px);align-items:center;justify-content:center;flex-direction:column;gap:1.5rem}
+#calc-overlay.show{display:flex}
+.calc-spinner{width:48px;height:48px;border-radius:50%;border:2px solid var(--surface-border);border-top:2px solid var(--umt-navy);animation:spin 0.9s linear infinite}
+.calc-label{font-family:'Instrument Serif',serif;font-size:1.4rem}
+.calc-sub{font-size:0.85rem;color:var(--text-tertiary)}
+/* RESULTS */
+#results{display:none;background:var(--surface-1);padding:var(--space-2xl) var(--space-lg)}
+.results-inner{max-width:1140px;margin:0 auto}
+.results-header{text-align:center;margin-bottom:var(--space-xl)}
+.results-kicker{display:inline-flex;align-items:center;gap:0.4rem;padding:0.3rem 0.9rem;border-radius:var(--r-pill);background:rgba(201,146,43,0.1);border:1px solid rgba(201,146,43,0.25);font-size:0.75rem;font-weight:600;color:#7A5A1E;margin-bottom:1rem}
+.type-badge{display:inline-flex;align-items:center;gap:0.35rem;padding:0.2rem 0.65rem;border-radius:var(--r-pill);font-size:0.68rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase}
+.type-badge.asasi{background:rgba(12,30,58,0.08);color:var(--umt-navy)}
+.type-badge.diploma{background:rgba(29,111,164,0.1);color:var(--umt-sea)}
+.type-badge.degree{background:rgba(176,30,44,0.08);color:var(--umt-crimson)}
+.stream-banner{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;padding:1rem 1.5rem;border-radius:var(--r-lg);margin-bottom:var(--space-lg)}
+.stream-banner.spm{background:rgba(176,30,44,0.05);border:1px solid rgba(176,30,44,0.15)}
+.stream-banner.preuni{background:rgba(12,30,58,0.05);border:1px solid rgba(12,30,58,0.15)}
+.stream-banner-text{flex:1;font-size:0.88rem;color:var(--text-secondary)}
+.stream-banner-text strong{display:block;font-size:0.95rem;color:var(--text-primary);margin-bottom:0.2rem}
+.results-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.5rem}
+.filter-group{display:flex;gap:0.4rem;flex-wrap:wrap}
+.filter-btn{padding:0.4rem 1rem;border-radius:var(--r-pill);border:1.5px solid var(--surface-border);background:var(--surface-0);font-size:0.8rem;font-weight:500;color:var(--text-secondary);transition:all var(--dur-fast) var(--ease)}
+.filter-btn:hover{border-color:rgba(10,10,15,0.2);color:var(--text-primary)}
+.filter-btn.active{background:var(--umt-navy);border-color:var(--umt-navy);color:var(--text-inverse)}
+.share-btn{display:flex;align-items:center;gap:0.4rem;padding:0.4rem 1rem;border-radius:var(--r-pill);border:1.5px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.06);font-size:0.8rem;font-weight:500;color:#166534;transition:all var(--dur-fast) var(--ease)}
+.share-btn:hover{background:rgba(34,197,94,0.12)}
+.compare-bar{display:none;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding:0.85rem 1.25rem;border-radius:var(--r-md);background:rgba(201,146,43,0.07);border:1px solid rgba(201,146,43,0.25);margin-bottom:1.25rem}
+.compare-bar.show{display:flex}
+.compare-bar-text{font-size:0.85rem;color:#7A5A1E}
+.btn-compare-now{padding:0.4rem 1.1rem;border-radius:var(--r-pill);background:var(--umt-gold);color:#0A0A0F;font-size:0.82rem;font-weight:700;transition:opacity var(--dur-fast) var(--ease)}
+.btn-compare-now:disabled{opacity:0.4;cursor:not-allowed}
+.btn-compare-now:not(:disabled):hover{opacity:0.88}
+.courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.25rem}
+.course-card{background:var(--surface-0);border:1px solid var(--surface-border);border-radius:var(--r-lg);overflow:hidden;transition:all var(--dur-mid) var(--ease);display:flex;flex-direction:column}
+.course-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);border-color:rgba(10,10,15,0.12)}
+.course-card.compare-selected{border-color:var(--umt-gold);box-shadow:0 0 0 2px rgba(201,146,43,0.25)}
+.course-card-accent{height:3px}
+.course-card-accent.IT{background:linear-gradient(90deg,var(--umt-sea),var(--umt-sea-light))}
+.course-card-accent.Marine{background:linear-gradient(90deg,#0E7490,#22D3EE)}
+.course-card-accent.Engineering{background:linear-gradient(90deg,#7C3AED,#A78BFA)}
+.course-card-accent.Business{background:linear-gradient(90deg,var(--umt-crimson),#F87171)}
+.course-card-accent.Maritime{background:linear-gradient(90deg,var(--umt-navy),#3B82F6)}
+.course-card-accent.Foundation{background:linear-gradient(90deg,var(--umt-gold),var(--umt-gold-light))}
+.course-card-accent.Diploma{background:linear-gradient(90deg,var(--umt-sea),#34D399)}
+.course-card-top{padding:1.25rem 1.25rem 1rem;border-bottom:1px solid var(--surface-border);flex:1}
+.course-card-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem}
+.course-faculty{font-size:0.7rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-tertiary)}
+.match-score{font-size:0.7rem;font-weight:700;padding:0.15rem 0.55rem;border-radius:var(--r-pill);background:rgba(12,30,58,0.07);color:var(--umt-navy)}
+.course-name{font-family:'Instrument Serif',serif;font-size:1rem;line-height:1.35;margin-bottom:0.75rem}
+.course-tags{display:flex;gap:0.35rem;flex-wrap:wrap}
+.tag{font-size:0.68rem;font-weight:500;padding:0.15rem 0.55rem;border-radius:var(--r-pill);border:1px solid var(--surface-border);color:var(--text-secondary);background:var(--surface-1)}
+.course-card-bottom{padding:0.9rem 1.25rem}
+.course-info-row{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:0.85rem}
+.info-chip{display:flex;align-items:center;gap:0.3rem;font-size:0.75rem;color:var(--text-tertiary)}
+.info-chip svg{width:12px;height:12px;flex-shrink:0}
+.card-actions{display:flex;gap:0.5rem}
+.btn-card-detail{flex:1;padding:0.55rem 1rem;border-radius:var(--r-sm);border:1.5px solid var(--surface-border);background:var(--surface-1);font-size:0.82rem;font-weight:500;color:var(--text-primary);transition:all var(--dur-fast) var(--ease);display:flex;align-items:center;justify-content:center;gap:0.25rem}
+.btn-card-detail:hover{border-color:rgba(10,10,15,0.2);background:var(--surface-0)}
+.btn-card-wa{padding:0.55rem 0.8rem;border-radius:var(--r-sm);border:1.5px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.06);font-size:0.8rem;font-weight:500;color:#166534;display:flex;align-items:center;gap:0.3rem;text-decoration:none;transition:all var(--dur-fast) var(--ease)}
+.btn-card-wa:hover{background:rgba(34,197,94,0.12)}
+.btn-card-compare{padding:0.55rem 0.75rem;border-radius:var(--r-sm);border:1.5px solid rgba(201,146,43,0.3);background:rgba(201,146,43,0.06);font-size:0.78rem;font-weight:500;color:#7A5A1E;white-space:nowrap;transition:all var(--dur-fast) var(--ease)}
+.btn-card-compare:hover{background:rgba(201,146,43,0.12)}
+.btn-card-compare.added{background:rgba(201,146,43,0.2);border-color:var(--umt-gold)}
+.retake-wrap{text-align:center;margin-top:var(--space-lg)}
+.btn-retake{padding:0.7rem 2rem;border-radius:var(--r-pill);border:1.5px solid var(--surface-border);background:transparent;font-size:0.9rem;color:var(--text-secondary);transition:all var(--dur-fast) var(--ease)}
+.btn-retake:hover{border-color:rgba(10,10,15,0.2);color:var(--text-primary)}
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(10,10,15,0.4);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface-0);border:1px solid var(--surface-border);border-radius:var(--r-xl);max-width:680px;width:100%;max-height:92vh;overflow-y:auto;animation:scaleIn 0.25s var(--ease);box-shadow:var(--shadow-xl)}
+.modal::-webkit-scrollbar{width:4px}
+.modal::-webkit-scrollbar-thumb{background:var(--surface-border);border-radius:4px}
+.modal-header{padding:1.75rem 2rem 1.25rem;position:sticky;top:0;background:var(--surface-0);z-index:1;border-bottom:1px solid var(--surface-border);display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+.modal-close{width:32px;height:32px;border-radius:50%;border:1px solid var(--surface-border);background:var(--surface-1);display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:var(--text-secondary);flex-shrink:0;transition:all var(--dur-fast) var(--ease)}
+.modal-close:hover{background:var(--surface-2);color:var(--text-primary)}
+.modal-body{padding:1.75rem 2rem}
+.modal-section{margin-bottom:1.75rem}
+.modal-section-label{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--umt-gold);margin-bottom:0.85rem;display:block}
+.modal-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+.info-box{padding:0.85rem 1rem;border-radius:var(--r-md);border:1px solid var(--surface-border);background:var(--surface-1)}
+.info-box-label{font-size:0.7rem;color:var(--text-tertiary);margin-bottom:0.2rem}
+.info-box-value{font-family:'Instrument Serif',serif;font-size:1rem}
+.info-box-value.accent{color:var(--umt-navy)}
+.info-box-value.green{color:#166534}
+.career-grid{display:flex;flex-wrap:wrap;gap:0.4rem}
+.career-pill{padding:0.25rem 0.8rem;border-radius:var(--r-pill);background:rgba(176,30,44,0.07);border:1px solid rgba(176,30,44,0.15);color:var(--umt-crimson);font-size:0.78rem}
+.sem-list{display:flex;flex-direction:column;gap:0.5rem}
+.sem-item{display:flex;align-items:flex-start;gap:0.85rem;padding:0.75rem 1rem;border-radius:var(--r-md);border:1px solid var(--surface-border);background:var(--surface-1)}
+.sem-num{width:28px;height:28px;border-radius:8px;flex-shrink:0;background:var(--umt-navy);color:white;display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:700}
+.sem-title{font-size:0.88rem;font-weight:500}
+.sem-desc{font-size:0.78rem;color:var(--text-tertiary)}
+.entry-type-box{padding:0.85rem 1rem;border-radius:var(--r-md);border:1px solid var(--surface-border);background:var(--surface-1);margin-bottom:0.5rem}
+.entry-qual-label{font-size:0.7rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:0.3rem}
+.entry-qual-val{font-size:0.875rem;color:var(--text-primary)}
+.modal-footer{padding:1.25rem 2rem;border-top:1px solid var(--surface-border);display:flex;gap:0.65rem;flex-wrap:wrap}
+.btn-modal-primary{flex:1;padding:0.75rem;border-radius:var(--r-md);text-align:center;background:var(--umt-navy);color:var(--text-inverse);font-size:0.9rem;font-weight:500;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:0.35rem;transition:all var(--dur-fast) var(--ease)}
+.btn-modal-primary:hover{background:var(--umt-navy-light)}
+.btn-modal-wa{padding:0.75rem 1.1rem;border-radius:var(--r-md);border:1.5px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.06);color:#166534;font-size:0.88rem;font-weight:500;text-decoration:none;display:flex;align-items:center;gap:0.4rem;transition:all var(--dur-fast) var(--ease)}
+.btn-modal-wa:hover{background:rgba(34,197,94,0.12)}
+.btn-modal-sec{padding:0.75rem 1.1rem;border-radius:var(--r-md);border:1.5px solid var(--surface-border);background:var(--surface-1);color:var(--text-primary);font-size:0.88rem;text-decoration:none;display:flex;align-items:center;gap:0.35rem;transition:all var(--dur-fast) var(--ease)}
+.btn-modal-sec:hover{border-color:rgba(10,10,15,0.2)}
+/* CAMPUS */
+.campus{background:var(--surface-0)}
+.campus-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);align-items:start}
+.campus-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:1.5rem}
+.campus-stat-box{padding:1.25rem;border-radius:var(--r-md);border:1px solid var(--surface-border);text-align:center}
+.campus-stat-val{font-family:'Instrument Serif',serif;font-size:1.6rem;color:var(--umt-navy)}
+.campus-stat-lbl{font-size:0.75rem;color:var(--text-tertiary);margin-top:0.15rem}
+.feat-list{display:flex;flex-direction:column;gap:0.85rem;margin-top:1.5rem}
+.feat-item{display:flex;align-items:flex-start;gap:0.85rem;padding:1rem 1.1rem;border-radius:var(--r-md);border:1px solid var(--surface-border);background:var(--surface-1)}
+.feat-icon-box{width:38px;height:38px;border-radius:var(--r-sm);flex-shrink:0;border:1px solid var(--surface-border);background:var(--surface-0);display:flex;align-items:center;justify-content:center}
+.feat-icon-box svg{width:18px;height:18px;stroke:var(--umt-navy)}
+.feat-h{font-size:0.9rem;font-weight:600;margin-bottom:0.2rem}
+.feat-p{font-size:0.8rem;color:var(--text-secondary);line-height:1.5}
+.wa-link{display:inline-flex;align-items:center;gap:0.5rem;padding:0.65rem 1.4rem;border-radius:var(--r-pill);margin-top:1.25rem;border:1.5px solid rgba(34,197,94,0.35);background:rgba(34,197,94,0.06);color:#166534;font-size:0.88rem;font-weight:600;text-decoration:none;transition:all var(--dur-fast) var(--ease)}
+.wa-link:hover{background:rgba(34,197,94,0.14)}
+/* FOOTER */
+footer{background:var(--umt-navy);color:var(--text-inverse);padding:var(--space-xl) var(--space-lg) var(--space-lg)}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:2rem;margin-bottom:var(--space-lg);padding-bottom:var(--space-lg);border-bottom:1px solid rgba(255,255,255,0.1)}
+.footer-logo img{height:40px;filter:brightness(1.2)}
+.footer-logo-txt{font-family:'Instrument Serif',serif;font-size:1.1rem;color:var(--text-inverse);margin-top:0.5rem}
+.footer-links{display:flex;gap:var(--space-lg);flex-wrap:wrap}
+.footer-links a{color:rgba(245,242,238,0.6);text-decoration:none;font-size:0.85rem;transition:color var(--dur-fast) var(--ease)}
+.footer-links a:hover{color:var(--text-inverse)}
+.footer-socmed{display:flex;gap:0.5rem}
+.socmed-btn{width:36px;height:36px;border-radius:var(--r-sm);border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:rgba(245,242,238,0.6);text-decoration:none;transition:all var(--dur-fast) var(--ease)}
+.socmed-btn:hover{background:rgba(255,255,255,0.12);color:var(--text-inverse);transform:translateY(-1px)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:0.78rem;color:rgba(245,242,238,0.4)}
+/* AI CHAT */
+.ai-fab{position:fixed;bottom:1.75rem;right:1.75rem;z-index:400;width:56px;height:56px;border-radius:50%;background:var(--umt-navy);box-shadow:var(--shadow-lg);display:flex;align-items:center;justify-content:center;transition:all var(--dur-mid) var(--ease);border:none;animation:fadeUp 0.8s 1s var(--ease) both}
+.ai-fab:hover{transform:scale(1.08);box-shadow:var(--shadow-xl);background:var(--umt-navy-light)}
+.ai-fab-badge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;border-radius:50%;background:var(--umt-gold);color:#000;font-size:0.58rem;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--surface-1)}
+.ai-panel{position:fixed;bottom:5.5rem;right:1.75rem;z-index:399;width:360px;max-height:520px;background:var(--surface-0);border:1px solid var(--surface-border);border-radius:var(--r-xl);display:none;flex-direction:column;box-shadow:var(--shadow-xl);overflow:hidden}
+.ai-panel.open{display:flex;animation:scaleIn 0.22s var(--ease)}
+.ai-panel-header{padding:1rem 1.25rem;border-bottom:1px solid var(--surface-border);display:flex;align-items:center;gap:0.75rem;background:var(--umt-navy)}
+.ai-avatar{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ai-name{font-size:0.9rem;font-weight:600;color:white}
+.ai-status{font-size:0.7rem;color:rgba(255,255,255,0.6);display:flex;align-items:center;gap:0.3rem}
+.ai-status::before{content:'';width:5px;height:5px;border-radius:50%;background:#4ADE80;flex-shrink:0}
+.ai-close-btn{margin-left:auto;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.1);color:white;font-size:0.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background var(--dur-fast)}
+.ai-close-btn:hover{background:rgba(255,255,255,0.18)}
+.ai-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.75rem}
+.ai-messages::-webkit-scrollbar{width:3px}
+.ai-messages::-webkit-scrollbar-thumb{background:var(--surface-border)}
+.chat-msg{display:flex;gap:0.5rem;align-items:flex-start;animation:fadeUp 0.25s var(--ease)}
+.chat-msg.user{flex-direction:row-reverse}
+.chat-bubble{max-width:80%;padding:0.65rem 0.9rem;border-radius:14px;font-size:0.83rem;line-height:1.55}
+.chat-msg.ai .chat-bubble{background:var(--surface-1);border:1px solid var(--surface-border);border-bottom-left-radius:4px}
+.chat-msg.user .chat-bubble{background:var(--umt-navy);color:white;border-bottom-right-radius:4px}
+.chat-avtr{width:26px;height:26px;border-radius:50%;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:0.75rem;flex-shrink:0}
+.chat-typing{display:flex;gap:3px;align-items:center;padding:0.4rem 0.6rem}
+.chat-typing span{width:6px;height:6px;border-radius:50%;background:var(--text-tertiary);animation:typing 1.2s infinite}
+.chat-typing span:nth-child(2){animation-delay:0.2s}
+.chat-typing span:nth-child(3){animation-delay:0.4s}
+.ai-suggestions{display:flex;gap:0.4rem;padding:0.65rem 1rem;flex-wrap:wrap;border-top:1px solid var(--surface-border)}
+.ai-sug{padding:0.3rem 0.75rem;border-radius:var(--r-pill);border:1px solid var(--surface-border);background:var(--surface-1);font-size:0.73rem;font-weight:500;color:var(--text-secondary);cursor:pointer;transition:all var(--dur-fast) var(--ease);white-space:nowrap}
+.ai-sug:hover{border-color:rgba(10,10,15,0.2);color:var(--text-primary)}
+.ai-input-row{display:flex;gap:0.5rem;padding:0.85rem 1rem;border-top:1px solid var(--surface-border)}
+.ai-input{flex:1;padding:0.55rem 0.9rem;border-radius:var(--r-pill);border:1.5px solid var(--surface-border);background:var(--surface-1);font-family:inherit;font-size:0.83rem;color:var(--text-primary);transition:border-color var(--dur-fast) var(--ease)}
+.ai-input:focus{outline:none;border-color:var(--umt-navy)}
+.ai-send{width:36px;height:36px;border-radius:50%;background:var(--umt-navy);color:white;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:opacity var(--dur-fast) var(--ease)}
+.ai-send:hover{opacity:0.85}
+.ai-send svg{width:14px;height:14px}
+.ai-disclaimer{font-size:0.65rem;color:var(--text-tertiary);text-align:center;padding:0 1rem 0.7rem}
+/* TOAST */
+.toast{position:fixed;bottom:1.75rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text-primary);color:var(--text-inverse);padding:0.65rem 1.5rem;border-radius:var(--r-pill);font-size:0.85rem;font-weight:500;z-index:999;transition:transform 0.3s var(--ease);pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+/* TOP MATCH HERO */
+#top-match-hero{margin-bottom:var(--space-lg);animation:fadeUp 0.5s var(--ease) both}
+.top-match-inner{background:var(--umt-navy);border-radius:var(--r-xl);padding:2rem 2.5rem;display:flex;align-items:center;gap:2rem;position:relative;overflow:hidden}
+.top-match-inner::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:rgba(201,146,43,0.08);pointer-events:none}
+.top-match-left{flex:1;min-width:0}
+.top-match-kicker{display:flex;align-items:center;gap:0.4rem;font-size:0.75rem;font-weight:600;color:var(--umt-gold);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.65rem}
+.top-match-name{font-family:'Instrument Serif',serif;font-size:clamp(1.4rem,3vw,2rem);color:var(--text-inverse);line-height:1.15;margin-bottom:0.65rem}
+.top-match-meta{display:flex;align-items:center;gap:0.65rem;margin-bottom:0.85rem;flex-wrap:wrap}
+.top-match-faculty{font-size:0.78rem;color:rgba(245,242,238,0.5)}
+.top-match-desc{font-size:0.875rem;color:rgba(245,242,238,0.65);line-height:1.6;margin-bottom:1.25rem;max-width:480px}
+.top-match-actions{display:flex;gap:0.75rem;flex-wrap:wrap}
+.btn-top-detail{padding:0.65rem 1.5rem;border-radius:var(--r-pill);background:var(--text-inverse);color:var(--umt-navy);font-size:0.875rem;font-weight:600;border:none;cursor:pointer;transition:all var(--dur-fast) var(--ease)}
+.btn-top-detail:hover{background:var(--paper-dark);transform:translateY(-1px)}
+.btn-top-wa{padding:0.65rem 1.25rem;border-radius:var(--r-pill);border:1.5px solid rgba(245,242,238,0.18);background:transparent;color:rgba(245,242,238,0.75);font-size:0.85rem;font-weight:500;text-decoration:none;display:flex;align-items:center;gap:0.4rem;transition:all var(--dur-fast) var(--ease)}
+.btn-top-wa:hover{border-color:rgba(245,242,238,0.4);color:var(--text-inverse)}
+.top-match-right{display:flex;flex-direction:column;align-items:center;gap:0.5rem;flex-shrink:0}
+.top-match-score-ring{position:relative;width:80px;height:80px}
+.top-match-score-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:1.5rem;color:var(--text-inverse);font-weight:400}
+.top-match-score-label{font-size:0.7rem;color:rgba(245,242,238,0.45);letter-spacing:0.05em;text-transform:uppercase}
+.top-match-pills{display:flex;flex-direction:column;align-items:center;gap:0.35rem;margin-top:0.4rem}
+.top-match-pill{font-size:0.7rem;color:rgba(245,242,238,0.55);background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);padding:0.2rem 0.65rem;border-radius:var(--r-pill);white-space:nowrap}
+/* RETAKE BANNER */
+.retake-banner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;background:var(--surface-0);border:1.5px solid var(--surface-border);border-radius:var(--r-xl);padding:1.75rem 2.5rem;margin-top:var(--space-lg)}
+.retake-banner-h{font-family:'Instrument Serif',serif;font-size:1.25rem;color:var(--text-primary);margin-bottom:0.2rem}
+.retake-banner-sub{font-size:0.85rem;color:var(--text-secondary)}
+.btn-retake-big{display:flex;align-items:center;gap:0.65rem;padding:0.9rem 2rem;border-radius:var(--r-pill);background:var(--umt-navy);color:var(--text-inverse);font-size:0.95rem;font-weight:600;border:none;cursor:pointer;transition:all var(--dur-mid) var(--ease);white-space:nowrap;flex-shrink:0}
+.btn-retake-big:hover{background:var(--umt-navy-light);transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes typing{0%,60%,100%{transform:translateY(0);opacity:0.4}30%{transform:translateY(-4px);opacity:1}}
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .campus-grid{grid-template-columns:1fr}
+  .modal-grid-2{grid-template-columns:1fr}
+  .modal-footer{flex-direction:column}
+  .stream-cards{grid-template-columns:1fr}
+  .opts-grid{grid-template-columns:1fr 1fr}
+  .spm-grid-2{grid-template-columns:1fr}
+  .hero-stats{gap:1.5rem}
+  .ai-panel{width:calc(100vw - 2rem);right:1rem}
+  .results-toolbar{flex-direction:column;align-items:flex-start}
+  .footer-top{flex-direction:column}
+  .top-match-inner{flex-direction:column;padding:1.5rem}
+  .top-match-right{flex-direction:row;align-items:center;gap:1rem}
+  .top-match-pills{flex-direction:row}
+  .retake-banner{padding:1.25rem;flex-direction:column;align-items:flex-start}
+  .btn-retake-big{width:100%;justify-content:center}
+}
+@media(max-width:480px){
+  .opts-grid{grid-template-columns:1fr}
+  .courses-grid{grid-template-columns:1fr}
+  .card-actions{flex-direction:column}
+  :root{--space-lg:1.25rem}
 }
 </style>
 </head>
 <body>
 
-<!-- OVERLAY -->
 <div id="calc-overlay">
   <div class="calc-spinner"></div>
   <div class="calc-label" id="calc-label"></div>
   <div class="calc-sub" id="calc-sub"></div>
 </div>
-
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- NAV -->
 <nav class="nav">
   <a href="#" class="nav-logo">
     <img src="https://www.umt.edu.my/wp-content/uploads/2025/11/LOGO-HEADER-WEB-UMT-2026.png" alt="UMT" onerror="this.style.display='none'">
@@ -1112,34 +414,20 @@ footer {
       <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
       <button class="lang-btn" data-lang="bm" onclick="setLang('bm')">BM</button>
     </div>
-    <button class="btn-nav-cta" data-i18n="nav.startQuiz" onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'})">Start Quiz</button>
+    <button class="btn-nav-cta" onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'})">Start Quiz</button>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-texture"></div>
   <div class="hero-content">
-    <div class="hero-kicker">
-      <span class="hero-kicker-dot"></span>
-      <span data-i18n="hero.kicker">Universiti Malaysia Terengganu — 2026 Intake</span>
-    </div>
-    <h1 class="display-xl hero-title" data-i18n="hero.title">
-      Not sure what to study? <em>Let's find out.</em>
-    </h1>
-    <p class="body-lg hero-subtitle">
-      <span data-i18n="hero.sub">Answer a few questions about your qualifications, interests and personality. We'll match you with the right UMT programme.</span>
-    </p>
+    <div class="hero-kicker"><span class="hero-kicker-dot"></span><span>Universiti Malaysia Terengganu — 2026 Intake</span></div>
+    <h1 class="display-xl hero-title">Not sure what to study? <em>Let's find out.</em></h1>
+    <p class="body-lg hero-subtitle">Answer a few questions about your qualifications, interests and personality. We'll match you with the right UMT programme.</p>
     <div class="hero-actions">
-      <a href="#quiz" class="btn-primary">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-        Start Course Finder
-      </a>
-      <a href="https://www.umt.edu.my/all-programs-at-umt/" target="_blank" class="btn-secondary">
-        Browse All Programmes
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      </a>
+      <a href="#quiz" class="btn-primary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>Start Course Finder</a>
+      <a href="https://www.umt.edu.my/all-programs-at-umt/" target="_blank" class="btn-secondary">Browse All Programmes<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
     </div>
     <div class="hero-stats">
       <div class="stat"><div class="stat-num">35+</div><div class="stat-label">Undergraduate Programmes</div></div>
@@ -1150,238 +438,436 @@ footer {
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
 <section id="how" class="section how">
   <div class="section-inner">
     <div class="section-header">
-      <span class="label-sm" data-i18n="how.kicker">Simple Process</span>
-      <h2 class="display-md" style="margin-top:0.5rem" data-i18n="how.title">How it works</h2>
-      <p class="body-md" style="margin-top:0.75rem;max-width:480px;margin-left:auto;margin-right:auto">
-        <span data-i18n="how.sub">Six steps — tailored to whether you've done SPM or pre-university.</span>
-      </p>
+      <span class="label-sm">Simple Process</span>
+      <h2 class="display-md" style="margin-top:0.5rem">How it works</h2>
+      <p class="body-md" style="margin-top:0.75rem;max-width:480px;margin-left:auto;margin-right:auto">Five steps — tailored to whether you've done SPM or pre-university.</p>
     </div>
     <div class="steps-grid">
-      <div class="step-card"><div class="step-num">1</div><div class="step-h" data-i18n="step1.h">Choose Your Level</div><p class="body-sm" data-i18n="step1.p">Tell us if you're an SPM leaver or a pre-university graduate. This shapes which programmes we show.</p></div>
-      <div class="step-card"><div class="step-num">2</div><div class="step-h" data-i18n="step2.h">Pick Your Interests</div><p class="body-sm" data-i18n="step2.p">Select the subjects and activities that excite you — from marine biology to coding to ship design.</p></div>
-      <div class="step-card"><div class="step-num">3</div><div class="step-h" data-i18n="step3.h">Share Your Goals</div><p class="body-sm" data-i18n="step3.p">Where do you see yourself working? What kind of person are you? More data = better match.</p></div>
-      <div class="step-card"><div class="step-num">4</div><div class="step-h" data-i18n="step4.h">Enter Qualifications</div><p class="body-sm" data-i18n="step4.p">SPM results or CGPA — optional but unlocks personalised eligibility checks for every programme.</p></div>
-      <div class="step-card"><div class="step-num">5</div><div class="step-h" data-i18n="step5.h">Get Matched</div><p class="body-sm" data-i18n="step5.p">Our weighted algorithm surfaces the best-fit programmes for your stream, interests, and results.</p></div>
-      <div class="step-card"><div class="step-num">6</div><div class="step-h">Explore & Apply</div><p class="body-sm" data-i18n="step6.p">Full programme details — semesters, careers, fees, entry requirements — then apply directly.</p></div>
+      <div class="step-card"><div class="step-num">1</div><div class="step-h">Choose Your Level</div><p class="body-sm">SPM leaver or pre-university graduate? This shapes which programmes we show.</p></div>
+      <div class="step-card"><div class="step-num">2</div><div class="step-h">Pick Your Interests</div><p class="body-sm">Select the subjects and activities that excite you.</p></div>
+      <div class="step-card"><div class="step-num">3</div><div class="step-h">Share Your Goals</div><p class="body-sm">Where do you see yourself working? More data = better match.</p></div>
+      <div class="step-card"><div class="step-num">4</div><div class="step-h">Share Your Personality</div><p class="body-sm">Analytical, creative, leader? Helps us refine your matches.</p></div>
+      <div class="step-card"><div class="step-num">5</div><div class="step-h">Enter Results &amp; Get Matched</div><p class="body-sm">Optional but powerful — enter your SPM/STPM/STAM grades for exact eligibility checks on every programme.</p></div>
+      <div class="step-card"><div class="step-num">6</div><div class="step-h">Explore &amp; Apply</div><p class="body-sm">Full programme details — semesters, careers, fees, requirements — then apply directly.</p></div>
     </div>
   </div>
 </section>
 <div class="divider"></div>
 
-<!-- QUIZ -->
 <section id="quiz" class="section quiz-section">
   <div class="section-inner">
     <div class="section-header" style="margin-bottom:2.5rem">
-      <span class="label-sm" data-i18n="quiz.kicker">Course Recommender</span>
-      <h2 class="display-md" style="margin-top:0.5rem" data-i18n="quiz.title">Find your perfect programme</h2>
-      <p class="body-md" style="margin-top:0.75rem"><span data-i18n="quiz.sub">5 steps · About 2 minutes · No wrong answers</span></p>
+      <span class="label-sm">Course Recommender</span>
+      <h2 class="display-md" style="margin-top:0.5rem">Find your perfect programme</h2>
+      <p class="body-md" style="margin-top:0.75rem">5 steps · About 2 minutes · No wrong answers</p>
     </div>
     <div class="quiz-shell">
       <div class="quiz-shell-header">
         <span class="label-sm">UMT Course Finder 2.0</span>
-        <div class="display-md" id="q-title-header" data-i18n="quiz.header">Let's get started</div>
+        <div class="display-md" id="q-title-header">Let's get started</div>
         <div class="quiz-progress-track"><div class="quiz-progress-fill" id="progress"></div></div>
       </div>
       <div class="quiz-body">
 
-        <!-- Step 0: Stream Selection -->
+        <!-- Step 0: Stream -->
         <div class="quiz-step active" id="step-0">
-          <div class="quiz-q" data-i18n="s0.q">What is your current education level?</div>
-          <div class="quiz-hint" data-i18n="s0.hint">This determines which programmes we recommend for you.</div>
+          <div class="quiz-q">What is your current education level?</div>
+          <div class="quiz-hint">This determines which programmes we recommend for you.</div>
           <div class="stream-cards">
             <div class="stream-card" data-stream="highschool" onclick="selectStream(this)">
               <div class="stream-icon navy">🎓</div>
-              <div class="stream-card-title" data-i18n="s0.spm.title">SPM / O-Level Leaver</div>
-              <div class="stream-card-desc"><span data-i18n="s0.spm.desc">I've completed my SPM and am looking for foundation, diploma, or direct entry options.</span></div>
+              <div class="stream-card-title">SPM / O-Level Leaver</div>
+              <div class="stream-card-desc">I've completed SPM and am looking for foundation, diploma, or direct entry options.</div>
             </div>
             <div class="stream-card" data-stream="preuniversity" onclick="selectStream(this)">
               <div class="stream-icon gold">📚</div>
-              <div class="stream-card-title" data-i18n="s0.preuni.title">Asasi / Matrikulasi / STPM</div>
-              <div class="stream-card-desc"><span data-i18n="s0.preuni.desc">I've completed or am completing pre-university studies and want to enter a degree programme.</span></div>
+              <div class="stream-card-title">Asasi / Matrikulasi / STPM</div>
+              <div class="stream-card-desc">I've completed or am completing pre-university studies and want a degree programme.</div>
             </div>
           </div>
           <div class="quiz-nav">
-            <div class="quiz-step-label" data-i18n="nav.step1of5">Step 1 of 5</div>
-            <button class="btn-quiz btn-quiz-next" onclick="nextStep(0)" id="next-0" data-i18n="nav.next">Next →</button>
+            <div class="quiz-step-label">Step 1 of 5</div>
+            <button class="btn-quiz btn-quiz-next" onclick="nextStep(0)">Next →</button>
           </div>
         </div>
 
         <!-- Step 1: Subjects -->
         <div class="quiz-step" id="step-1">
-          <div class="quiz-q" data-i18n="s1.q">Which subjects did you enjoy most?</div>
-          <div class="quiz-hint"><span data-i18n="s1.hint">Select all that apply</span></div>
-          <div id="stream-route-banner-1"></div>
+          <div class="quiz-q">Which subjects did you enjoy most?</div>
+          <div class="quiz-hint">Select all that apply</div>
           <div class="opts-grid" id="opts-1">
-            <div class="opt" data-val="tech" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><span class="opt-label" data-i18n="s1.tech">Computer & ICT</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="math" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h10M4 17h6"/><circle cx="18" cy="17" r="3"/></svg></span><span class="opt-label" data-i18n="s1.math">Mathematics</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="bio" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></span><span class="opt-label" data-i18n="s1.bio">Biology</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="chem" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3h6l1 9H8L9 3z"/><path d="M8 12l-4 8h16l-4-8"/></svg></span><span class="opt-label" data-i18n="s1.chem">Chemistry</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="phys" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span><span class="opt-label" data-i18n="s1.phys">Physics</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="biz" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3h18v18H3z" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="opt-label" data-i18n="s1.biz">Business & Economics</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="social" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="opt-label" data-i18n="s1.social">Social Sciences</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="geo" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span class="opt-label" data-i18n="s1.geo">Geography & Earth</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="tech" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><span class="opt-label">Computer &amp; ICT</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="math" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h10M4 17h6"/><circle cx="18" cy="17" r="3"/></svg></span><span class="opt-label">Mathematics</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="bio" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></span><span class="opt-label">Biology</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="chem" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3h6l1 9H8L9 3z"/><path d="M8 12l-4 8h16l-4-8"/></svg></span><span class="opt-label">Chemistry</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="phys" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span><span class="opt-label">Physics</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="biz" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3h18v18H3z" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="opt-label">Business &amp; Economics</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="social" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="opt-label">Social Sciences</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="geo" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span class="opt-label">Geography &amp; Earth</span><span class="opt-check"></span></div>
           </div>
           <div class="quiz-nav">
-            <button class="btn-quiz btn-quiz-back" onclick="prevStep(1)" data-i18n="nav.back">← Back</button>
-            <div class="quiz-step-label" data-i18n="nav.step2of5">Step 2 of 5</div>
+            <button class="btn-quiz btn-quiz-back" onclick="prevStep(1)">← Back</button>
+            <div class="quiz-step-label">Step 2 of 5</div>
             <button class="btn-quiz btn-quiz-next" onclick="nextStep(1)">Next →</button>
           </div>
         </div>
 
         <!-- Step 2: Activities -->
         <div class="quiz-step" id="step-2">
-          <div class="quiz-q" data-i18n="s2.q">What activities excite you?</div>
-          <div class="quiz-hint"><span data-i18n="s2.hint">Pick your top interests</span></div>
+          <div class="quiz-q">What activities excite you?</div>
+          <div class="quiz-hint">Pick your top interests</div>
           <div class="opts-grid" id="opts-2">
-            <div class="opt" data-val="coding" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span><span class="opt-label" data-i18n="s2.coding">Coding & Software</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="ocean" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12c1.5-2 3-2 4.5 0s3 2 4.5 0 3-2 4.5 0 3 2 4.5 0"/><path d="M2 17c1.5-2 3-2 4.5 0s3 2 4.5 0 3-2 4.5 0 3 2 4.5 0"/></svg></span><span class="opt-label" data-i18n="s2.ocean">Ocean & Marine Life</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="engineering" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41"/></svg></span><span class="opt-label" data-i18n="s2.engineering">Building & Engineering</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="business_act" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="opt-label" data-i18n="s2.business">Business & Finance</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="nature" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 8C8 10 5.9 16.17 3.82 21"/><path d="M9.09 9.09A6 6 0 0 1 20 15c0 3-2 5-5 5"/></svg></span><span class="opt-label" data-i18n="s2.nature">Nature & Conservation</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="food" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/></svg></span><span class="opt-label" data-i18n="s2.food">Food & Nutrition</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="data" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><span class="opt-label" data-i18n="s2.data">Data & Analytics</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="ships" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 4 0 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1"/><path d="M4 18l-1-5h18l-2 5"/><path d="M12 2v9M8 8l4-4 4 4"/></svg></span><span class="opt-label" data-i18n="s2.ships">Ships & Navigation</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="energy" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><span class="opt-label" data-i18n="s2.energy">Energy & Renewables</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="helping" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><span class="opt-label" data-i18n="s2.helping">Helping People</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="coding" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span><span class="opt-label">Coding &amp; Software</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="ocean" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12c1.5-2 3-2 4.5 0s3 2 4.5 0 3-2 4.5 0 3 2 4.5 0"/><path d="M2 17c1.5-2 3-2 4.5 0s3 2 4.5 0 3-2 4.5 0 3 2 4.5 0"/></svg></span><span class="opt-label">Ocean &amp; Marine Life</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="engineering" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41"/></svg></span><span class="opt-label">Building &amp; Engineering</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="business_act" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="opt-label">Business &amp; Finance</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="nature" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 8C8 10 5.9 16.17 3.82 21"/><path d="M9.09 9.09A6 6 0 0 1 20 15c0 3-2 5-5 5"/></svg></span><span class="opt-label">Nature &amp; Conservation</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="food" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/></svg></span><span class="opt-label">Food &amp; Nutrition</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="data" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><span class="opt-label">Data &amp; Analytics</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="ships" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 4 0 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1"/><path d="M4 18l-1-5h18l-2 5"/><path d="M12 2v9M8 8l4-4 4 4"/></svg></span><span class="opt-label">Ships &amp; Navigation</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="energy" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><span class="opt-label">Energy &amp; Renewables</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="helping" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><span class="opt-label">Helping People</span><span class="opt-check"></span></div>
           </div>
           <div class="quiz-nav">
             <button class="btn-quiz btn-quiz-back" onclick="prevStep(2)">← Back</button>
-            <div class="quiz-step-label" data-i18n="nav.step3of5">Step 3 of 5</div>
+            <div class="quiz-step-label">Step 3 of 5</div>
             <button class="btn-quiz btn-quiz-next" onclick="nextStep(2)">Next →</button>
           </div>
         </div>
 
         <!-- Step 3: Work environment -->
         <div class="quiz-step" id="step-3">
-          <div class="quiz-q" data-i18n="s3.q">Where do you see yourself working?</div>
-          <div class="quiz-hint"><span data-i18n="s3.hint">Choose all that feel right</span></div>
+          <div class="quiz-q">Where do you see yourself working?</div>
+          <div class="quiz-hint">Choose all that feel right</div>
           <div class="opts-grid" id="opts-3">
-            <div class="opt" data-val="tech_company" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="opt-label" data-i18n="s3.tech">Tech Company / Startup</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="sea" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1"/><path d="M4 18l-1-5h18l-2 5M12 2v9"/></svg></span><span class="opt-label" data-i18n="s3.sea">At Sea / Maritime</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="gov" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 22h18M6 18v-7M10 18v-7M14 18v-7M18 18v-7M12 2L2 7h20L12 2z"/></svg></span><span class="opt-label" data-i18n="s3.gov">Government / Policy</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="research" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span class="opt-label" data-i18n="s3.research">Research / Academia</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="corp" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><span class="opt-label" data-i18n="s3.corp">Corporate Finance</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="outdoor" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l4-8 4 5 3-3 4 6H3z"/></svg></span><span class="opt-label" data-i18n="s3.outdoor">Outdoors / Field Work</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="ngo" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10z"/></svg></span><span class="opt-label" data-i18n="s3.ngo">NGO / Conservation</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="hospitality" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 22V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14"/><path d="M10 22V12h4v10"/></svg></span><span class="opt-label" data-i18n="s3.hospitality">Tourism / Hospitality</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="tech_company" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="opt-label">Tech Company / Startup</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="sea" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1"/><path d="M4 18l-1-5h18l-2 5M12 2v9"/></svg></span><span class="opt-label">At Sea / Maritime</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="gov" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 22h18M6 18v-7M10 18v-7M14 18v-7M18 18v-7M12 2L2 7h20L12 2z"/></svg></span><span class="opt-label">Government / Policy</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="research" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span class="opt-label">Research / Academia</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="corp" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><span class="opt-label">Corporate Finance</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="outdoor" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l4-8 4 5 3-3 4 6H3z"/></svg></span><span class="opt-label">Outdoors / Field Work</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="ngo" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10z"/></svg></span><span class="opt-label">NGO / Conservation</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="hospitality" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 22V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14"/><path d="M10 22V12h4v10"/></svg></span><span class="opt-label">Tourism / Hospitality</span><span class="opt-check"></span></div>
           </div>
           <div class="quiz-nav">
             <button class="btn-quiz btn-quiz-back" onclick="prevStep(3)">← Back</button>
-            <div class="quiz-step-label" data-i18n="nav.step4of5">Step 4 of 5</div>
+            <div class="quiz-step-label">Step 4 of 5</div>
             <button class="btn-quiz btn-quiz-next" onclick="nextStep(3)">Next →</button>
           </div>
         </div>
 
         <!-- Step 4: Personality -->
         <div class="quiz-step" id="step-4">
-          <div class="quiz-q" data-i18n="s4.q">How would you describe your personality?</div>
-          <div class="quiz-hint"><span data-i18n="s4.hint">Pick the ones that resonate</span></div>
+          <div class="quiz-q">How would you describe your personality?</div>
+          <div class="quiz-hint">Pick the ones that resonate</div>
           <div class="opts-grid" id="opts-4">
-            <div class="opt" data-val="analytical" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg></span><span class="opt-label" data-i18n="s4.analytical">Analytical & Logical</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="creative" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72"/></svg></span><span class="opt-label" data-i18n="s4.creative">Creative & Innovative</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="leader" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><span class="opt-label" data-i18n="s4.leader">Leader & Organiser</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="caring" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><span class="opt-label" data-i18n="s4.caring">Caring & Empathetic</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="adventurous" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="3 17 9 3 15 17"/><polyline points="3 17 21 17"/></svg></span><span class="opt-label" data-i18n="s4.adventurous">Adventurous & Bold</span><span class="opt-check"></span></div>
-            <div class="opt" data-val="detail" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span class="opt-label" data-i18n="s4.detail">Teliti &amp; Cermat</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="analytical" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg></span><span class="opt-label">Analytical &amp; Logical</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="creative" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72"/></svg></span><span class="opt-label">Creative &amp; Innovative</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="leader" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><span class="opt-label">Leader &amp; Organiser</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="caring" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><span class="opt-label">Caring &amp; Empathetic</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="adventurous" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="3 17 9 3 15 17"/><polyline points="3 17 21 17"/></svg></span><span class="opt-label">Adventurous &amp; Bold</span><span class="opt-check"></span></div>
+            <div class="opt" data-val="detail" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span class="opt-label">Detail-oriented</span><span class="opt-check"></span></div>
           </div>
           <div class="quiz-nav">
             <button class="btn-quiz btn-quiz-back" onclick="prevStep(4)">← Back</button>
-            <div class="quiz-step-label"><span data-i18n="nav.step5of5">Step 5 of 5 (Optional)</span></div>
+            <div class="quiz-step-label">Step 4 of 5</div>
             <button class="btn-quiz btn-quiz-next" onclick="nextStep(4)">Next →</button>
           </div>
         </div>
 
-        <!-- Step 5: Qualifications -->
-        <div class="quiz-step" id="step-5">
-          <div class="quiz-q" id="q5-title" data-i18n="s5.q">Your qualifications</div>
-          <div class="quiz-hint" id="q5-hint"><span data-i18n="s5.hint">This helps us check eligibility for each programme — optional but highly recommended.</span></div>
-          <!-- SPM fields (shown for highschool stream) -->
-          <div id="spm-fields">
-            <div class="spm-grid-2">
-              <div class="field-group">
-                <div class="field-label">Number of A's (A+, A, A−)</div>
-                <select class="field-select" id="spm-as">
-                  <option value="">Select…</option>
-                  <option value="8">8 or more A's</option>
-                  <option value="7">7 A's</option>
-                  <option value="6">6 A's</option>
-                  <option value="5">5 A's</option>
-                  <option value="4">4 A's</option>
-                  <option value="3">3 A's</option>
-                  <option value="2">2 A's</option>
-                  <option value="1">1 A</option>
-                  <option value="0">0 A's</option>
-                </select>
-              </div>
-              <div class="field-group">
-                <div class="field-label">Total Credits (A to C)</div>
-                <select class="field-select" id="spm-credits">
-                  <option value="">Select…</option>
-                  <option value="9">9+ credits</option>
-                  <option value="8">8 credits</option>
-                  <option value="7">7 credits</option>
-                  <option value="6">6 credits</option>
-                  <option value="5">5 credits</option>
-                  <option value="4">4 credits</option>
-                  <option value="3">3 credits</option>
-                  <option value="2">2 credits</option>
-                  <option value="1">1 credit</option>
-                </select>
-              </div>
-            </div>
-            <div class="field-label" style="margin-bottom:0.5rem">Subjects passed with credit (A or B)</div>
-            <div class="spm-subj-grid">
-              <div class="spm-subj" data-subj="math" onclick="toggleSubj(this)"><div class="spm-chk"></div>Mathematics</div>
-              <div class="spm-subj" data-subj="addmath" onclick="toggleSubj(this)"><div class="spm-chk"></div>Add. Mathematics</div>
-              <div class="spm-subj" data-subj="biology" onclick="toggleSubj(this)"><div class="spm-chk"></div>Biology</div>
-              <div class="spm-subj" data-subj="chemistry" onclick="toggleSubj(this)"><div class="spm-chk"></div>Chemistry</div>
-              <div class="spm-subj" data-subj="physics" onclick="toggleSubj(this)"><div class="spm-chk"></div>Physics</div>
-              <div class="spm-subj" data-subj="english" onclick="toggleSubj(this)"><div class="spm-chk"></div>English</div>
-              <div class="spm-subj" data-subj="computer" onclick="toggleSubj(this)"><div class="spm-chk"></div>Computer Science</div>
-              <div class="spm-subj" data-subj="economics" onclick="toggleSubj(this)"><div class="spm-chk"></div>Economics</div>
-              <div class="spm-subj" data-subj="accounts" onclick="toggleSubj(this)"><div class="spm-chk"></div>Commerce/Accounts</div>
-            </div>
-          </div>
-          <!-- Pre-uni CGPA (shown for preuniversity stream) -->
-          <div id="preuni-fields" style="display:none">
-            <div class="spm-grid-2">
-              <div class="field-group">
-                <div class="field-label">Your Qualification</div>
-                <select class="field-select" id="preuni-qual">
-                  <option value="">Select…</option>
-                  <option value="asasi">Asasi (UMT / Other)</option>
-                  <option value="matrikulasi">Matrikulasi KPM</option>
-                  <option value="stpm">STPM</option>
-                  <option value="diploma">Diploma</option>
-                </select>
-              </div>
-              <div class="field-group">
-                <div class="field-label">CGPA / Grade</div>
-                <select class="field-select" id="preuni-cgpa">
-                  <option value="">Select…</option>
-                  <option value="3.5">3.50 – 4.00 (Excellent)</option>
-                  <option value="3.0">3.00 – 3.49 (Good)</option>
-                  <option value="2.5">2.50 – 2.99 (Satisfactory)</option>
-                  <option value="2.0">2.00 – 2.49 (Minimum)</option>
-                  <option value="1.9">Below 2.00</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="spm-note">💡 Haven't got your results yet? Skip this — we'll show all matching programmes and you can check requirements later.</div>
-          <div class="quiz-nav">
-            <button class="btn-quiz btn-quiz-back" onclick="prevStep(5)">← Back</button>
-            <div class="quiz-step-label" data-i18n="nav.step5">Step 5 of 5</div>
-            <button class="btn-quiz btn-quiz-submit" onclick="submitQuiz()" data-i18n="nav.submit">Find My Programmes →</button>
-          </div>
-        </div>
+        <!-- Step 5: Results / Eligibility (NEW) -->
+        
+<div class="quiz-step" id="step-5">
+  <div class="quiz-q" id="q4b-title">Do you have your results?</div>
+  <div class="quiz-hint" id="q4b-hint">This lets us check exact eligibility for each programme</div>
 
-      </div><!-- /quiz-body -->
-    </div><!-- /quiz-shell -->
+  <div class="stream-cards" id="results-choice-cards">
+    <div class="stream-card" data-hasresult="no" onclick="selectHasResult(this)">
+      <div class="stream-icon navy">📋</div>
+      <div class="stream-card-title">Not yet / Skip</div>
+      <div class="stream-card-desc">I'll get matched based on interests. I can check requirements later.</div>
+    </div>
+    <div class="stream-card" data-hasresult="yes" onclick="selectHasResult(this)">
+      <div class="stream-icon gold">📝</div>
+      <div class="stream-card-title">Yes, enter my results</div>
+      <div class="stream-card-desc">Get exact eligibility checks for every programme.</div>
+    </div>
+  </div>
+
+  <div id="spm-detail-block" style="display:none;margin-top:1.5rem">
+    <div style="font-size:0.8rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:0.75rem">Your SPM / O-Level Results</div>
+
+    <div class="field-group" style="margin-bottom:1rem">
+      <div class="field-label">Aliran / Stream</div>
+      <select class="field-select" id="spm-aliran" onchange="onAliranChange()">
+        <option value="">Select your aliran…</option>
+        <option value="sains_tulen">Sains Tulen (Biology + Chemistry + Physics)</option>
+        <option value="sains_campuran">Sains Campuran (2 sciences)</option>
+        <option value="sastera">Sastera / Arts</option>
+        <option value="teknik">Teknik & Vokasional</option>
+        <option value="agama">Pengajian Agama / STAM</option>
+        <option value="olevel">O-Level (International)</option>
+      </select>
+    </div>
+
+    <div class="spm-grid-2" style="margin-bottom:1rem">
+      <div class="field-group">
+        <div class="field-label">Bahasa Melayu</div>
+        <select class="field-select" id="spm-bm">
+          <option value="">Select…</option>
+          <option value="A+">A+</option><option value="A">A</option><option value="A-">A-</option>
+          <option value="B+">B+</option><option value="B">B</option>
+          <option value="C+">C+</option><option value="C">C</option>
+          <option value="D">D</option><option value="E">E</option><option value="G">G (Fail)</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Bahasa Inggeris</div>
+        <select class="field-select" id="spm-bi">
+          <option value="">Select…</option>
+          <option value="A+">A+</option><option value="A">A</option><option value="A-">A-</option>
+          <option value="B+">B+</option><option value="B">B</option>
+          <option value="C+">C+</option><option value="C">C</option>
+          <option value="D">D</option><option value="E">E</option><option value="G">G (Fail)</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Matematik</div>
+        <select class="field-select" id="spm-math">
+          <option value="">Select…</option>
+          <option value="A+">A+</option><option value="A">A</option><option value="A-">A-</option>
+          <option value="B+">B+</option><option value="B">B</option>
+          <option value="C+">C+</option><option value="C">C</option>
+          <option value="D">D</option><option value="E">E</option><option value="G">G (Fail)</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Matematik Tambahan</div>
+        <select class="field-select" id="spm-addmath">
+          <option value="">Not taken</option>
+          <option value="A+">A+</option><option value="A">A</option><option value="A-">A-</option>
+          <option value="B+">B+</option><option value="B">B</option>
+          <option value="C+">C+</option><option value="C">C</option>
+          <option value="D">D</option><option value="E">E</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="sains-subjects-block" style="display:none">
+      <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:0.5rem">Science Subjects</div>
+      <div class="spm-grid-2" style="margin-bottom:1rem">
+        <div class="field-group">
+          <div class="field-label">Biologi</div>
+          <select class="field-select" id="spm-bio">
+            <option value="">Not taken</option>
+            <option value="A+">A+</option><option value="A">A</option><option value="A-">A-</option>
+            <option value="B+">B+</option><option value="B">B</option>
+            <option value="C+">C+</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <div class="field-label">Kimia</div>
+          <select class="field-select" id="spm-chem">
+            <option value="">Not taken</option>
+            <option value="A+">A+</option><option value="A">A</option><option value="A-">A-</option>
+            <option value="B+">B+</option><option value="B">B</option>
+            <option value="C+">C+</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <div class="field-label">Fizik</div>
+          <select class="field-select" id="spm-fizik">
+            <option value="">Not taken</option>
+            <option value="A+">A+</option><option value="A">A</option><option value="A-">A-</option>
+            <option value="B+">B+</option><option value="B">B</option>
+            <option value="C+">C+</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <div class="field-label">Sains / Sains Tambahan</div>
+          <select class="field-select" id="spm-sains">
+            <option value="">Not taken</option>
+            <option value="A+">A+</option><option value="A">A</option><option value="A-">A-</option>
+            <option value="B+">B+</option><option value="B">B</option>
+            <option value="C+">C+</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-group" style="margin-bottom:1rem">
+      <div class="field-label">Total Credits / Kepujian (A to C)</div>
+      <select class="field-select" id="spm-credits">
+        <option value="">Select…</option>
+        <option value="9">9+</option><option value="8">8</option><option value="7">7</option>
+        <option value="6">6</option><option value="5">5</option><option value="4">4</option>
+        <option value="3">3</option><option value="2">2</option><option value="1">1</option>
+      </select>
+    </div>
+
+    <div class="spm-note">💡 MUET result (if available): <select class="field-select" id="spm-muet" style="display:inline-block;width:auto;padding:0.3rem 0.6rem;font-size:0.8rem">
+      <option value="">Not yet</option>
+      <option value="1.0">Band 1.0</option><option value="2.0">Band 2.0</option>
+      <option value="3.0">Band 3.0</option><option value="3.5">Band 3.5</option>
+      <option value="4.0">Band 4+</option>
+    </select></div>
+  </div>
+
+  <div id="preuni-detail-block" style="display:none;margin-top:1.5rem">
+    <div style="font-size:0.8rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:0.75rem">Your Pre-University Results</div>
+
+    <div class="spm-grid-2" style="margin-bottom:1rem">
+      <div class="field-group">
+        <div class="field-label">Qualification Type</div>
+        <select class="field-select" id="preuni-qual" onchange="onPreuniQualChange()">
+          <option value="">Select…</option>
+          <option value="asasi_sains">Asasi / Matrikulasi — Sains / Kejuruteraan</option>
+          <option value="asasi_perakaunan">Asasi / Matrikulasi — Perakaunan</option>
+          <option value="asasi_sains_sosial">Asasi / Matrikulasi — Sains Sosial</option>
+          <option value="stpm_sains">STPM — Sains</option>
+          <option value="stpm_sastera">STPM — Sastera</option>
+          <option value="stam">STAM</option>
+          <option value="diploma">Diploma / Setaraf</option>
+        </select>
+      </div>
+      <div class="field-group" id="preuni-cgpa-group">
+        <div class="field-label" id="preuni-grade-label">CGPA / PNGK</div>
+        <select class="field-select" id="preuni-cgpa">
+          <option value="">Select…</option>
+          <option value="3.5">3.50 – 4.00</option>
+          <option value="3.0">3.00 – 3.49</option>
+          <option value="2.75">2.75 – 2.99</option>
+          <option value="2.67">2.67 – 2.74</option>
+          <option value="2.5">2.50 – 2.66</option>
+          <option value="2.0">2.00 – 2.49</option>
+          <option value="1.9">Below 2.00</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="stam-block" style="display:none;margin-bottom:1rem">
+      <div class="field-group">
+        <div class="field-label">STAM Grade</div>
+        <select class="field-select" id="stam-grade">
+          <option value="">Select…</option>
+          <option value="mumtaz">Mumtaz (Excellent)</option>
+          <option value="jayyid_jiddan">Jayyid Jiddan (Very Good)</option>
+          <option value="jayyid">Jayyid (Good)</option>
+          <option value="maqbul">Maqbul (Pass)</option>
+          <option value="rasib">Rasib (Fail)</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="preuni-subjects-block" style="display:none">
+      <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:0.5rem">Key Subject Grades (at pre-uni level)</div>
+      <div class="spm-grid-2" style="margin-bottom:1rem">
+        <div class="field-group">
+          <div class="field-label">Matematik / Maths T</div>
+          <select class="field-select" id="pu-math">
+            <option value="">Not taken</option>
+            <option value="A">A / A+</option><option value="B+">B+</option><option value="B">B / B-</option>
+            <option value="C+">C+</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E (Fail)</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <div class="field-label">Biologi / Biology</div>
+          <select class="field-select" id="pu-bio">
+            <option value="">Not taken</option>
+            <option value="A">A / A+</option><option value="B+">B+</option><option value="B">B / B-</option>
+            <option value="C+">C+</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E (Fail)</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <div class="field-label">Kimia / Chemistry</div>
+          <select class="field-select" id="pu-chem">
+            <option value="">Not taken</option>
+            <option value="A">A / A+</option><option value="B+">B+</option><option value="B">B / B-</option>
+            <option value="C+">C+</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E (Fail)</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <div class="field-label">Fizik / Physics</div>
+          <select class="field-select" id="pu-fizik">
+            <option value="">Not taken</option>
+            <option value="A">A / A+</option><option value="B+">B+</option><option value="B">B / B-</option>
+            <option value="C+">C+</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E (Fail)</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <div class="field-label">Ekonomi / Business</div>
+          <select class="field-select" id="pu-ekon">
+            <option value="">Not taken</option>
+            <option value="A">A / A+</option><option value="B+">B+</option><option value="B">B / B-</option>
+            <option value="C+">C+</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E (Fail)</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <div class="field-label">Matematik M (STPM Sastera)</div>
+          <select class="field-select" id="pu-mathm">
+            <option value="">Not taken</option>
+            <option value="A">A / A+</option><option value="B+">B+</option><option value="B">B / B-</option>
+            <option value="C+">C+</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E (Fail)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div id="spm-baseline-block">
+      <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:0.5rem">SPM Baseline (needed for some programmes)</div>
+      <div class="spm-grid-2" style="margin-bottom:1rem">
+        <div class="field-group">
+          <div class="field-label">SPM Matematik</div>
+          <select class="field-select" id="spm2-math">
+            <option value="">Select…</option>
+            <option value="A">A+ / A / A-</option><option value="B">B+ / B</option>
+            <option value="C+">C+</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <div class="field-label">SPM Bahasa Inggeris</div>
+          <select class="field-select" id="spm2-bi">
+            <option value="">Select…</option>
+            <option value="A">A+ / A / A-</option><option value="B">B+ / B</option>
+            <option value="C+">C+</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="spm-note">💡 MUET: <select class="field-select" id="pu-muet" style="display:inline-block;width:auto;padding:0.3rem 0.6rem;font-size:0.8rem">
+      <option value="">Not yet</option>
+      <option value="1.0">Band 1.0</option><option value="2.0">Band 2.0</option>
+      <option value="3.0">Band 3.0</option><option value="3.5">Band 3.5</option>
+      <option value="4.0">Band 4+</option>
+    </select></div>
+  </div>
+
+  <div class="quiz-nav">
+    <button class="btn-quiz btn-quiz-back" onclick="prevStep(4)">← Back</button>
+    <div class="quiz-step-label">Step 5 of 5</div>
+    <button class="btn-quiz btn-quiz-submit" onclick="submitQuiz()">Find My Programmes →</button>
+  </div>
+</div>
+
+
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1389,18 +875,18 @@ footer {
 <section id="results">
   <div class="results-inner">
     <div class="results-header">
-      <div class="results-kicker" data-i18n="results.kicker">✦ Your personalised matches</div>
-      <h2 class="display-lg" data-i18n="results.title">Programmes matched for you</h2>
-      <p class="body-md" style="margin-top:0.75rem" data-i18n="results.sub">Based on your interests and qualifications</p>
+      <div class="results-kicker">✦ Your personalised matches</div>
+      <h2 class="display-lg">Programmes matched for you</h2>
+      <p class="body-md" style="margin-top:0.75rem">Based on your interests and qualifications</p>
     </div>
     <div id="top-match-hero" style="display:none"></div>
     <div id="stream-banner"></div>
-     <div id="stem-track-banner"></div>  
+    <div id="stem-track-banner"></div>
     <div class="results-toolbar">
       <div class="filter-group" id="filter-group">
         <button class="filter-btn active" onclick="filterResults('all',this)">All</button>
-        <button class="filter-btn" id="filter-IT" onclick="filterResults('IT',this)">IT & Computing</button>
-        <button class="filter-btn" id="filter-Marine" onclick="filterResults('Marine',this)">Marine & Science</button>
+        <button class="filter-btn" id="filter-IT" onclick="filterResults('IT',this)">IT &amp; Computing</button>
+        <button class="filter-btn" id="filter-Marine" onclick="filterResults('Marine',this)">Marine &amp; Science</button>
         <button class="filter-btn" id="filter-Engineering" onclick="filterResults('Engineering',this)">Engineering</button>
         <button class="filter-btn" id="filter-Business" onclick="filterResults('Business',this)">Business</button>
         <button class="filter-btn" id="filter-Maritime" onclick="filterResults('Maritime',this)">Maritime</button>
@@ -1408,8 +894,7 @@ footer {
         <button class="filter-btn" id="filter-Diploma" onclick="filterResults('Diploma',this)" style="display:none">Diploma</button>
       </div>
       <button class="share-btn" onclick="shareResults()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-        Share
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share
       </button>
     </div>
     <div class="compare-bar" id="compare-bar">
@@ -1420,12 +905,12 @@ footer {
     <div class="retake-wrap">
       <div class="retake-banner">
         <div class="retake-banner-text">
-          <div class="retake-banner-h" data-i18n="retake.title">Try it for yourself</div>
-          <div class="retake-banner-sub" data-i18n="retake.sub">Answers take ~2 minutes. No wrong answers.</div>
+          <div class="retake-banner-h">Try it for yourself</div>
+          <div class="retake-banner-sub">Answers take ~2 minutes. No wrong answers.</div>
         </div>
         <button class="btn-retake-big" onclick="retakeQuiz()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="18" height="18"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
-          <span data-i18n="retake.btn">↺ Start Over — Next Student</span>
+          ↺ Start Over — Next Student
         </button>
       </div>
     </div>
@@ -1475,7 +960,6 @@ footer {
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -1490,10 +974,10 @@ footer {
         <a href="mailto:pro@umt.edu.my">pro@umt.edu.my</a>
       </div>
       <div class="footer-socmed">
-        <a href="https://www.facebook.com/OfficialUMT" target="_blank" class="socmed-btn" title="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-        <a href="https://instagram.com/officialumt" target="_blank" class="socmed-btn" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
-        <a href="https://x.com/UMT_Official" target="_blank" class="socmed-btn" title="X"><svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-        <a href="https://www.linkedin.com/in/umt-universiti-malaysia-terengganu-180023144" target="_blank" class="socmed-btn" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="https://www.facebook.com/OfficialUMT" target="_blank" class="socmed-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://instagram.com/officialumt" target="_blank" class="socmed-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://x.com/UMT_Official" target="_blank" class="socmed-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://www.linkedin.com/in/umt-universiti-malaysia-terengganu-180023144" target="_blank" class="socmed-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -1507,10 +991,7 @@ footer {
 <div class="modal-overlay" id="modal" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="modal">
     <div class="modal-header">
-      <div>
-        <div id="modal-type-badge" style="margin-bottom:0.4rem"></div>
-        <div id="modal-title" style="font-family:'Instrument Serif',serif;font-size:1.15rem;line-height:1.35;"></div>
-      </div>
+      <div><div id="modal-type-badge" style="margin-bottom:0.4rem"></div><div id="modal-title" style="font-family:'Instrument Serif',serif;font-size:1.15rem;line-height:1.35;"></div></div>
       <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
     </div>
     <div class="modal-body" id="modal-body"></div>
@@ -1526,9 +1007,7 @@ footer {
       <button class="modal-close" onclick="document.getElementById('compare-modal').classList.remove('open')">✕</button>
     </div>
     <div class="modal-body" style="padding:1.5rem;overflow-x:auto" id="compare-modal-body"></div>
-    <div class="modal-footer">
-      <button class="btn-modal-sec" onclick="document.getElementById('compare-modal').classList.remove('open')">Close</button>
-    </div>
+    <div class="modal-footer"><button class="btn-modal-sec" onclick="document.getElementById('compare-modal').classList.remove('open')">Close</button></div>
   </div>
 </div>
 
@@ -1557,7 +1036,6 @@ footer {
   <div class="ai-disclaimer">For guidance only. Verify with UMT admissions office.</div>
 </div>
 
-<!-- Leaflet map -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
@@ -1695,7 +1173,12 @@ function computeScores() {
     const hasMarine = userTags.some(tag => ['ocean','nature','bio','geo'].includes(tag));
     if (!hasMarine && p.category === 'Marine') score = Math.max(0, score - 3);
     return { ...p, score };
-  }).sort((a, b) => b.score - a.score);
+  }).sort((a, b) => {
+    // Push ineligible programmes to the end when user entered results
+    if (a.eligible === false && b.eligible !== false) return 1;
+    if (b.eligible === false && a.eligible !== false) return -1;
+    return b.score - a.score;
+  });
 }
 
 function submitQuiz() {
@@ -1704,10 +1187,11 @@ function submitQuiz() {
     showToast('Programme data still loading, please wait a moment…');
     return;
   }
-  spmData.as = document.getElementById('spm-as').value;
-  spmData.credits = document.getElementById('spm-credits').value;
-  preuniData.qual = document.getElementById('preuni-qual').value;
-  preuniData.cgpa = document.getElementById('preuni-cgpa').value;
+  // Read preuni qual for stream filtering (isPreuni check in computeScores)
+  const _puQualEl = document.getElementById('preuni-qual');
+  preuniData.qual = _puQualEl ? _puQualEl.value : '';
+  const _puCgpaEl = document.getElementById('preuni-cgpa');
+  preuniData.cgpa = _puCgpaEl ? _puCgpaEl.value : '';
 
   document.getElementById('progress').style.width = '100%';
   document.getElementById('calc-label').textContent = t('calc.label');
@@ -1720,6 +1204,7 @@ function submitQuiz() {
 
   setTimeout(() => {
     allRanked = computeScores();
+    allRanked = annotateEligibility(allRanked); // inject eligibility per programme
     overlay.classList.remove('show');
     renderResults(allRanked, 'all');
   }, 1800);
@@ -2040,6 +1525,14 @@ function renderResults(ranked, filter) {
     const matchDisplay = p.score > 0 ? `<span class="match-score">${pct}% match</span>` : '';
     const accentCat = p.type === 'asasi' ? 'Foundation' : p.type === 'diploma' ? 'Diploma' : p.category;
 
+    // Eligibility badge — only shown when user entered results
+    let eligBadge = '';
+    if (p.eligible === false) {
+      eligBadge = `<div style="margin:0.5rem 0 0.25rem;display:flex;align-items:center;gap:0.4rem"><span style="display:inline-flex;align-items:center;gap:0.3rem;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.68rem;font-weight:700;background:rgba(176,30,44,0.08);border:1px solid rgba(176,30,44,0.2);color:#B01E2C">✕ May Not Qualify</span><span style="font-size:0.7rem;color:var(--text-tertiary)">${p.eligibilityReason || ''}</span></div>`;
+    } else if (p.eligible === true && p.eligibilityReason && p.eligibilityReason !== 'No results entered — showing based on interests' && p.eligibilityReason !== 'Verify requirements directly with UMT admissions') {
+      eligBadge = `<div style="margin:0.5rem 0 0.25rem"><span style="display:inline-flex;align-items:center;gap:0.3rem;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.68rem;font-weight:700;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);color:#166534">✓ Eligible — ${p.eligibilityReason}</span></div>`;
+    }
+
     // FIX #6: Renamed 'tag' arrow param to avoid shadowing global t() function
     card.innerHTML = `
       <div class="course-card-accent ${accentCat}"></div>
@@ -2050,6 +1543,7 @@ function renderResults(ranked, filter) {
         </div>
         <div class="course-name">${p.name}</div>
         <div class="course-tags">${(p.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
+        ${eligBadge}
       </div>
       <div class="course-card-bottom">
         <div class="course-info-row">
@@ -2268,10 +1762,19 @@ function retakeQuiz() {
   compareList = [];
   currentFilter = 'all';
   document.querySelectorAll('.opt.selected, .spm-subj.selected, .stream-card.selected').forEach(el => el.classList.remove('selected'));
-  document.getElementById('spm-as').value = '';
-  document.getElementById('spm-credits').value = '';
-  document.getElementById('preuni-qual').value = '';
-  document.getElementById('preuni-cgpa').value = '';
+  // Reset old fields (kept for backward compat)
+  try { document.getElementById('spm-as') && (document.getElementById('spm-as').value = ''); } catch(e){}
+  try { document.getElementById('spm-credits') && (document.getElementById('spm-credits').value = ''); } catch(e){}
+  try { document.getElementById('preuni-qual') && (document.getElementById('preuni-qual').value = ''); } catch(e){}
+  try { document.getElementById('preuni-cgpa') && (document.getElementById('preuni-cgpa').value = ''); } catch(e){}
+  // Reset new eligibility fields
+  ['spm-aliran','spm-bm','spm-bi','spm-math','spm-addmath','spm-bio','spm-chem','spm-fizik','spm-sains','spm-credits','spm-muet',
+   'preuni-cgpa','stam-grade','pu-math','pu-bio','pu-chem','pu-fizik','pu-ekon','pu-mathm','spm2-math','spm2-bi','pu-muet'
+  ].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  ['spm-detail-block','preuni-detail-block','sains-subjects-block','stam-block','preuni-subjects-block'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.style.display = 'none';
+  });
+  document.querySelectorAll('#results-choice-cards .stream-card').forEach(c => c.classList.remove('selected'));
   // FIX #5: Reset filter buttons
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   document.querySelector('.filter-btn')?.classList.add('active');
@@ -2590,6 +2093,286 @@ document.addEventListener('keydown', e => {
   }
 });
 
+// ================================================================
+// ELIGIBILITY ENGINE v2 — Based on Prospektus UMT 2026
+// Add this entire block to your fixed-js-v2.js
+// ================================================================
+
+// ── Grade helpers ────────────────────────────────────────────────
+const GRADE_RANK = { 'A+':12,'A':11,'A-':10,'B+':9,'B':8,'B-':7,'C+':6,'C':5,'D':4,'E':3,'G':0,'':0 };
+function gradeGte(got, min) {
+  if (!got || got === '') return false;
+  return (GRADE_RANK[got] || 0) >= (GRADE_RANK[min] || 0);
+}
+function gradeGteLoose(got, min) { return gradeGte(got, min); } // alias for clarity
+
+// ── Collect all result data from form ───────────────────────────
+function collectResults() {
+  const stream = selectedStream;
+  const hasResult = document.querySelector('.stream-card[data-hasresult].selected')?.dataset?.hasresult || 'no';
+
+  if (hasResult === 'no') return { hasResult: false, stream };
+
+  if (stream === 'highschool') {
+    return {
+      hasResult: true, stream,
+      aliran:    document.getElementById('spm-aliran')?.value || '',
+      bm:        document.getElementById('spm-bm')?.value || '',
+      bi:        document.getElementById('spm-bi')?.value || '',
+      math:      document.getElementById('spm-math')?.value || '',
+      addmath:   document.getElementById('spm-addmath')?.value || '',
+      bio:       document.getElementById('spm-bio')?.value || '',
+      chem:      document.getElementById('spm-chem')?.value || '',
+      fizik:     document.getElementById('spm-fizik')?.value || '',
+      sains:     document.getElementById('spm-sains')?.value || '',
+      credits:   parseInt(document.getElementById('spm-credits')?.value) || 0,
+      muet:      parseFloat(document.getElementById('spm-muet')?.value) || 0,
+    };
+  } else {
+    return {
+      hasResult: true, stream,
+      qual:      document.getElementById('preuni-qual')?.value || '',
+      cgpa:      parseFloat(document.getElementById('preuni-cgpa')?.value) || 0,
+      stam:      document.getElementById('stam-grade')?.value || '',
+      puMath:    document.getElementById('pu-math')?.value || '',
+      puBio:     document.getElementById('pu-bio')?.value || '',
+      puChem:    document.getElementById('pu-chem')?.value || '',
+      puFizik:   document.getElementById('pu-fizik')?.value || '',
+      puEkon:    document.getElementById('pu-ekon')?.value || '',
+      puMathM:   document.getElementById('pu-mathm')?.value || '',
+      spmMath:   document.getElementById('spm2-math')?.value || '',
+      spmBI:     document.getElementById('spm2-bi')?.value || '',
+      muet:      parseFloat(document.getElementById('pu-muet')?.value) || 0,
+    };
+  }
+}
+
+// ── Master eligibility checker ───────────────────────────────────
+// Returns: { eligible: bool, reason: string, route: string }
+function checkEligibility(programId, r) {
+  if (!r.hasResult) return { eligible: true, reason: 'No results entered — showing based on interests', route: 'unknown' };
+
+  const isSPM = r.stream === 'highschool';
+
+  // ── SPM / O-Level path ──────────────────────────────────────────
+  if (isSPM) {
+    const al = r.aliran;
+    const hasBM = gradeGte(r.bm, 'C');
+    const passSej = true; // we trust they passed; not asking
+    const hasBI_E = gradeGte(r.bi, 'E');
+    const hasMath_B = gradeGte(r.math, 'B') || gradeGte(r.addmath, 'B');
+    const hasMath_C = gradeGte(r.math, 'C') || gradeGte(r.addmath, 'C');
+    const hasMath_Cplus = gradeGte(r.math, 'C+') || gradeGte(r.addmath, 'C+');
+    const hasBio_Cplus  = gradeGte(r.bio, 'C+');
+    const hasChem_Cplus = gradeGte(r.chem, 'C+');
+    const hasFizik_Cplus= gradeGte(r.fizik, 'C+');
+    const hasBio_C  = gradeGte(r.bio, 'C');
+    const hasChem_C = gradeGte(r.chem, 'C');
+    const hasFizik_C= gradeGte(r.fizik, 'C');
+    const hasSains_A= gradeGte(r.sains, 'A') || gradeGte(r.bio, 'A') || gradeGte(r.chem, 'A') || gradeGte(r.fizik, 'A');
+    const hasSains_B= gradeGte(r.sains, 'B') || gradeGte(r.bio, 'B') || gradeGte(r.chem, 'B') || gradeGte(r.fizik, 'B');
+    const credits = r.credits;
+
+    // General prerequisite for all
+    if (!hasBM) return { eligible: false, reason: 'Need at least Gred C in Bahasa Melayu', route: 'spm' };
+    if (credits < 3) return { eligible: false, reason: `Only ${credits} credits — most programmes need min 3`, route: 'spm' };
+
+    switch (programId) {
+
+      case 'asasi-stem': {
+        if (!hasMath_B) return { eligible: false, reason: 'Need Gred B in Maths or Add Maths for Asasi STEM', route: 'spm' };
+        const trackA = hasBio_Cplus && hasChem_Cplus && hasFizik_Cplus;
+        const trackB = [hasBio_Cplus, hasChem_Cplus, hasFizik_Cplus].filter(Boolean).length >= 2;
+        const trackC = hasSains_A && hasBI_E; // simplest sastera
+        if (trackA) return { eligible: true, reason: 'Qualifies via STEM A (Pure Science)', route: 'stem-a' };
+        if (trackB) return { eligible: true, reason: 'Qualifies via STEM B (Mixed Science)', route: 'stem-b' };
+        if (trackC) return { eligible: true, reason: 'Qualifies via STEM C (Sastera Ikhtisas)', route: 'stem-c' };
+        return { eligible: false, reason: 'Need C+ in at least 2 sciences OR Grade A in Sains for Asasi STEM', route: 'spm' };
+      }
+
+      case 'diploma-perikanan': {
+        const ok = hasMath_C && hasBI_E && hasSains_A;
+        if (!ok) return { eligible: false, reason: 'Need Gred C: Maths, Gred E: BI, Gred A: Sains for Diploma Perikanan', route: 'spm' };
+        return { eligible: true, reason: 'Meets SPM requirements for Diploma Perikanan', route: 'spm' };
+      }
+
+      default:
+        return { eligible: true, reason: 'SPM path — verify directly with UMT admissions', route: 'spm' };
+    }
+  }
+
+  // ── Pre-University path ─────────────────────────────────────────
+  const qual = r.qual;
+  const cgpa = r.cgpa;
+  const stam = r.stam; // 'mumtaz' | 'jayyid_jiddan' | 'jayyid' | 'maqbul'
+  const stamOk = ['mumtaz','jayyid_jiddan','jayyid'].includes(stam);
+
+  // Common checks
+  const isAsasiSains = qual === 'asasi_sains';
+  const isAsasiAkad  = qual === 'asasi_perakaunan' || qual === 'asasi_sains_sosial';
+  const isSTAM       = qual === 'stam';
+  const isSTPN_S     = qual === 'stpm_sains';
+  const isSTPN_A     = qual === 'stpm_sastera';
+  const isDiploma    = qual === 'diploma';
+
+  const puMath_C  = gradeGte(r.puMath, 'C');
+  const puMath_B  = gradeGte(r.puMath, 'B');
+  const puBio_C   = gradeGte(r.puBio, 'C');
+  const puChem_C  = gradeGte(r.puChem, 'C');
+  const puFizik_C = gradeGte(r.puFizik, 'C');
+  const puChem_B  = gradeGte(r.puChem, 'B');
+  const puEkon_B  = gradeGte(r.puEkon, 'B') || gradeGte(r.puEkon, 'B-');
+  const puMathM_C = gradeGte(r.puMathM, 'C');
+
+  const spmMath_C  = gradeGte(r.spmMath, 'C');
+  const spmMath_B  = gradeGte(r.spmMath, 'B');
+  const spmBI_E    = gradeGte(r.spmBI, 'E');
+  const spmBI_D    = gradeGte(r.spmBI, 'D');
+
+  const cgpa200 = cgpa >= 2.00;
+  const cgpa250 = cgpa >= 2.50;
+  const cgpa267 = cgpa >= 2.67;
+  const cgpa275 = cgpa >= 2.75;
+  const cgpa300 = cgpa >= 3.00;
+
+  switch (programId) {
+
+    // ── FSPA ──
+    case 'fisheries-degree': // Sains Gunaan (Perikanan)
+      if (isAsasiSains && cgpa200 && (puBio_C || puChem_C || puFizik_C || puMath_C)) return { eligible: true, reason: 'Meets Asasi Sains requirement', route: 'asasi' };
+      if (isSTPN_S && (puBio_C || puChem_C || puFizik_C || puMath_C)) return { eligible: true, reason: 'Meets STPM Sains requirement', route: 'stpm' };
+      if (isSTPN_A && cgpa200) return { eligible: true, reason: 'Meets STPM Sastera requirement', route: 'stpm' };
+      if (isDiploma && cgpa250) return { eligible: true, reason: 'Diploma CGPA 2.50 — eligible', route: 'diploma' };
+      return { eligible: false, reason: 'Need C in Bio/Fizik/Kimia/Maths at Asasi/STPM, or Diploma CGPA 2.50', route: qual };
+
+    case 'cs-software-engineering':
+    case 'cs-mobile-computing':
+    case 'cs-maritime-informatics': {
+      const csOk = (isAsasiSains && cgpa200) || (isSTPN_S && puMath_C) || (isSTPN_A && cgpa200 && puMathM_C);
+      if (csOk) return { eligible: true, reason: 'Meets CS entry requirement', route: qual };
+      if (isSTAM && stamOk && spmMath_C) return { eligible: true, reason: 'STAM Jayyid + SPM Maths C — eligible', route: 'stam' };
+      if (isDiploma && cgpa250) return { eligible: true, reason: 'Diploma CGPA 2.50 — eligible', route: 'diploma' };
+      return { eligible: false, reason: 'Need CGPA 2.00 at Asasi/STPM with Maths, or Diploma CGPA 2.50', route: qual };
+    }
+
+    case 'data-analytics': // Analitik Data
+      if ((isAsasiSains || isAsasiAkad) && cgpa200 && puMath_C) return { eligible: true, reason: 'Meets Asasi requirement — C in Maths', route: 'asasi' };
+      if (isSTPN_S && puMath_C) return { eligible: true, reason: 'STPM Sains — C in Maths T', route: 'stpm' };
+      if (isSTPN_A && puMathM_C) return { eligible: true, reason: 'STPM Sastera — C in Maths M', route: 'stpm' };
+      if (isDiploma) return { eligible: true, reason: 'Diploma — setaraf', route: 'diploma' };
+      return { eligible: false, reason: 'Need C in Maths at pre-uni level', route: qual };
+
+    case 'financial-mathematics': // Matematik Kewangan & Gunaan
+    case 'marine-biology':
+    case 'marine-science': {
+      const mathOrSci = puMath_C || puBio_C || puChem_C || puFizik_C;
+      if (isAsasiSains && cgpa200 && mathOrSci) return { eligible: true, reason: 'Meets Asasi requirement', route: 'asasi' };
+      if ((isSTPN_S || isSTPN_A) && mathOrSci) return { eligible: true, reason: 'Meets STPM requirement', route: 'stpm' };
+      if (isDiploma && cgpa200) return { eligible: true, reason: 'Diploma CGPA 2.00 — eligible', route: 'diploma' };
+      return { eligible: false, reason: 'Need C in Maths/Bio/Kimia/Fizik at pre-uni level', route: qual };
+    }
+
+    // ── FSMA ──
+    case 'food-technology': // Teknologi Makanan
+      if (isAsasiSains && cgpa200 && puChem_C) return { eligible: true, reason: 'Asasi Sains — C in Kimia', route: 'asasi' };
+      if (isSTPN_S && puChem_C) return { eligible: true, reason: 'STPM Sains — C in Kimia', route: 'stpm' };
+      if (isSTAM && stamOk && spmMath_B) return { eligible: true, reason: 'STAM Jayyid + B in SPM Sains', route: 'stam' };
+      if (isDiploma && cgpa200 && spmMath_B) return { eligible: true, reason: 'Diploma + B in SPM Kimia/Bio/Fizik', route: 'diploma' };
+      return { eligible: false, reason: 'Need C in Kimia at Asasi/STPM, or STAM Jayyid + SPM B in Sains', route: qual };
+
+    // ── FPM ──
+    case 'maritime-management': // Pengurusan Maritim
+      if ((isAsasiSains || isAsasiAkad) && cgpa200 && spmMath_C && spmBI_E) return { eligible: true, reason: 'Meets Matrikulasi/Asasi requirement', route: 'asasi' };
+      if ((isSTPN_S || isSTPN_A) && puEkon_B && spmBI_E) return { eligible: true, reason: 'Meets STPM requirement', route: 'stpm' };
+      if (isDiploma && cgpa300) return { eligible: true, reason: 'Diploma CGPA 3.00 — eligible', route: 'diploma' };
+      return { eligible: false, reason: 'Need B- in Ekonomi/Perakaunan at STPM, or Asasi CGPA 2.00 + SPM Maths C', route: qual };
+
+    case 'nautical-science': // Sains Nautika
+      if (isAsasiSains && cgpa200 && (puMath_C || puFizik_C) && spmBI_E) return { eligible: true, reason: 'Asasi Sains + C in Maths/Fizik + SPM BI pass — eligible (interview required)', route: 'asasi' };
+      if (isSTPN_S && (puMath_C || puFizik_C) && spmBI_E) return { eligible: true, reason: 'STPM Sains + interview required', route: 'stpm' };
+      if (isDiploma && cgpa275) return { eligible: true, reason: 'Diploma CGPA 2.75 + interview required', route: 'diploma' };
+      return { eligible: false, reason: 'Need C in Maths or Fizik + pass BI + interview', route: qual };
+
+    // ── Engineering ──
+    case 'naval-architecture': // Senibina Kapal
+    case 'renewable-energy': // Tenaga Boleh Diperbaharui
+    case 'electronics-instrumentation': { // Elektronik & Instrumentasi
+      const engOk = (isAsasiSains && cgpa200 && (puMath_C || puFizik_C || puChem_C || puBio_C));
+      if (engOk) return { eligible: true, reason: 'Meets Asasi Sains requirement', route: 'asasi' };
+      if ((isSTPN_S) && (puMath_C || puFizik_C)) return { eligible: true, reason: 'STPM Sains — C in Maths/Fizik', route: 'stpm' };
+      if (isSTAM && stamOk) return { eligible: true, reason: 'STAM Jayyid — eligible (check specific SPM requirements)', route: 'stam' };
+      if (isDiploma && cgpa200) return { eligible: true, reason: 'Diploma CGPA 2.00 — eligible', route: 'diploma' };
+      return { eligible: false, reason: 'Need C in Maths/Fizik/Asas Kej at Asasi/STPM', route: qual };
+    }
+
+    // ── Business ──
+    case 'finance': // Kewangan
+      if ((isAsasiSains || isAsasiAkad) && cgpa267 && spmMath_C && spmBI_D) return { eligible: true, reason: 'Asasi CGPA 2.67 + SPM Maths C + BI D', route: 'asasi' };
+      if ((isSTPN_A || isSTPN_S) && (puEkon_B || puMathM_C)) return { eligible: true, reason: 'STPM requirement met', route: 'stpm' };
+      if (isDiploma && cgpa267) return { eligible: true, reason: 'Diploma CGPA 2.67 — eligible', route: 'diploma' };
+      return { eligible: false, reason: 'Need CGPA 2.67 at Asasi/Matrik + SPM Maths C + BI D', route: qual };
+
+    case 'accounting': // Perakaunan
+      if ((isAsasiAkad) && cgpa300 && spmMath_C) return { eligible: true, reason: 'Asasi CGPA 3.00 + SPM Maths C', route: 'asasi' };
+      if ((isSTPN_A) && (gradeGte(r.puEkon, 'B-') || puMathM_C) && spmMath_C) return { eligible: true, reason: 'STPM requirement met', route: 'stpm' };
+      if (isDiploma && cgpa300 && spmMath_C) return { eligible: true, reason: 'Diploma CGPA 3.00 + SPM Maths C', route: 'diploma' };
+      return { eligible: false, reason: 'Perakaunan needs CGPA 3.00 at Asasi and B- in Ekonomi/Perakaunan at STPM', route: qual };
+
+    case 'marketing': // Pemasaran
+    case 'counselling': { // Kaunseling
+      const bizOk = cgpa267 && (spmBI_D || spmBI_E);
+      if ((isAsasiSains || isAsasiAkad) && bizOk) return { eligible: true, reason: 'CGPA 2.67 + SPM BI pass — eligible', route: 'asasi' };
+      if ((isSTPN_A || isSTPN_S) && cgpa267) return { eligible: true, reason: 'STPM CGPA 2.67 — eligible', route: 'stpm' };
+      if (isSTAM && stamOk && spmMath_C) return { eligible: true, reason: 'STAM Jayyid + SPM Maths D', route: 'stam' };
+      if (isDiploma && cgpa267) return { eligible: true, reason: 'Diploma CGPA 2.67 — eligible', route: 'diploma' };
+      return { eligible: false, reason: 'Need CGPA 2.67 at pre-uni level', route: qual };
+    }
+
+    default:
+      return { eligible: true, reason: 'Verify requirements directly with UMT admissions', route: 'unknown' };
+  }
+}
+
+// ── UI handlers for new Step 4b ──────────────────────────────────
+function selectHasResult(el) {
+  document.querySelectorAll('#results-choice-cards .stream-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const hasResult = el.dataset.hasresult;
+  document.getElementById('spm-detail-block').style.display = (hasResult === 'yes' && selectedStream === 'highschool') ? '' : 'none';
+  document.getElementById('preuni-detail-block').style.display = (hasResult === 'yes' && selectedStream === 'preuniversity') ? '' : 'none';
+}
+
+function onAliranChange() {
+  const al = document.getElementById('spm-aliran').value;
+  const showSains = ['sains_tulen','sains_campuran'].includes(al);
+  document.getElementById('sains-subjects-block').style.display = showSains ? '' : 'none';
+}
+
+function onPreuniQualChange() {
+  const qual = document.getElementById('preuni-qual').value;
+  const isSTAM = qual === 'stam';
+  const showSubj = ['asasi_sains','stpm_sains','stpm_sastera','asasi_perakaunan','asasi_sains_sosial'].includes(qual);
+  document.getElementById('stam-block').style.display = isSTAM ? '' : 'none';
+  document.getElementById('preuni-subjects-block').style.display = showSubj ? '' : 'none';
+  // Update CGPA label
+  const lbl = document.getElementById('preuni-grade-label');
+  if (lbl) lbl.textContent = isSTAM ? 'STAM Grade' : (qual.startsWith('stpm') ? 'STPM CGPA / PNGK' : 'CGPA / PNGK');
+  document.getElementById('preuni-cgpa-group').style.display = isSTAM ? 'none' : '';
+  document.getElementById('stam-block').style.display = isSTAM ? '' : 'none';
+  if (!isSTAM) document.getElementById('stam-grade').value = '';
+}
+
+// ── Modified computeScores — inject eligibility into scoring ────
+// Call this AFTER the existing computeScores, to annotate results.
+function annotateEligibility(ranked) {
+  const r = collectResults();
+  return ranked.map(p => {
+    const { eligible, reason, route } = checkEligibility(p.id, r);
+    return { ...p, eligible, eligibilityReason: reason, eligibilityRoute: route };
+  });
+}
+
+
 // ============================
 // LEAFLET MAP
 // ============================
@@ -2603,6 +2386,7 @@ window.addEventListener('load', () => {
   });
   L.marker(UMT, { icon }).addTo(map).bindPopup('<b style="font-size:12px">Universiti Malaysia Terengganu</b>').openPopup();
 });
+
 </script>
 </body>
 </html>

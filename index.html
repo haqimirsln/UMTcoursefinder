@@ -1659,8 +1659,15 @@ function toggleSubj(el) {
 // ============================
 function computeScores() {
   const userTags = [...selections[1], ...selections[2], ...selections[3], ...selections[4]];
+
+  // If user has selected a pre-university qualification (asasi/matrik/stpm/diploma),
+  // treat them as preuniversity regardless of stream — never show asasi or diploma programmes.
+  const preuniQual = preuniData.qual; // 'asasi' | 'matrikulasi' | 'stpm' | 'diploma' | ''
+  const isPreuni = selectedStream === 'preuniversity' || !!preuniQual;
+
   let pool;
-  if (selectedStream === 'highschool') {
+  if (!isPreuni) {
+    // SPM / O-Level leaver with no preuni qual — show foundation + diploma
     pool = ALL_PROGRAMS.filter(p => p.type === 'asasi' || p.type === 'diploma');
     document.getElementById('filter-Foundation').style.display = '';
     document.getElementById('filter-Diploma').style.display = '';
@@ -1670,6 +1677,7 @@ function computeScores() {
     document.getElementById('filter-Business').style.display = 'none';
     document.getElementById('filter-Maritime').style.display = 'none';
   } else {
+    // Has asasi / matrikulasi / stpm / diploma — show degrees only, never asasi/diploma programmes
     pool = ALL_PROGRAMS.filter(p => p.type === 'degree');
     document.getElementById('filter-Foundation').style.display = 'none';
     document.getElementById('filter-Diploma').style.display = 'none';
@@ -1865,13 +1873,16 @@ function recommendStemTrack() {
 // and asasi-stem appears in ranked results
 // ============================================================
 function renderStemTrackBanner(container) {
-  // Only show for SPM students
-  if (selectedStream !== 'highschool') return;
-  // Only show if asasi-stem is in top results
+  // Only show for pure SPM/O-Level students — never for preuni qual holders
+  if (selectedStream !== 'highschool' || !!preuniData.qual) {
+    container.innerHTML = '';
+    return;
+  }
+  // Only show if asasi-stem is in ranked results
   const hasAsasi = allRanked.some(p => p.id === 'asasi-stem');
-  if (!hasAsasi) return;
-  // Only show if user has entered at least some subjects
-  if (spmData.subjects.length === 0 && !spmData.credits) return;
+  if (!hasAsasi) { container.innerHTML = ''; return; }
+  // Only show if user entered at least some subjects or credits
+  if (spmData.subjects.length === 0 && !spmData.credits) { container.innerHTML = ''; return; }
 
   const result = recommendStemTrack();
   const meta = result.meta;

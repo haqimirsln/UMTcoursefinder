@@ -635,6 +635,15 @@ footer{background:var(--umt-navy);color:var(--text-inverse);padding:var(--space-
         </select>
       </div>
       <div class="field-group">
+        <div class="field-label">Sejarah</div>
+        <select class="field-select" id="spm-sej">
+          <option value="">Select…</option>
+          <option value="A">A+ / A / A-</option><option value="B">B+ / B</option>
+          <option value="C+">C+</option><option value="C">C</option>
+          <option value="D">D</option><option value="E">E (Pass)</option><option value="G">G (Fail)</option>
+        </select>
+      </div>
+      <div class="field-group">
         <div class="field-label">Matematik</div>
         <select class="field-select" id="spm-math">
           <option value="">Select…</option>
@@ -710,6 +719,24 @@ footer{background:var(--umt-navy);color:var(--text-inverse);padding:var(--space-
         <option value="6">6</option><option value="5">5</option><option value="4">4</option>
         <option value="3">3</option><option value="2">2</option><option value="1">1</option>
       </select>
+    </div>
+
+    <div class="spm-grid-2" style="margin-bottom:1rem">
+      <div class="field-group">
+        <div class="field-label">Other relevant SPM/STEM subject</div>
+        <select class="field-select" id="spm-other">
+          <option value="">Not taken</option>
+          <option value="A+">A+</option><option value="A">A</option><option value="A-">A-</option>
+          <option value="B+">B+</option><option value="B">B</option><option value="C+">C+</option><option value="C">C</option>
+          <option value="D">D</option><option value="E">E</option><option value="G">G</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <div class="field-label">How many electives with C+ or above?</div>
+        <select class="field-select" id="spm-elective-cplus">
+          <option value="0">0 / Not sure</option><option value="1">1</option><option value="2">2</option><option value="3">3+</option>
+        </select>
+      </div>
     </div>
 
     <div class="spm-note">💡 MUET result (if available): <select class="field-select" id="spm-muet" style="display:inline-block;width:auto;padding:0.3rem 0.6rem;font-size:0.8rem">
@@ -823,6 +850,22 @@ footer{background:var(--umt-navy);color:var(--text-inverse);padding:var(--space-
             <option value="D">D</option><option value="E">E (Fail)</option>
           </select>
         </div>
+        <div class="field-group">
+          <div class="field-label">Other relevant subject 1<br><span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-tertiary)">ICT / Geografi / Perakaunan / Perniagaan / Asas Kejuruteraan</span></div>
+          <select class="field-select" id="pu-other1">
+            <option value="">Not taken</option>
+            <option value="A">A / A+</option><option value="B+">B+</option><option value="B-">B-</option><option value="B">B</option>
+            <option value="C+">C+</option><option value="C">C</option><option value="D">D</option><option value="E">E (Fail)</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <div class="field-label">Other relevant subject 2</div>
+          <select class="field-select" id="pu-other2">
+            <option value="">Not taken</option>
+            <option value="A">A / A+</option><option value="B+">B+</option><option value="B-">B-</option><option value="B">B</option>
+            <option value="C+">C+</option><option value="C">C</option><option value="D">D</option><option value="E">E (Fail)</option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -846,6 +889,34 @@ footer{background:var(--umt-navy);color:var(--text-inverse);padding:var(--space-
             <option value="C+">C+</option><option value="C">C</option>
             <option value="D">D</option><option value="E">E</option>
           </select>
+        </div>
+        <div class="field-group">
+          <div class="field-label">SPM Bahasa Melayu</div>
+          <select class="field-select" id="spm2-bm">
+            <option value="">Select…</option><option value="A">A+ / A / A-</option><option value="B">B+ / B</option><option value="C+">C+</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <div class="field-label">SPM Sejarah</div>
+          <select class="field-select" id="spm2-sej">
+            <option value="">Select…</option><option value="A">A+ / A / A-</option><option value="B">B+ / B</option><option value="C+">C+</option><option value="C">C</option><option value="D">D</option><option value="E">E (Pass)</option><option value="G">G (Fail)</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <div class="field-label">SPM Biologi</div>
+          <select class="field-select" id="spm2-bio"><option value="">Not taken</option><option value="A">A</option><option value="B">B</option><option value="C+">C+</option><option value="C">C</option><option value="D">D</option><option value="E">E</option></select>
+        </div>
+        <div class="field-group">
+          <div class="field-label">SPM Kimia</div>
+          <select class="field-select" id="spm2-chem"><option value="">Not taken</option><option value="A">A</option><option value="B">B</option><option value="C+">C+</option><option value="C">C</option><option value="D">D</option><option value="E">E</option></select>
+        </div>
+        <div class="field-group">
+          <div class="field-label">SPM Fizik</div>
+          <select class="field-select" id="spm2-fizik"><option value="">Not taken</option><option value="A">A</option><option value="B">B</option><option value="C+">C+</option><option value="C">C</option><option value="D">D</option><option value="E">E</option></select>
+        </div>
+        <div class="field-group">
+          <div class="field-label">SPM Sains / Other STEM</div>
+          <select class="field-select" id="spm2-sains"><option value="">Not taken</option><option value="A">A</option><option value="B">B</option><option value="C+">C+</option><option value="C">C</option><option value="D">D</option><option value="E">E</option></select>
         </div>
       </div>
     </div>
@@ -1204,7 +1275,12 @@ function submitQuiz() {
 
   setTimeout(() => {
     allRanked = computeScores();
-    allRanked = annotateEligibility(allRanked); // inject eligibility per programme
+    allRanked = annotateEligibility(allRanked)
+      .sort((a,b) => {
+        if (a.eligible === false && b.eligible !== false) return 1;
+        if (b.eligible === false && a.eligible !== false) return -1;
+        return b.score - a.score;
+      }); // inject eligibility per programme
     overlay.classList.remove('show');
     renderResults(allRanked, 'all');
   }, 1800);
@@ -1768,8 +1844,8 @@ function retakeQuiz() {
   try { document.getElementById('preuni-qual') && (document.getElementById('preuni-qual').value = ''); } catch(e){}
   try { document.getElementById('preuni-cgpa') && (document.getElementById('preuni-cgpa').value = ''); } catch(e){}
   // Reset new eligibility fields
-  ['spm-aliran','spm-bm','spm-bi','spm-math','spm-addmath','spm-bio','spm-chem','spm-fizik','spm-sains','spm-credits','spm-muet',
-   'preuni-cgpa','stam-grade','pu-math','pu-bio','pu-chem','pu-fizik','pu-ekon','pu-mathm','spm2-math','spm2-bi','pu-muet'
+  ['spm-aliran','spm-bm','spm-bi','spm-sej','spm-math','spm-addmath','spm-bio','spm-chem','spm-fizik','spm-sains','spm-other','spm-elective-cplus','spm-credits','spm-muet',
+   'preuni-cgpa','stam-grade','pu-math','pu-bio','pu-chem','pu-fizik','pu-ekon','pu-mathm','pu-other1','pu-other2','spm2-math','spm2-bi','spm2-bm','spm2-sej','spm2-bio','spm2-chem','spm2-fizik','spm2-sains','pu-muet'
   ].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
   ['spm-detail-block','preuni-detail-block','sains-subjects-block','stam-block','preuni-subjects-block'].forEach(id => {
     const el = document.getElementById(id); if(el) el.style.display = 'none';
@@ -2107,230 +2183,114 @@ function gradeGte(got, min) {
 function gradeGteLoose(got, min) { return gradeGte(got, min); } // alias for clarity
 
 // ── Collect all result data from form ───────────────────────────
+
 function collectResults() {
-  const stream = selectedStream;
   const hasResult = document.querySelector('.stream-card[data-hasresult].selected')?.dataset?.hasresult || 'no';
-
-  if (hasResult === 'no') return { hasResult: false, stream };
-
-  if (stream === 'highschool') {
-    return {
-      hasResult: true, stream,
-      aliran:    document.getElementById('spm-aliran')?.value || '',
-      bm:        document.getElementById('spm-bm')?.value || '',
-      bi:        document.getElementById('spm-bi')?.value || '',
-      math:      document.getElementById('spm-math')?.value || '',
-      addmath:   document.getElementById('spm-addmath')?.value || '',
-      bio:       document.getElementById('spm-bio')?.value || '',
-      chem:      document.getElementById('spm-chem')?.value || '',
-      fizik:     document.getElementById('spm-fizik')?.value || '',
-      sains:     document.getElementById('spm-sains')?.value || '',
-      credits:   parseInt(document.getElementById('spm-credits')?.value) || 0,
-      muet:      parseFloat(document.getElementById('spm-muet')?.value) || 0,
-    };
-  } else {
-    return {
-      hasResult: true, stream,
-      qual:      document.getElementById('preuni-qual')?.value || '',
-      cgpa:      parseFloat(document.getElementById('preuni-cgpa')?.value) || 0,
-      stam:      document.getElementById('stam-grade')?.value || '',
-      puMath:    document.getElementById('pu-math')?.value || '',
-      puBio:     document.getElementById('pu-bio')?.value || '',
-      puChem:    document.getElementById('pu-chem')?.value || '',
-      puFizik:   document.getElementById('pu-fizik')?.value || '',
-      puEkon:    document.getElementById('pu-ekon')?.value || '',
-      puMathM:   document.getElementById('pu-mathm')?.value || '',
-      spmMath:   document.getElementById('spm2-math')?.value || '',
-      spmBI:     document.getElementById('spm2-bi')?.value || '',
-      muet:      parseFloat(document.getElementById('pu-muet')?.value) || 0,
-    };
-  }
+  const val = id => (document.getElementById(id)?.value || '').trim();
+  const num = id => parseFloat(val(id) || '0') || 0;
+  const spm = {
+    aliran: val('spm-aliran') || val('preuni-qual'),
+    bm: val('spm-bm') || val('spm2-bm'),
+    bi: val('spm-bi') || val('spm2-bi'),
+    sej: val('spm-sej') || val('spm2-sej'),
+    math: val('spm-math') || val('spm2-math'),
+    addmath: val('spm-addmath'),
+    bio: val('spm-bio') || val('spm2-bio'),
+    chem: val('spm-chem') || val('spm2-chem'),
+    fizik: val('spm-fizik') || val('spm2-fizik'),
+    sains: val('spm-sains') || val('spm2-sains'),
+    other: val('spm-other'),
+    credits: num('spm-credits'),
+    electiveCPlus: num('spm-elective-cplus'),
+    muet: num('spm-muet')
+  };
+  return {
+    hasResult: hasResult === 'yes',
+    stream: selectedStream,
+    qual: selectedStream === 'highschool' ? (spm.aliran === 'olevel' ? 'olevel' : 'spm') : val('preuni-qual'),
+    cgpa: num('preuni-cgpa'),
+    stam: val('stam-grade'),
+    muet: num('pu-muet') || spm.muet,
+    pu: {
+      math: val('pu-math'), bio: val('pu-bio'), chem: val('pu-chem'), fizik: val('pu-fizik'),
+      ekon: val('pu-ekon'), mathm: val('pu-mathm'), other1: val('pu-other1'), other2: val('pu-other2')
+    },
+    spm
+  };
 }
 
-// ── Master eligibility checker ───────────────────────────────────
-// Returns: { eligible: bool, reason: string, route: string }
+const STAM_RANK = {'':0,'maqbul':1,'jayyid':2,'jayyid_jiddan':3,'mumtaz':4};
+function getFieldValue(field, r) {
+  const [scope, key] = field.split('.');
+  if (scope === 'spm') return r.spm?.[key] || '';
+  if (scope === 'pu') return r.pu?.[key] || '';
+  return r[field] || '';
+}
+function checkCondition(c, r) {
+  switch (c.type) {
+    case 'qual_in': return c.values.includes(r.qual) || (c.values.includes('asasi_kejuruteraan') && r.qual === 'asasi_sains');
+    case 'cgpa_min': return (r.cgpa || 0) >= c.value;
+    case 'credits_min': return (r.spm?.credits || 0) >= c.value;
+    case 'sejarah_pass': return gradeGte(r.spm?.sej || 'E', 'E');
+    case 'elective_cplus_min': return (r.spm?.electiveCPlus || 0) >= c.value;
+    case 'stam_min': return (STAM_RANK[r.stam] || 0) >= (STAM_RANK[c.value] || 0);
+    case 'grade_min': return gradeGte(getFieldValue(c.field, r), c.minGrade);
+    case 'any_grade_min': return c.fields.some(f => gradeGte(getFieldValue(f, r), c.minGrade));
+    case 'count_grade_min': return c.fields.filter(f => gradeGte(getFieldValue(f, r), c.minGrade)).length >= c.count;
+    case 'any_group': return c.groups.some(g => g.every(x => checkCondition(x, r)));
+    default: return false;
+  }
+}
+function checkRoute(route, r) {
+  const missing = [];
+  for (const c of (route.conditions || [])) {
+    if (!checkCondition(c, r)) missing.push(describeCondition(c));
+  }
+  const muetMin = parseFloat(route.muetMin || '0') || 0;
+  if (muetMin && (r.muet || 0) && (r.muet || 0) < muetMin) missing.push(`MUET Band ${route.muetMin}`);
+  // MUET empty is treated as "check later" instead of hard fail because some users do not have MUET yet.
+  return { ok: missing.length === 0, missing };
+}
+function describeCondition(c) {
+  const name = f => ({
+    'spm.bm':'SPM BM','spm.bi':'SPM BI','spm.sej':'SPM Sejarah','spm.math':'SPM Matematik','spm.addmath':'SPM Add Maths',
+    'spm.bio':'SPM Biologi','spm.chem':'SPM Kimia','spm.fizik':'SPM Fizik','spm.sains':'SPM Sains','spm.other':'SPM relevant elective',
+    'pu.math':'Maths','pu.mathm':'Maths M','pu.bio':'Biology','pu.chem':'Chemistry','pu.fizik':'Physics','pu.ekon':'Economics/Business','pu.other1':'Relevant subject 1','pu.other2':'Relevant subject 2'
+  }[f] || f);
+  if (c.type === 'qual_in') return `route: ${c.values.join(' / ')}`;
+  if (c.type === 'cgpa_min') return `CGPA ${c.value}`;
+  if (c.type === 'credits_min') return `${c.value} SPM credits`;
+  if (c.type === 'sejarah_pass') return 'Pass Sejarah';
+  if (c.type === 'elective_cplus_min') return `${c.value} elective C+`;
+  if (c.type === 'stam_min') return `STAM ${String(c.value).toUpperCase()}`;
+  if (c.type === 'grade_min') return `${name(c.field)} ${c.minGrade}`;
+  if (c.type === 'any_grade_min') return `one of ${c.fields.map(name).join('/')} ${c.minGrade}`;
+  if (c.type === 'count_grade_min') return `${c.count} of ${c.fields.map(name).join('/')} ${c.minGrade}`;
+  if (c.type === 'any_group') return 'one alternative requirement group';
+  return 'requirement';
+}
 function checkEligibility(programId, r) {
-  if (!r.hasResult) return { eligible: true, reason: 'No results entered — showing based on interests', route: 'unknown' };
-
-  const isSPM = r.stream === 'highschool';
-
-  // ── SPM / O-Level path ──────────────────────────────────────────
-  if (isSPM) {
-    const al = r.aliran;
-    const hasBM = gradeGte(r.bm, 'C');
-    const passSej = true; // we trust they passed; not asking
-    const hasBI_E = gradeGte(r.bi, 'E');
-    const hasMath_B = gradeGte(r.math, 'B') || gradeGte(r.addmath, 'B');
-    const hasMath_C = gradeGte(r.math, 'C') || gradeGte(r.addmath, 'C');
-    const hasMath_Cplus = gradeGte(r.math, 'C+') || gradeGte(r.addmath, 'C+');
-    const hasBio_Cplus  = gradeGte(r.bio, 'C+');
-    const hasChem_Cplus = gradeGte(r.chem, 'C+');
-    const hasFizik_Cplus= gradeGte(r.fizik, 'C+');
-    const hasBio_C  = gradeGte(r.bio, 'C');
-    const hasChem_C = gradeGte(r.chem, 'C');
-    const hasFizik_C= gradeGte(r.fizik, 'C');
-    const hasSains_A= gradeGte(r.sains, 'A') || gradeGte(r.bio, 'A') || gradeGte(r.chem, 'A') || gradeGte(r.fizik, 'A');
-    const hasSains_B= gradeGte(r.sains, 'B') || gradeGte(r.bio, 'B') || gradeGte(r.chem, 'B') || gradeGte(r.fizik, 'B');
-    const credits = r.credits;
-
-    // General prerequisite for all
-    if (!hasBM) return { eligible: false, reason: 'Need at least Gred C in Bahasa Melayu', route: 'spm' };
-    if (credits < 3) return { eligible: false, reason: `Only ${credits} credits — most programmes need min 3`, route: 'spm' };
-
-    switch (programId) {
-
-      case 'asasi-stem': {
-        if (!hasMath_B) return { eligible: false, reason: 'Need Gred B in Maths or Add Maths for Asasi STEM', route: 'spm' };
-        const trackA = hasBio_Cplus && hasChem_Cplus && hasFizik_Cplus;
-        const trackB = [hasBio_Cplus, hasChem_Cplus, hasFizik_Cplus].filter(Boolean).length >= 2;
-        const trackC = hasSains_A && hasBI_E; // simplest sastera
-        if (trackA) return { eligible: true, reason: 'Qualifies via STEM A (Pure Science)', route: 'stem-a' };
-        if (trackB) return { eligible: true, reason: 'Qualifies via STEM B (Mixed Science)', route: 'stem-b' };
-        if (trackC) return { eligible: true, reason: 'Qualifies via STEM C (Sastera Ikhtisas)', route: 'stem-c' };
-        return { eligible: false, reason: 'Need C+ in at least 2 sciences OR Grade A in Sains for Asasi STEM', route: 'spm' };
-      }
-
-      case 'diploma-perikanan': {
-        const ok = hasMath_C && hasBI_E && hasSains_A;
-        if (!ok) return { eligible: false, reason: 'Need Gred C: Maths, Gred E: BI, Gred A: Sains for Diploma Perikanan', route: 'spm' };
-        return { eligible: true, reason: 'Meets SPM requirements for Diploma Perikanan', route: 'spm' };
-      }
-
-      default:
-        return { eligible: true, reason: 'SPM path — verify directly with UMT admissions', route: 'spm' };
-    }
+  if (!r.hasResult) return { eligible: true, reason: 'Explore only — no results entered', route: 'interest' };
+  const program = ALL_PROGRAMS.find(p => p.id === programId);
+  const routes = program?.eligibilityRules?.routes || [];
+  if (!routes.length) return { eligible: true, reason: 'No machine-readable rules yet — verify with UMT admissions', route: 'manual' };
+  const checked = routes.map(route => ({ route, result: checkRoute(route, r) }));
+  const pass = checked.find(x => x.result.ok);
+  if (pass) {
+    let reason = pass.route.label || pass.route.id;
+    if (pass.route.interviewRequired) reason += ' + interview/test required';
+    if (pass.route.caution) reason += ` (${pass.route.caution})`;
+    if (pass.route.muetMin && !r.muet) reason += `; MUET Band ${pass.route.muetMin} required`;
+    return { eligible: true, reason, route: pass.route.id };
   }
-
-  // ── Pre-University path ─────────────────────────────────────────
-  const qual = r.qual;
-  const cgpa = r.cgpa;
-  const stam = r.stam; // 'mumtaz' | 'jayyid_jiddan' | 'jayyid' | 'maqbul'
-  const stamOk = ['mumtaz','jayyid_jiddan','jayyid'].includes(stam);
-
-  // Common checks
-  const isAsasiSains = qual === 'asasi_sains';
-  const isAsasiAkad  = qual === 'asasi_perakaunan' || qual === 'asasi_sains_sosial';
-  const isSTAM       = qual === 'stam';
-  const isSTPN_S     = qual === 'stpm_sains';
-  const isSTPN_A     = qual === 'stpm_sastera';
-  const isDiploma    = qual === 'diploma';
-
-  const puMath_C  = gradeGte(r.puMath, 'C');
-  const puMath_B  = gradeGte(r.puMath, 'B');
-  const puBio_C   = gradeGte(r.puBio, 'C');
-  const puChem_C  = gradeGte(r.puChem, 'C');
-  const puFizik_C = gradeGte(r.puFizik, 'C');
-  const puChem_B  = gradeGte(r.puChem, 'B');
-  const puEkon_B  = gradeGte(r.puEkon, 'B') || gradeGte(r.puEkon, 'B-');
-  const puMathM_C = gradeGte(r.puMathM, 'C');
-
-  const spmMath_C  = gradeGte(r.spmMath, 'C');
-  const spmMath_B  = gradeGte(r.spmMath, 'B');
-  const spmBI_E    = gradeGte(r.spmBI, 'E');
-  const spmBI_D    = gradeGte(r.spmBI, 'D');
-
-  const cgpa200 = cgpa >= 2.00;
-  const cgpa250 = cgpa >= 2.50;
-  const cgpa267 = cgpa >= 2.67;
-  const cgpa275 = cgpa >= 2.75;
-  const cgpa300 = cgpa >= 3.00;
-
-  switch (programId) {
-
-    // ── FSPA ──
-    case 'fisheries-degree': // Sains Gunaan (Perikanan)
-      if (isAsasiSains && cgpa200 && (puBio_C || puChem_C || puFizik_C || puMath_C)) return { eligible: true, reason: 'Meets Asasi Sains requirement', route: 'asasi' };
-      if (isSTPN_S && (puBio_C || puChem_C || puFizik_C || puMath_C)) return { eligible: true, reason: 'Meets STPM Sains requirement', route: 'stpm' };
-      if (isSTPN_A && cgpa200) return { eligible: true, reason: 'Meets STPM Sastera requirement', route: 'stpm' };
-      if (isDiploma && cgpa250) return { eligible: true, reason: 'Diploma CGPA 2.50 — eligible', route: 'diploma' };
-      return { eligible: false, reason: 'Need C in Bio/Fizik/Kimia/Maths at Asasi/STPM, or Diploma CGPA 2.50', route: qual };
-
-    case 'cs-software-engineering':
-    case 'cs-mobile-computing':
-    case 'cs-maritime-informatics': {
-      const csOk = (isAsasiSains && cgpa200) || (isSTPN_S && puMath_C) || (isSTPN_A && cgpa200 && puMathM_C);
-      if (csOk) return { eligible: true, reason: 'Meets CS entry requirement', route: qual };
-      if (isSTAM && stamOk && spmMath_C) return { eligible: true, reason: 'STAM Jayyid + SPM Maths C — eligible', route: 'stam' };
-      if (isDiploma && cgpa250) return { eligible: true, reason: 'Diploma CGPA 2.50 — eligible', route: 'diploma' };
-      return { eligible: false, reason: 'Need CGPA 2.00 at Asasi/STPM with Maths, or Diploma CGPA 2.50', route: qual };
-    }
-
-    case 'data-analytics': // Analitik Data
-      if ((isAsasiSains || isAsasiAkad) && cgpa200 && puMath_C) return { eligible: true, reason: 'Meets Asasi requirement — C in Maths', route: 'asasi' };
-      if (isSTPN_S && puMath_C) return { eligible: true, reason: 'STPM Sains — C in Maths T', route: 'stpm' };
-      if (isSTPN_A && puMathM_C) return { eligible: true, reason: 'STPM Sastera — C in Maths M', route: 'stpm' };
-      if (isDiploma) return { eligible: true, reason: 'Diploma — setaraf', route: 'diploma' };
-      return { eligible: false, reason: 'Need C in Maths at pre-uni level', route: qual };
-
-    case 'financial-mathematics': // Matematik Kewangan & Gunaan
-    case 'marine-biology':
-    case 'marine-science': {
-      const mathOrSci = puMath_C || puBio_C || puChem_C || puFizik_C;
-      if (isAsasiSains && cgpa200 && mathOrSci) return { eligible: true, reason: 'Meets Asasi requirement', route: 'asasi' };
-      if ((isSTPN_S || isSTPN_A) && mathOrSci) return { eligible: true, reason: 'Meets STPM requirement', route: 'stpm' };
-      if (isDiploma && cgpa200) return { eligible: true, reason: 'Diploma CGPA 2.00 — eligible', route: 'diploma' };
-      return { eligible: false, reason: 'Need C in Maths/Bio/Kimia/Fizik at pre-uni level', route: qual };
-    }
-
-    // ── FSMA ──
-    case 'food-technology': // Teknologi Makanan
-      if (isAsasiSains && cgpa200 && puChem_C) return { eligible: true, reason: 'Asasi Sains — C in Kimia', route: 'asasi' };
-      if (isSTPN_S && puChem_C) return { eligible: true, reason: 'STPM Sains — C in Kimia', route: 'stpm' };
-      if (isSTAM && stamOk && spmMath_B) return { eligible: true, reason: 'STAM Jayyid + B in SPM Sains', route: 'stam' };
-      if (isDiploma && cgpa200 && spmMath_B) return { eligible: true, reason: 'Diploma + B in SPM Kimia/Bio/Fizik', route: 'diploma' };
-      return { eligible: false, reason: 'Need C in Kimia at Asasi/STPM, or STAM Jayyid + SPM B in Sains', route: qual };
-
-    // ── FPM ──
-    case 'maritime-management': // Pengurusan Maritim
-      if ((isAsasiSains || isAsasiAkad) && cgpa200 && spmMath_C && spmBI_E) return { eligible: true, reason: 'Meets Matrikulasi/Asasi requirement', route: 'asasi' };
-      if ((isSTPN_S || isSTPN_A) && puEkon_B && spmBI_E) return { eligible: true, reason: 'Meets STPM requirement', route: 'stpm' };
-      if (isDiploma && cgpa300) return { eligible: true, reason: 'Diploma CGPA 3.00 — eligible', route: 'diploma' };
-      return { eligible: false, reason: 'Need B- in Ekonomi/Perakaunan at STPM, or Asasi CGPA 2.00 + SPM Maths C', route: qual };
-
-    case 'nautical-science': // Sains Nautika
-      if (isAsasiSains && cgpa200 && (puMath_C || puFizik_C) && spmBI_E) return { eligible: true, reason: 'Asasi Sains + C in Maths/Fizik + SPM BI pass — eligible (interview required)', route: 'asasi' };
-      if (isSTPN_S && (puMath_C || puFizik_C) && spmBI_E) return { eligible: true, reason: 'STPM Sains + interview required', route: 'stpm' };
-      if (isDiploma && cgpa275) return { eligible: true, reason: 'Diploma CGPA 2.75 + interview required', route: 'diploma' };
-      return { eligible: false, reason: 'Need C in Maths or Fizik + pass BI + interview', route: qual };
-
-    // ── Engineering ──
-    case 'naval-architecture': // Senibina Kapal
-    case 'renewable-energy': // Tenaga Boleh Diperbaharui
-    case 'electronics-instrumentation': { // Elektronik & Instrumentasi
-      const engOk = (isAsasiSains && cgpa200 && (puMath_C || puFizik_C || puChem_C || puBio_C));
-      if (engOk) return { eligible: true, reason: 'Meets Asasi Sains requirement', route: 'asasi' };
-      if ((isSTPN_S) && (puMath_C || puFizik_C)) return { eligible: true, reason: 'STPM Sains — C in Maths/Fizik', route: 'stpm' };
-      if (isSTAM && stamOk) return { eligible: true, reason: 'STAM Jayyid — eligible (check specific SPM requirements)', route: 'stam' };
-      if (isDiploma && cgpa200) return { eligible: true, reason: 'Diploma CGPA 2.00 — eligible', route: 'diploma' };
-      return { eligible: false, reason: 'Need C in Maths/Fizik/Asas Kej at Asasi/STPM', route: qual };
-    }
-
-    // ── Business ──
-    case 'finance': // Kewangan
-      if ((isAsasiSains || isAsasiAkad) && cgpa267 && spmMath_C && spmBI_D) return { eligible: true, reason: 'Asasi CGPA 2.67 + SPM Maths C + BI D', route: 'asasi' };
-      if ((isSTPN_A || isSTPN_S) && (puEkon_B || puMathM_C)) return { eligible: true, reason: 'STPM requirement met', route: 'stpm' };
-      if (isDiploma && cgpa267) return { eligible: true, reason: 'Diploma CGPA 2.67 — eligible', route: 'diploma' };
-      return { eligible: false, reason: 'Need CGPA 2.67 at Asasi/Matrik + SPM Maths C + BI D', route: qual };
-
-    case 'accounting': // Perakaunan
-      if ((isAsasiAkad) && cgpa300 && spmMath_C) return { eligible: true, reason: 'Asasi CGPA 3.00 + SPM Maths C', route: 'asasi' };
-      if ((isSTPN_A) && (gradeGte(r.puEkon, 'B-') || puMathM_C) && spmMath_C) return { eligible: true, reason: 'STPM requirement met', route: 'stpm' };
-      if (isDiploma && cgpa300 && spmMath_C) return { eligible: true, reason: 'Diploma CGPA 3.00 + SPM Maths C', route: 'diploma' };
-      return { eligible: false, reason: 'Perakaunan needs CGPA 3.00 at Asasi and B- in Ekonomi/Perakaunan at STPM', route: qual };
-
-    case 'marketing': // Pemasaran
-    case 'counselling': { // Kaunseling
-      const bizOk = cgpa267 && (spmBI_D || spmBI_E);
-      if ((isAsasiSains || isAsasiAkad) && bizOk) return { eligible: true, reason: 'CGPA 2.67 + SPM BI pass — eligible', route: 'asasi' };
-      if ((isSTPN_A || isSTPN_S) && cgpa267) return { eligible: true, reason: 'STPM CGPA 2.67 — eligible', route: 'stpm' };
-      if (isSTAM && stamOk && spmMath_C) return { eligible: true, reason: 'STAM Jayyid + SPM Maths D', route: 'stam' };
-      if (isDiploma && cgpa267) return { eligible: true, reason: 'Diploma CGPA 2.67 — eligible', route: 'diploma' };
-      return { eligible: false, reason: 'Need CGPA 2.67 at pre-uni level', route: qual };
-    }
-
-    default:
-      return { eligible: true, reason: 'Verify requirements directly with UMT admissions', route: 'unknown' };
-  }
+  // Choose the closest route by fewest missing items.
+  checked.sort((a,b) => a.result.missing.length - b.result.missing.length);
+  const best = checked[0];
+  return {
+    eligible: false,
+    reason: `Closest route: ${best.route.label || best.route.id}. Missing: ${best.result.missing.slice(0,3).join(', ')}`,
+    route: best.route.id
+  };
 }
 
 // ── UI handlers for new Step 4b ──────────────────────────────────

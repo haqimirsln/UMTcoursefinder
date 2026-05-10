@@ -650,15 +650,15 @@ button,.btn-primary,.btn-secondary,.btn-quiz,.btn-card-detail,.btn-card-wa,.btn-
   <div class="quiz-hint">Yes = enter grades, get exact eligibility. No = answer interest questions instead.</div>
 
   <div class="stream-cards" id="results-choice-cards">
-    <div class="stream-card" data-hasresult="yes" onclick="selectHasResult(this)">
-      <div class="stream-icon gold">📝</div>
-      <div class="stream-card-title">Yes, I have my results</div>
-      <div class="stream-card-desc">Enter your grades for an exact eligibility check per programme.</div>
-    </div>
     <div class="stream-card" data-hasresult="no" onclick="selectHasResult(this)">
       <div class="stream-icon navy">💬</div>
       <div class="stream-card-title">Not yet — match by interest</div>
       <div class="stream-card-desc">Answer a few quick questions about your interests instead.</div>
+    </div>
+    <div class="stream-card" data-hasresult="yes" onclick="selectHasResult(this)">
+      <div class="stream-icon gold">📝</div>
+      <div class="stream-card-title">Yes, I have my results</div>
+      <div class="stream-card-desc">Enter your grades for an exact eligibility check per programme.</div>
     </div>
   </div>
 
@@ -1323,7 +1323,7 @@ function selectHasResult(el) {
 }
 
 function selectStream(el) {
-  document.querySelectorAll('.stream-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('#step-0 .stream-card').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
   selectedStream = el.dataset.stream;
   document.getElementById('spm-fields').style.display = selectedStream === 'highschool' ? '' : 'none';

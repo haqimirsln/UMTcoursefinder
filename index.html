@@ -1984,6 +1984,27 @@ function showModal(id) {
 // ============================
 function derivePersona() {
   const all = [...selections[1], ...selections[2], ...selections[3], ...selections[4]];
+  const isPreuni = selectedStream === 'preuniversity' || !!preuniData.qual;
+
+  // SPM / highschool stream → foundation & diploma personas (aspirational, not career titles)
+  if (!isPreuni) {
+    const counts = {
+      science: all.filter(v => ['bio','chem','phys','ocean','nature','outdoor','tech','math'].includes(v)).length,
+      creative: all.filter(v => ['creative','coding','data','engineering','energy'].includes(v)).length,
+      people:  all.filter(v => ['social','helping','caring','hospitality','biz','leader'].includes(v)).length,
+      marine:  all.filter(v => ['ships','sea','maritime','ocean','adventure'].includes(v)).length,
+    };
+    const dom = Object.entries(counts).sort((a,b)=>b[1]-a[1])[0][0];
+    const map = {
+      science:  { title:'The Future Scientist',  iconType:'ocean',  colour:'#0E7490', tagline:'You ask the big questions — and science is how you find the answers.' },
+      creative: { title:'The Innovator',         iconType:'tech',   colour:'#1D6FA4', tagline:'You see possibilities others miss and build what does not exist yet.' },
+      people:   { title:'The Community Builder', iconType:'social', colour:'#C9922B', tagline:'You thrive when helping others grow and succeed.' },
+      marine:   { title:'The Sea Adventurer',    iconType:'marine', colour:'#1A4A7A', tagline:'The ocean calls — and you are ready to answer.' },
+    };
+    return map[dom] || map.science;
+  }
+
+  // Pre-university → full career persona set
   const counts = {
     tech:   all.filter(v => ['tech','coding','data','analytical'].includes(v)).length,
     ocean:  all.filter(v => ['ocean','bio','nature','outdoor','ngo'].includes(v)).length,
@@ -2158,7 +2179,6 @@ function drawPersonaIcon(ctx, persona, cx, cy, size) {
 
 function drawResultCard(name) {
   const canvas = document.getElementById('result-card-canvas');
-  // Portrait story format — 9:16 ratio, good for Instagram/TikTok stories
   const W = 1080, H = 1920;
   canvas.width = W; canvas.height = H;
   const ctx = canvas.getContext('2d');
@@ -2166,222 +2186,197 @@ function drawResultCard(name) {
   const top = allRanked[0], second = allRanked[1], third = allRanked[2];
   const ac = persona.colour;
 
-  // ── BACKGROUND — deep navy gradient ──────────────────────────────
-  const bg = ctx.createLinearGradient(0,0,W*0.6,H);
-  bg.addColorStop(0,'#08172E');
-  bg.addColorStop(0.5,'#0D1F3C');
-  bg.addColorStop(1,'#060E1C');
-  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+  // ── Helper: draw the card contents (called after logo loads) ──────
+  function render(logoImg) {
+    // BACKGROUND
+    const bg = ctx.createLinearGradient(0,0,W*0.6,H);
+    bg.addColorStop(0,'#08172E'); bg.addColorStop(0.5,'#0D1F3C'); bg.addColorStop(1,'#060E1C');
+    ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
 
-  // ── NOISE TEXTURE — subtle grain ─────────────────────────────────
-  ctx.save();
-  ctx.globalAlpha=0.03;
-  for(let i=0;i<6000;i++){
-    ctx.fillStyle=Math.random()>0.5?'#fff':'#000';
-    ctx.fillRect(Math.random()*W, Math.random()*H, 1.5, 1.5);
+    // NOISE GRAIN
+    ctx.save(); ctx.globalAlpha=0.025;
+    for(let i=0;i<5000;i++){
+      ctx.fillStyle=Math.random()>0.5?'#fff':'#000';
+      ctx.fillRect(Math.random()*W,Math.random()*H,1.5,1.5);
+    }
+    ctx.restore();
+
+    // DIAGONAL CORNER STRIPE
+    ctx.save(); ctx.globalAlpha=0.07; ctx.fillStyle=ac;
+    ctx.beginPath(); ctx.moveTo(W*0.5,0); ctx.lineTo(W,0); ctx.lineTo(W,H*0.32); ctx.lineTo(W*0.3,0);
+    ctx.closePath(); ctx.fill(); ctx.restore();
+
+    // RADIAL GLOW behind icon
+    const grd=ctx.createRadialGradient(W/2,H*0.3,0,W/2,H*0.3,W*0.5);
+    grd.addColorStop(0,ac+'30'); grd.addColorStop(0.7,ac+'08'); grd.addColorStop(1,'transparent');
+    ctx.fillStyle=grd; ctx.fillRect(0,0,W,H);
+
+    // TOP ACCENT BAR (gold→accent→gold)
+    const bar=ctx.createLinearGradient(0,0,W,0);
+    bar.addColorStop(0,'#C9922B'); bar.addColorStop(0.5,ac); bar.addColorStop(1,'#C9922B');
+    ctx.fillStyle=bar; ctx.fillRect(0,0,W,6);
+
+    // ── HEADER ROW ── Y: 30–110
+    // UMT logo pill
+    roundRect(ctx,52,30,300,78,39);
+    ctx.fillStyle='rgba(255,255,255,0.06)'; ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.14)'; ctx.lineWidth=1.5; ctx.stroke();
+    if(logoImg) {
+      // Draw actual UMT logo image, fit inside pill left side
+      const lh=54, lw=lh*(logoImg.width/logoImg.height);
+      ctx.drawImage(logoImg, 68, 30+(78-lh)/2, lw, lh);
+      ctx.fillStyle='rgba(255,255,255,0.55)'; ctx.font='400 18px sans-serif';
+      ctx.fillText('Course Finder', 68+lw+12, 76);
+    } else {
+      ctx.fillStyle='#fff'; ctx.font='700 26px sans-serif'; ctx.fillText('UMT', 88, 60);
+      ctx.fillStyle='rgba(255,255,255,0.55)'; ctx.font='400 18px sans-serif'; ctx.fillText('Course Finder', 88, 84);
+    }
+    // JOM MASUK badge
+    roundRect(ctx,W-232,30,180,78,39);
+    ctx.fillStyle='rgba(201,146,43,0.14)'; ctx.fill();
+    ctx.strokeStyle='rgba(201,146,43,0.45)'; ctx.lineWidth=1.5; ctx.stroke();
+    ctx.textAlign='center';
+    ctx.fillStyle='#C9922B'; ctx.font='700 21px sans-serif'; ctx.fillText('JOM MASUK',W-142,62);
+    ctx.fillStyle='rgba(201,146,43,0.8)'; ctx.font='400 17px sans-serif'; ctx.fillText('IPT 2026',W-142,84);
+    ctx.textAlign='left';
+
+    // DIVIDER under header
+    ctx.save(); ctx.globalAlpha=0.1; ctx.strokeStyle='#fff'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(52,124); ctx.lineTo(W-52,124); ctx.stroke(); ctx.restore();
+
+    // ── PERSONA ICON ── centred, Y: 200–420
+    drawPersonaIcon(ctx, persona, W/2, 310, 108);
+
+    // ── I AM A ── Y: 450
+    ctx.fillStyle=ac; ctx.font='600 28px sans-serif'; ctx.textAlign='center';
+    ctx.fillText('I  A M  A', W/2, 450);
+
+    // ── PERSONA TITLE ── Y: 560 (large serif)
+    ctx.fillStyle='#fff'; ctx.font='400 94px Georgia,serif'; ctx.textAlign='center';
+    const tw = ctx.measureText(persona.title).width;
+    if(tw < W-120) {
+      ctx.fillText(persona.title, W/2, 560);
+    } else {
+      const words=persona.title.split(' '), mid=Math.ceil(words.length/2);
+      ctx.fillText(words.slice(0,mid).join(' '), W/2, 530);
+      ctx.fillText(words.slice(mid).join(' '),   W/2, 630);
+    }
+
+    // ── TAGLINE ── Y: 620 (or 690 if title wrapped)
+    ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.font='300 28px sans-serif'; ctx.textAlign='center';
+    const tagBaseY = tw < W-120 ? 628 : 700;
+    const tagWords=persona.tagline.split(' '); let tl=''; let ty=tagBaseY;
+    for(const w of tagWords){
+      const test=tl?tl+' '+w:w;
+      if(ctx.measureText(test).width>700&&tl){ctx.fillText(tl,W/2,ty);tl=w;ty+=40;}
+      else{tl=test;}
+    }
+    if(tl) ctx.fillText(tl,W/2,ty);
+
+    // ── CENTRE DIAMOND DIVIDER ── Y: 760
+    const divY=760;
+    ctx.save(); ctx.globalAlpha=0.18; ctx.strokeStyle='#fff'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(60,divY); ctx.lineTo(W/2-36,divY); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(W/2+36,divY); ctx.lineTo(W-60,divY); ctx.stroke();
+    ctx.restore();
+    ctx.save(); ctx.fillStyle='#C9922B'; ctx.globalAlpha=0.95;
+    ctx.translate(W/2,divY); ctx.rotate(Math.PI/4); ctx.fillRect(-9,-9,18,18); ctx.restore();
+
+    // ── TOP MATCH CARD ── Y: 790–1060
+    const cX=52, cY=800, cW=W-104, cH=250;
+    roundRect(ctx,cX,cY,cW,cH,22);
+    const cbg=ctx.createLinearGradient(cX,cY,cX+cW,cY+cH);
+    cbg.addColorStop(0,'rgba(255,255,255,0.1)'); cbg.addColorStop(1,'rgba(255,255,255,0.04)');
+    ctx.fillStyle=cbg; ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.13)'; ctx.lineWidth=1; ctx.stroke();
+    // top colour bar
+    roundRect(ctx,cX,cY,cW,7,[22,22,0,0]);
+    ctx.fillStyle=getCategoryColour(top?.category||''); ctx.fill();
+
+    ctx.textAlign='left';
+    ctx.fillStyle=ac; ctx.font='700 23px sans-serif';
+    ctx.fillText('✦  MY TOP PROGRAMME MATCH', cX+34, cY+54);
+    ctx.fillStyle='rgba(255,255,255,0.45)'; ctx.font='500 20px sans-serif';
+    ctx.fillText((top?.faculty||'').toUpperCase(), cX+34, cY+88);
+
+    // Programme name — shrink font if long, then wrap
+    const tn=top?.name||'—';
+    let fs=44; ctx.font=`400 ${fs}px Georgia,serif`;
+    while(ctx.measureText(tn).width>cW-68&&fs>28){fs-=2;ctx.font=`400 ${fs}px Georgia,serif`;}
+    ctx.fillStyle='#fff';
+    const tnY=cY+150;
+    if(ctx.measureText(tn).width>cW-68){
+      const hw=Math.ceil(tn.split(' ').length/2);
+      ctx.fillText(tn.split(' ').slice(0,hw).join(' '),cX+34,tnY);
+      ctx.fillText(tn.split(' ').slice(hw).join(' '),cX+34,tnY+fs+8);
+    } else {
+      ctx.fillText(tn,cX+34,tnY);
+    }
+    ctx.fillStyle='rgba(255,255,255,0.42)'; ctx.font='400 22px sans-serif';
+    ctx.fillText((top?.duration||'')+'  ·  '+(top?.intake||''),cX+34,cY+224);
+
+    // ── ALSO A GREAT FIT label ── Y: 1076
+    ctx.fillStyle='rgba(255,255,255,0.35)'; ctx.font='600 22px sans-serif';
+    ctx.fillText('ALSO A GREAT FIT', 52, 1080);
+
+    // ── RUNNER UP CARDS ── Y: 1100 and 1220
+    [[second,1100],[third,1220]].forEach(([prog,ry]) => {
+      if(!prog) return;
+      roundRect(ctx,52,ry,cW,108,16);
+      ctx.fillStyle='rgba(255,255,255,0.05)'; ctx.fill();
+      ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.lineWidth=1; ctx.stroke();
+      roundRect(ctx,52,ry,5,108,[16,0,0,16]);
+      ctx.fillStyle=getCategoryColour(prog.category||''); ctx.fill();
+      const rk=ry===1100?'2':'3';
+      ctx.fillStyle=ac; ctx.font='700 30px sans-serif'; ctx.fillText(rk,76,ry+42);
+      ctx.fillStyle='rgba(255,255,255,0.35)'; ctx.font='500 18px sans-serif';
+      ctx.fillText((prog.faculty||'').toUpperCase(),110,ry+32);
+      ctx.fillStyle='#fff'; ctx.font='400 30px Georgia,serif';
+      const sn=(prog.name||'').length>54?prog.name.slice(0,52)+'…':(prog.name||'—');
+      ctx.fillText(sn,110,ry+70);
+      ctx.fillStyle='rgba(255,255,255,0.3)'; ctx.font='400 20px sans-serif';
+      ctx.fillText(prog.duration||'',110,ry+96);
+    });
+
+    // ── NAME STRIP ── Y: 1360–1530
+    const nY=1360;
+    ctx.fillStyle='rgba(255,255,255,0.04)'; ctx.fillRect(0,nY,W,170);
+    ctx.save(); ctx.globalAlpha=0.14; ctx.strokeStyle='#fff'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(0,nY); ctx.lineTo(W,nY); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0,nY+170); ctx.lineTo(W,nY+170); ctx.stroke();
+    ctx.restore();
+    ctx.fillStyle='rgba(255,255,255,0.38)'; ctx.font='600 22px sans-serif'; ctx.textAlign='left';
+    ctx.fillText('RESULT GENERATED FOR', 60, nY+34);
+    // Name — shrink if very long
+    let nfs=76; ctx.font=`400 ${nfs}px Georgia,serif`;
+    while(ctx.measureText(name).width>W-120&&nfs>40){nfs-=3;ctx.font=`400 ${nfs}px Georgia,serif`;}
+    ctx.fillStyle='#fff'; ctx.fillText(name,60,nY+118);
+    const now=new Date();
+    const ds=now.toLocaleDateString('en-MY',{day:'numeric',month:'long',year:'numeric'});
+    ctx.fillStyle='rgba(255,255,255,0.28)'; ctx.font='400 21px sans-serif';
+    ctx.fillText(ds+'  ·  JOM MASUK IPT 2026',60,nY+154);
+
+    // ── CTA BAR ── Y: 1556–1640
+    const ctaY=1556;
+    roundRect(ctx,52,ctaY,W-104,90,18);
+    const ctag=ctx.createLinearGradient(52,ctaY,W-52,ctaY+90);
+    ctag.addColorStop(0,ac); ctag.addColorStop(1,'#C9922B');
+    ctx.fillStyle=ctag; ctx.fill();
+    ctx.fillStyle='#fff'; ctx.font='600 28px sans-serif'; ctx.textAlign='center';
+    ctx.fillText('www.umt.edu.my  ·  Find Your Programme',W/2,ctaY+54);
+
+    // ── WATERMARK ── Y: H-30
+    ctx.fillStyle='rgba(255,255,255,0.1)'; ctx.font='400 20px sans-serif'; ctx.textAlign='center';
+    ctx.fillText('Universiti Malaysia Terengganu  ·  UMT Course Finder 2026',W/2,H-30);
+    ctx.textAlign='left';
   }
-  ctx.restore();
 
-  // ── DIAGONAL ACCENT STRIPE — top right corner ────────────────────
-  ctx.save();
-  ctx.globalAlpha=0.07;
-  ctx.fillStyle=ac;
-  ctx.beginPath();
-  ctx.moveTo(W*0.55,0); ctx.lineTo(W,0); ctx.lineTo(W,H*0.35); ctx.lineTo(W*0.35,0);
-  ctx.closePath(); ctx.fill();
-  ctx.restore();
-
-  // ── RADIAL GLOW — behind icon area ───────────────────────────────
-  const glowX=W/2, glowY=H*0.38;
-  const glow = ctx.createRadialGradient(glowX,glowY,0,glowX,glowY,W*0.55);
-  glow.addColorStop(0,ac+'28'); glow.addColorStop(0.6,ac+'08'); glow.addColorStop(1,'transparent');
-  ctx.fillStyle=glow; ctx.fillRect(0,0,W,H);
-
-  // ── TOP BAR — gold accent line ────────────────────────────────────
-  const barGrad = ctx.createLinearGradient(0,0,W,0);
-  barGrad.addColorStop(0,'#C9922B'); barGrad.addColorStop(0.5,ac); barGrad.addColorStop(1,'#C9922B');
-  ctx.fillStyle=barGrad; ctx.fillRect(0,0,W,5);
-
-  // ── UMT LOGO AREA (top left) ──────────────────────────────────────
-  // Logo pill background
-  roundRect(ctx,52,36,320,68,34);
-  ctx.fillStyle='rgba(255,255,255,0.07)'; ctx.fill();
-  ctx.strokeStyle='rgba(255,255,255,0.15)'; ctx.lineWidth=1; ctx.stroke();
-  // Draw wave-mark logo
-  drawUMTLogo(ctx, 98, 70, 44);
-  // UMT text
-  ctx.fillStyle='#fff'; ctx.font='700 22px sans-serif'; ctx.fillText('UMT', 128, 63);
-  ctx.fillStyle='rgba(255,255,255,0.55)'; ctx.font='400 17px sans-serif';
-  ctx.fillText('Course Finder', 128, 85);
-
-  // ── JOM MASUK IPT BADGE (top right) ──────────────────────────────
-  ctx.save();
-  ctx.textAlign='right';
-  roundRect(ctx,W-212,36,160,68,34);
-  ctx.fillStyle='rgba(201,146,43,0.15)'; ctx.fill();
-  ctx.strokeStyle='rgba(201,146,43,0.4)'; ctx.lineWidth=1.5; ctx.stroke();
-  ctx.fillStyle='#C9922B'; ctx.font='700 19px sans-serif';
-  ctx.fillText('JOM MASUK', W-68, 63);
-  ctx.fillStyle='rgba(201,146,43,0.8)'; ctx.font='400 16px sans-serif';
-  ctx.fillText('IPT 2026', W-68, 84);
-  ctx.textAlign='left';
-  ctx.restore();
-
-  // ── THIN DIVIDER ─────────────────────────────────────────────────
-  ctx.save(); ctx.globalAlpha=0.12; ctx.strokeStyle='#fff'; ctx.lineWidth=1;
-  ctx.beginPath(); ctx.moveTo(52,128); ctx.lineTo(W-52,128); ctx.stroke();
-  ctx.restore();
-
-  // ── PERSONA ICON — centred, large ────────────────────────────────
-  drawPersonaIcon(ctx, persona, W/2, H*0.285, 110);
-
-  // ── "I AM A" label ────────────────────────────────────────────────
-  ctx.fillStyle=ac;
-  ctx.font='600 28px sans-serif';
-  ctx.textAlign='center';
-  ctx.letterSpacing='6px';
-  ctx.fillText('I  A M  A', W/2, H*0.41);
-
-  // ── PERSONA TITLE — large serif centred ──────────────────────────
-  ctx.fillStyle='#ffffff';
-  ctx.font='400 96px Georgia,serif';
-  ctx.textAlign='center';
-  // Measure and wrap if needed
-  const titleWords = persona.title.split(' ');
-  if (ctx.measureText(persona.title).width < W-160) {
-    ctx.fillText(persona.title, W/2, H*0.475);
-  } else {
-    const mid = Math.ceil(titleWords.length/2);
-    ctx.fillText(titleWords.slice(0,mid).join(' '), W/2, H*0.46);
-    ctx.fillText(titleWords.slice(mid).join(' '),   W/2, H*0.515);
-  }
-
-  // ── TAGLINE ───────────────────────────────────────────────────────
-  ctx.fillStyle='rgba(255,255,255,0.55)';
-  ctx.font='300 30px sans-serif';
-  ctx.textAlign='center';
-  // Wrap tagline at ~680px
-  const tagWords = persona.tagline.split(' '); let tagLine=''; let tagY=H*0.545;
-  for(const w of tagWords){
-    const test=tagLine?tagLine+' '+w:w;
-    if(ctx.measureText(test).width>680&&tagLine){ctx.fillText(tagLine,W/2,tagY);tagLine=w;tagY+=42;}
-    else{tagLine=test;}
-  }
-  if(tagLine) ctx.fillText(tagLine,W/2,tagY);
-
-  // ── CENTRE DIVIDER with gold diamond ─────────────────────────────
-  const divY = H*0.615;
-  ctx.save(); ctx.globalAlpha=0.2; ctx.strokeStyle='#fff'; ctx.lineWidth=1;
-  ctx.beginPath(); ctx.moveTo(52,divY); ctx.lineTo(W/2-30,divY); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(W/2+30,divY); ctx.lineTo(W-52,divY); ctx.stroke();
-  ctx.restore();
-  // Diamond
-  ctx.save(); ctx.fillStyle='#C9922B'; ctx.globalAlpha=0.9;
-  ctx.translate(W/2,divY); ctx.rotate(Math.PI/4);
-  ctx.fillRect(-8,-8,16,16); ctx.restore();
-
-  // ── TOP MATCH CARD ────────────────────────────────────────────────
-  const cardX=52, cardY=H*0.635, cardW=W-104, cardH=240;
-  // Card background
-  roundRect(ctx,cardX,cardY,cardW,cardH,24);
-  const cardBg = ctx.createLinearGradient(cardX,cardY,cardX+cardW,cardY+cardH);
-  cardBg.addColorStop(0,'rgba(255,255,255,0.09)');
-  cardBg.addColorStop(1,'rgba(255,255,255,0.04)');
-  ctx.fillStyle=cardBg; ctx.fill();
-  ctx.strokeStyle='rgba(255,255,255,0.12)'; ctx.lineWidth=1; ctx.stroke();
-  // Colour accent top bar
-  roundRect(ctx,cardX,cardY,cardW,6,[24,24,0,0]);
-  ctx.fillStyle=getCategoryColour(top?.category||''); ctx.fill();
-
-  // Label
-  ctx.textAlign='left';
-  ctx.fillStyle=ac; ctx.font='700 22px sans-serif';
-  ctx.fillText('✦  MY TOP PROGRAMME MATCH', cardX+32, cardY+50);
-
-  // Faculty
-  ctx.fillStyle='rgba(255,255,255,0.45)'; ctx.font='500 20px sans-serif';
-  ctx.fillText((top?.faculty||'').toUpperCase(), cardX+32, cardY+82);
-
-  // Programme name — auto size down if long
-  const topName = top?.name||'—';
-  let fontSize=44;
-  ctx.font=`400 ${fontSize}px Georgia,serif`;
-  while(ctx.measureText(topName).width > cardW-70 && fontSize>28) {
-    fontSize-=3; ctx.font=`400 ${fontSize}px Georgia,serif`;
-  }
-  ctx.fillStyle='#ffffff';
-  // wrap if still too wide after size reduction
-  const topNameY = cardY+138;
-  if(ctx.measureText(topName).width > cardW-70) {
-    const half=Math.ceil(topName.split(' ').length/2);
-    const l1=topName.split(' ').slice(0,half).join(' ');
-    const l2=topName.split(' ').slice(half).join(' ');
-    ctx.fillText(l1, cardX+32, topNameY);
-    ctx.fillText(l2, cardX+32, topNameY+fontSize+6);
-  } else {
-    ctx.fillText(topName, cardX+32, topNameY);
-  }
-
-  // Duration + intake
-  ctx.fillStyle='rgba(255,255,255,0.45)'; ctx.font='400 22px sans-serif';
-  ctx.fillText((top?.duration||'')+'  ·  '+( top?.intake||''), cardX+32, cardY+210);
-
-  // ── 2 RUNNER UP CARDS ─────────────────────────────────────────────
-  ctx.fillStyle='rgba(255,255,255,0.35)'; ctx.font='600 22px sans-serif'; ctx.textAlign='left';
-  ctx.fillText('ALSO A GREAT FIT', 52, H*0.635+260);
-
-  const r2Y = H*0.635+290;
-  [[second, 0],[third, 1]].forEach(([prog,idx]) => {
-    if(!prog) return;
-    const rx=52, ry=r2Y+idx*118, rw=W-104, rh=100;
-    roundRect(ctx,rx,ry,rw,rh,16);
-    ctx.fillStyle='rgba(255,255,255,0.05)'; ctx.fill();
-    ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.lineWidth=1; ctx.stroke();
-    // Left colour tab
-    roundRect(ctx,rx,ry,5,rh,[16,0,0,16]);
-    ctx.fillStyle=getCategoryColour(prog.category||''); ctx.fill();
-    // Rank number
-    ctx.fillStyle=ac; ctx.font='700 28px sans-serif';
-    ctx.fillText(`${idx+2}`, rx+24, ry+38);
-    ctx.fillStyle='rgba(255,255,255,0.35)'; ctx.font='500 18px sans-serif';
-    ctx.fillText((prog.faculty||'').toUpperCase(), rx+52, ry+30);
-    ctx.fillStyle='#fff'; ctx.font='400 28px Georgia,serif';
-    const sn=(prog.name||'').length>52?prog.name.slice(0,50)+'…':(prog.name||'—');
-    ctx.fillText(sn, rx+52, ry+62);
-  });
-
-  // ── NAME SECTION ──────────────────────────────────────────────────
-  const nameY = r2Y + 260;
-  // Full width background strip
-  ctx.fillStyle='rgba(255,255,255,0.04)'; ctx.fillRect(0,nameY-20,W,160);
-  ctx.save(); ctx.globalAlpha=0.15; ctx.strokeStyle='#fff'; ctx.lineWidth=1;
-  ctx.beginPath(); ctx.moveTo(0,nameY-20); ctx.lineTo(W,nameY-20); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(0,nameY+138); ctx.lineTo(W,nameY+138); ctx.stroke();
-  ctx.restore();
-
-  ctx.fillStyle='rgba(255,255,255,0.4)'; ctx.font='600 22px sans-serif'; ctx.textAlign='left';
-  ctx.fillText('RESULT GENERATED FOR', 52, nameY+20);
-  ctx.fillStyle='#ffffff'; ctx.font='400 76px Georgia,serif';
-  ctx.fillText(name, 52, nameY+100);
-
-  const now=new Date();
-  const ds=now.toLocaleDateString('en-MY',{day:'numeric',month:'long',year:'numeric'});
-  ctx.fillStyle='rgba(255,255,255,0.3)'; ctx.font='400 22px sans-serif';
-  ctx.fillText(ds+'  ·  JOM MASUK IPT 2026', 52, nameY+132);
-
-  // ── BOTTOM CTA ────────────────────────────────────────────────────
-  const ctaY = nameY+175;
-  roundRect(ctx,52,ctaY,W-104,88,18);
-  const ctaGrad=ctx.createLinearGradient(52,ctaY,W-52,ctaY+88);
-  ctaGrad.addColorStop(0,ac); ctaGrad.addColorStop(1,'#C9922B');
-  ctx.fillStyle=ctaGrad; ctx.fill();
-  ctx.fillStyle='#fff'; ctx.font='600 30px sans-serif'; ctx.textAlign='center';
-  ctx.fillText('www.umt.edu.my  ·  Find Your Programme', W/2, ctaY+52);
-
-  // ── WATERMARK ────────────────────────────────────────────────────
-  ctx.fillStyle='rgba(255,255,255,0.12)'; ctx.font='400 20px sans-serif'; ctx.textAlign='center';
-  ctx.fillText('UMT Course Finder  ·  Universiti Malaysia Terengganu', W/2, H-28);
-  ctx.textAlign='left';
+  // Load actual UMT logo image
+  const img = new Image();
+  img.crossOrigin='anonymous';
+  img.onload = () => render(img);
+  img.onerror = () => render(null);  // fallback: render without logo
+  img.src = 'logo korporat-01 (1).png';
 }
 
 function downloadCard() {

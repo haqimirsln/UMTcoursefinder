@@ -2303,7 +2303,7 @@ function applyTranslations() {
   setAllTextSafe('#results-choice-cards .stream-card-title', bm ? ['Belum / Langkau', 'Ya, masukkan keputusan saya'] : ['Not yet / Skip', 'Yes, enter my results']);
   setAllTextSafe('#results-choice-cards .stream-card-desc', bm ? ['Saya mahu padanan berdasarkan minat dahulu. Syarat boleh disemak kemudian.', 'Dapatkan semakan kelayakan yang lebih tepat untuk setiap program.'] : ["I'll get matched based on interests. I can check requirements later.", 'Get exact eligibility checks for every programme.']);
   setTextSafe('#spm-detail-block > div:first-child', bm ? 'Keputusan SPM / O-Level Anda' : 'Your SPM / O-Level Results');
-  setTextSafe('#spm-detail-block .field-group:first-of-type .field-label', bm ? 'Aliran' : 'Aliran / Stream');
+  setTextSafe('#spm-detail-block > .field-group > .field-label', bm ? 'Aliran' : 'Aliran / Stream');
   const aliranSelect = document.getElementById('spm-aliran');
   if (aliranSelect) {
     const labels = bm

@@ -1046,8 +1046,8 @@ button,.btn-primary,.btn-secondary,.btn-quiz,.btn-card-detail,.btn-card-wa,.btn-
         <button class="filter-btn" id="filter-Foundation" onclick="filterResults('Foundation',this)" style="display:none">Foundation</button>
         <button class="filter-btn" id="filter-Diploma" onclick="filterResults('Diploma',this)" style="display:none">Diploma</button>
       </div>
-      <button class="share-btn" onclick="shareResults()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share
+      <button class="share-btn" onclick="openCardFlow()" style="background:var(--umt-crimson);color:#fff;border-color:var(--umt-crimson);gap:0.4rem;font-weight:600">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>My Result Card
       </button>
     </div>
     <div class="compare-bar" id="compare-bar">
@@ -1980,15 +1980,179 @@ function showModal(id) {
 }
 
 // ============================
-// SHARE
+// RESULT CARD SYSTEM
 // ============================
-function shareResults() {
-  const url = window.location.href.split('?')[0];
-  const top = allRanked.slice(0, 3).map(p => p.name).join(', ');
-  const text = `I used the UMT Course Finder! My top matches: ${top}. Try it: ${url}`;
-  if (navigator.share) navigator.share({ title: 'UMT Course Finder', text, url });
-  else if (navigator.clipboard) navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard!'));
+function derivePersona() {
+  const all = [...selections[1], ...selections[2], ...selections[3], ...selections[4]];
+  const counts = {
+    tech:   all.filter(v => ['tech','coding','data','analytical'].includes(v)).length,
+    ocean:  all.filter(v => ['ocean','bio','nature','outdoor','ngo'].includes(v)).length,
+    eng:    all.filter(v => ['phys','engineering','ships','energy','adventurous'].includes(v)).length,
+    biz:    all.filter(v => ['biz','corp','business','leader'].includes(v)).length,
+    social: all.filter(v => ['social','helping','caring','hospitality'].includes(v)).length,
+    marine: all.filter(v => ['ships','sea','maritime'].includes(v)).length,
+  };
+  const dominant = Object.entries(counts).sort((a,b) => b[1]-a[1])[0][0];
+  const personas = {
+    tech:   { title:'The Code Architect',   emoji:'💻', colour:'#1D6FA4', tagline:'You think in systems and solve problems with technology.' },
+    ocean:  { title:'The Ocean Explorer',   emoji:'🌊', colour:'#0E7490', tagline:'Curiosity drives you — the sea holds all your answers.' },
+    eng:    { title:'The Builder',          emoji:'⚙️', colour:'#7C3AED', tagline:'You create things that last. Physics is your playground.' },
+    biz:    { title:'The Strategist',       emoji:'📈', colour:'#B01E2C', tagline:'You see opportunities where others see obstacles.' },
+    social: { title:'The People Champion',  emoji:'🤝', colour:'#C9922B', tagline:'You lead with empathy and make communities stronger.' },
+    marine: { title:'The Maritime Pioneer', emoji:'⚓', colour:'#0C1E3A', tagline:'The sea is your calling — navigation and the open ocean.' },
+  };
+  return personas[dominant] || personas.tech;
 }
+
+function getCategoryColour(cat) {
+  return {'IT':'#1D6FA4','Marine':'#0E7490','Engineering':'#7C3AED','Business':'#B01E2C','Maritime':'#0C1E3A','Foundation':'#C9922B','Diploma':'#1D6FA4'}[cat] || '#0C1E3A';
+}
+
+function openCardFlow() {
+  if (!allRanked || allRanked.length === 0) { showToast('Complete the quiz first!'); return; }
+  document.getElementById('card-name-input').value = '';
+  document.getElementById('card-name-modal').classList.add('open');
+  setTimeout(() => document.getElementById('card-name-input').focus(), 300);
+}
+
+function generateCard() {
+  const name = document.getElementById('card-name-input').value.trim() || 'Future UMT Student';
+  document.getElementById('card-name-modal').classList.remove('open');
+  drawResultCard(name);
+  document.getElementById('card-preview-modal').classList.add('open');
+}
+
+function wrapText(ctx, text, x, y, maxW, lineH) {
+  const words = text.split(' '); let line = '';
+  for (const word of words) {
+    const test = line ? line + ' ' + word : word;
+    if (ctx.measureText(test).width > maxW && line) { ctx.fillText(line, x, y); line = word; y += lineH; }
+    else { line = test; }
+  }
+  if (line) ctx.fillText(line, x, y);
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  const rd = Array.isArray(r) ? r : [r,r,r,r];
+  ctx.beginPath();
+  ctx.moveTo(x+rd[0],y); ctx.lineTo(x+w-rd[1],y); ctx.quadraticCurveTo(x+w,y,x+w,y+rd[1]);
+  ctx.lineTo(x+w,y+h-rd[2]); ctx.quadraticCurveTo(x+w,y+h,x+w-rd[2],y+h);
+  ctx.lineTo(x+rd[3],y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-rd[3]);
+  ctx.lineTo(x,y+rd[0]); ctx.quadraticCurveTo(x,y,x+rd[0],y); ctx.closePath();
+}
+
+function drawResultCard(name) {
+  const canvas = document.getElementById('result-card-canvas');
+  const W = 900, H = 1600;
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  const persona = derivePersona();
+  const top = allRanked[0], second = allRanked[1], third = allRanked[2];
+  const ac = persona.colour;
+
+  // Background
+  const bg = ctx.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,'#0C1E3A'); bg.addColorStop(0.45,'#112244'); bg.addColorStop(1,'#0A0A0F');
+  ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
+
+  // Glow circles
+  [[W*0.15,H*0.08,280,ac,0.18],[W*0.9,H*0.35,220,'#C9922B',0.10],[W*0.05,H*0.85,300,ac,0.10]].forEach(([x,y,r,col,a]) => {
+    ctx.save(); ctx.globalAlpha = a;
+    const g = ctx.createRadialGradient(x,y,0,x,y,r);
+    g.addColorStop(0,col); g.addColorStop(1,'transparent');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill(); ctx.restore();
+  });
+
+  // Grid
+  ctx.save(); ctx.globalAlpha=0.04; ctx.strokeStyle='#fff'; ctx.lineWidth=1;
+  for(let x=0;x<W;x+=60){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=0;y<H;y+=60){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+  ctx.restore();
+
+  // Header
+  ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.font='500 28px sans-serif';
+  ctx.fillText('Universiti Malaysia Terengganu', 60, 70);
+  ctx.fillStyle=ac; ctx.font='700 28px sans-serif';
+  ctx.fillText('UMT Course Finder 2026', 60, 108);
+  ctx.save(); ctx.globalAlpha=0.25; ctx.strokeStyle='#fff'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(60,130); ctx.lineTo(W-60,130); ctx.stroke(); ctx.restore();
+
+  // Persona
+  ctx.font='110px serif'; ctx.fillStyle='#fff'; ctx.fillText(persona.emoji, 60, 290);
+  ctx.fillStyle=ac; ctx.font='700 30px sans-serif'; ctx.fillText('I AM A', 60, 345);
+  ctx.fillStyle='#fff'; ctx.font='400 78px Georgia,serif'; wrapText(ctx, persona.title, 60, 430, W-120, 88);
+  ctx.fillStyle='rgba(255,255,255,0.65)'; ctx.font='300 32px sans-serif'; wrapText(ctx, persona.tagline, 60, 530, W-120, 42);
+
+  // Divider
+  ctx.save(); ctx.globalAlpha=0.2; ctx.strokeStyle='#fff'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(60,608); ctx.lineTo(W-60,608); ctx.stroke(); ctx.restore();
+
+  // Top match
+  ctx.fillStyle=ac; ctx.font='700 26px sans-serif'; ctx.fillText('✦  MY TOP PROGRAMME MATCH', 60, 662);
+  roundRect(ctx,60,682,W-120,190,20); ctx.fillStyle='rgba(255,255,255,0.07)'; ctx.fill();
+  roundRect(ctx,60,682,W-120,8,[20,20,0,0]); ctx.fillStyle=getCategoryColour(top?.category||''); ctx.fill();
+  ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.font='600 22px sans-serif';
+  ctx.fillText((top?.faculty||'').toUpperCase(), 88, 736);
+  ctx.fillStyle='#fff'; ctx.font='400 44px Georgia,serif';
+  wrapText(ctx, top?.name||'—', 88, 790, W-180, 50);
+  ctx.fillStyle='rgba(255,255,255,0.55)'; ctx.font='400 24px sans-serif';
+  ctx.fillText((top?.duration||'') + '  ·  Intake: '+(top?.intake||''), 88, 852);
+
+  // 2nd & 3rd
+  ctx.fillStyle='rgba(255,255,255,0.45)'; ctx.font='700 24px sans-serif'; ctx.fillText('ALSO A GREAT FIT', 60, 930);
+  [[second,960],[third,1065]].forEach(([p,y]) => {
+    if(!p) return;
+    roundRect(ctx,60,y,W-120,88,14); ctx.fillStyle='rgba(255,255,255,0.05)'; ctx.fill();
+    roundRect(ctx,60,y,5,88,[14,0,0,14]); ctx.fillStyle=getCategoryColour(p.category||''); ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,0.4)'; ctx.font='600 20px sans-serif';
+    ctx.fillText((p.faculty||'').toUpperCase(), 88, y+28);
+    ctx.fillStyle='#fff'; ctx.font='400 30px Georgia,serif';
+    const short = (p.name||'').length > 50 ? p.name.slice(0,48)+'…' : (p.name||'—');
+    ctx.fillText(short, 88, y+60);
+  });
+
+  // Name
+  ctx.save(); ctx.globalAlpha=0.18; ctx.strokeStyle='#fff'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(60,1195); ctx.lineTo(W-60,1195); ctx.stroke(); ctx.restore();
+  ctx.fillStyle='rgba(255,255,255,0.45)'; ctx.font='600 24px sans-serif'; ctx.fillText('GENERATED FOR', 60, 1248);
+  ctx.fillStyle='#fff'; ctx.font='400 70px Georgia,serif'; ctx.fillText(name, 60, 1328);
+  const now = new Date();
+  const ds = now.toLocaleDateString('en-MY',{day:'numeric',month:'long',year:'numeric'});
+  ctx.fillStyle='rgba(255,255,255,0.35)'; ctx.font='400 24px sans-serif';
+  ctx.fillText(ds + '  ·  JOM MASUK IPT', 60, 1378);
+
+  // CTA bar
+  roundRect(ctx,60,1428,W-120,100,16);
+  const ctaBg = ctx.createLinearGradient(60,1428,W-60,1528);
+  ctaBg.addColorStop(0,ac); ctaBg.addColorStop(1,'#C9922B');
+  ctx.fillStyle=ctaBg; ctx.fill();
+  ctx.fillStyle='#fff'; ctx.font='600 28px sans-serif'; ctx.textAlign='center';
+  ctx.fillText('Discover your programme at umt.edu.my', W/2, 1488);
+
+  // Watermark
+  ctx.fillStyle='rgba(255,255,255,0.15)'; ctx.font='400 22px sans-serif'; ctx.textAlign='right';
+  ctx.fillText('UMT Course Finder · Jom Masuk IPT 2026', W-60, H-30);
+  ctx.textAlign='left';
+}
+
+function downloadCard() {
+  const canvas = document.getElementById('result-card-canvas');
+  const name = (document.getElementById('card-name-input').value.trim()||'result').replace(/\s+/g,'_');
+  const a = document.createElement('a'); a.download = 'UMT_Result_'+name+'.png';
+  a.href = canvas.toDataURL('image/png'); a.click();
+}
+
+function shareCard() {
+  const canvas = document.getElementById('result-card-canvas');
+  canvas.toBlob(async blob => {
+    const file = new File([blob],'UMT_Result_Card.png',{type:'image/png'});
+    if (navigator.canShare && navigator.canShare({files:[file]})) {
+      await navigator.share({files:[file],title:'My UMT Result Card',text:'I found my top UMT programme match! 🎓'});
+    } else { downloadCard(); showToast('Saved! Share from your gallery.'); }
+  });
+}
+
+function shareResults() { openCardFlow(); }
 
 function showToast(msg) {
   const el = document.getElementById('toast');
@@ -2652,5 +2816,54 @@ window.addEventListener('load', () => {
 });
 
 </script>
+
+<!-- NAME INPUT MODAL -->
+<div class="modal-overlay" id="card-name-modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header">
+      <div style="font-family:'Instrument Serif',serif;font-size:1.1rem">✦ Your Result Card</div>
+      <button class="modal-close" onclick="document.getElementById('card-name-modal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body" style="padding:1.5rem 2rem">
+      <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1.25rem;line-height:1.6">Enter your name and we'll generate a personalised result card you can save and share!</p>
+      <div class="field-group" style="margin-bottom:1.25rem">
+        <div class="field-label">Your Name</div>
+        <input id="card-name-input" type="text" placeholder="e.g. Ahmad Izzat" maxlength="30"
+          style="width:100%;padding:0.75rem 1rem;border-radius:var(--r-md);border:1.5px solid var(--surface-border);font-family:inherit;font-size:0.95rem;background:var(--surface-1);color:var(--text-primary);outline:none;transition:border-color 0.15s"
+          onfocus="this.style.borderColor='var(--umt-navy)'" onblur="this.style.borderColor=''"
+          onkeydown="if(event.key==='Enter')generateCard()">
+      </div>
+    </div>
+    <div class="modal-footer" style="gap:0.65rem">
+      <button onclick="generateCard()" style="flex:1;padding:0.8rem;border-radius:var(--r-md);background:var(--umt-crimson);color:#fff;font-size:0.95rem;font-weight:600;border:none;cursor:pointer;transition:background 0.15s" onmouseover="this.style.background='#8E1622'" onmouseout="this.style.background='var(--umt-crimson)'">
+        Generate My Card ✦
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULT CARD MODAL -->
+<div class="modal-overlay" id="card-preview-modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <div style="font-family:'Instrument Serif',serif;font-size:1.1rem">Your Result Card</div>
+      <button class="modal-close" onclick="document.getElementById('card-preview-modal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body" style="padding:1.25rem;text-align:center">
+      <canvas id="result-card-canvas" style="width:100%;border-radius:16px;box-shadow:var(--shadow-lg);display:block"></canvas>
+      <p style="font-size:0.78rem;color:var(--text-tertiary);margin-top:0.85rem">Press and hold (mobile) or right-click (desktop) to save image</p>
+    </div>
+    <div class="modal-footer" style="gap:0.65rem">
+      <button onclick="downloadCard()" style="flex:1;padding:0.75rem;border-radius:var(--r-md);background:var(--umt-navy);color:#fff;font-size:0.9rem;font-weight:500;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.4rem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Save Image
+      </button>
+      <button onclick="shareCard()" style="flex:1;padding:0.75rem;border-radius:var(--r-md);background:var(--surface-1);border:1.5px solid var(--surface-border);color:var(--text-primary);font-size:0.9rem;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.4rem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        Share
+      </button>
+    </div>
+  </div>
+</div>
 </body>
 </html>

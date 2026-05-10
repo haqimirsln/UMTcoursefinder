@@ -1994,12 +1994,12 @@ function derivePersona() {
   };
   const dominant = Object.entries(counts).sort((a,b) => b[1]-a[1])[0][0];
   const personas = {
-    tech:   { title:'The Code Architect',   emoji:'💻', colour:'#1D6FA4', tagline:'You think in systems and solve problems with technology.' },
-    ocean:  { title:'The Ocean Explorer',   emoji:'🌊', colour:'#0E7490', tagline:'Curiosity drives you — the sea holds all your answers.' },
-    eng:    { title:'The Builder',          emoji:'⚙️', colour:'#7C3AED', tagline:'You create things that last. Physics is your playground.' },
-    biz:    { title:'The Strategist',       emoji:'📈', colour:'#B01E2C', tagline:'You see opportunities where others see obstacles.' },
-    social: { title:'The People Champion',  emoji:'🤝', colour:'#C9922B', tagline:'You lead with empathy and make communities stronger.' },
-    marine: { title:'The Maritime Pioneer', emoji:'⚓', colour:'#0C1E3A', tagline:'The sea is your calling — navigation and the open ocean.' },
+    tech:   { title:'The Code Architect',   iconType:'tech',   colour:'#1D6FA4', tagline:'You think in systems and build the future with technology.' },
+    ocean:  { title:'The Ocean Explorer',   iconType:'ocean',  colour:'#0E7490', tagline:'Curiosity drives you — the sea holds all your answers.' },
+    eng:    { title:'The Builder',          iconType:'eng',    colour:'#7C3AED', tagline:'You engineer solutions that shape the physical world.' },
+    biz:    { title:'The Strategist',       iconType:'biz',    colour:'#B01E2C', tagline:'You see opportunity where others see obstacles.' },
+    social: { title:'The People Champion',  iconType:'social', colour:'#C9922B', tagline:'You lead with empathy and make communities stronger.' },
+    marine: { title:'The Maritime Pioneer', iconType:'marine', colour:'#1A4A7A', tagline:'The open sea is your calling — you were born to navigate.' },
   };
   return personas[dominant] || personas.tech;
 }
@@ -2030,6 +2030,7 @@ function wrapText(ctx, text, x, y, maxW, lineH) {
     else { line = test; }
   }
   if (line) ctx.fillText(line, x, y);
+  return y;
 }
 
 function roundRect(ctx, x, y, w, h, r) {
@@ -2041,97 +2042,345 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.lineTo(x,y+rd[0]); ctx.quadraticCurveTo(x,y,x+rd[0],y); ctx.closePath();
 }
 
+// Draw UMT logo as SVG path on canvas
+function drawUMTLogo(ctx, cx, cy, size) {
+  ctx.save();
+  ctx.translate(cx - size/2, cy - size/2);
+  const s = size / 60;
+  ctx.scale(s, s);
+  // Outer ring
+  ctx.beginPath(); ctx.arc(30,30,28,0,Math.PI*2);
+  ctx.strokeStyle='rgba(255,255,255,0.9)'; ctx.lineWidth=2.5; ctx.stroke();
+  // Wave shape (marine symbol)
+  ctx.beginPath();
+  ctx.moveTo(10,33);
+  ctx.bezierCurveTo(15,26,20,26,25,33);
+  ctx.bezierCurveTo(30,40,35,40,40,33);
+  ctx.bezierCurveTo(45,26,50,26,55,33);
+  ctx.strokeStyle='rgba(255,255,255,0.9)'; ctx.lineWidth=2.8; ctx.stroke();
+  // Second wave
+  ctx.beginPath();
+  ctx.moveTo(10,25);
+  ctx.bezierCurveTo(15,18,20,18,25,25);
+  ctx.bezierCurveTo(30,32,35,32,40,25);
+  ctx.bezierCurveTo(45,18,50,18,55,25);
+  ctx.strokeStyle='rgba(255,255,255,0.45)'; ctx.lineWidth=2; ctx.stroke();
+  // UMT text mark
+  ctx.fillStyle='rgba(255,255,255,0.95)'; ctx.font='bold 11px sans-serif';
+  ctx.textAlign='center'; ctx.fillText('UMT', 30, 20);
+  ctx.textAlign='left';
+  ctx.restore();
+}
+
+// Draw persona icon via canvas paths (no emoji)
+function drawPersonaIcon(ctx, persona, cx, cy, size) {
+  const col = persona.colour;
+  ctx.save();
+  // Outer glow ring
+  const glow = ctx.createRadialGradient(cx,cy,size*0.3,cx,cy,size*1.1);
+  glow.addColorStop(0, col+'55'); glow.addColorStop(1,'transparent');
+  ctx.fillStyle=glow; ctx.beginPath(); ctx.arc(cx,cy,size*1.1,0,Math.PI*2); ctx.fill();
+  // Hexagon background
+  ctx.beginPath();
+  for(let i=0;i<6;i++){
+    const a=Math.PI/180*(60*i-30);
+    i===0?ctx.moveTo(cx+size*Math.cos(a),cy+size*Math.sin(a)):ctx.lineTo(cx+size*Math.cos(a),cy+size*Math.sin(a));
+  }
+  ctx.closePath();
+  ctx.fillStyle=col+'33'; ctx.fill();
+  ctx.strokeStyle=col+'88'; ctx.lineWidth=2; ctx.stroke();
+
+  // Inner icon — draw SVG-style paths for each persona type
+  ctx.strokeStyle='rgba(255,255,255,0.95)'; ctx.fillStyle='rgba(255,255,255,0.95)';
+  ctx.lineWidth=3; ctx.lineCap='round'; ctx.lineJoin='round';
+  const ic = size*0.42; // icon scale relative to center
+
+  if (persona.iconType === 'tech') {
+    // Monitor + code brackets
+    ctx.strokeRect(cx-ic,cy-ic*0.7,ic*2,ic*1.4);
+    ctx.beginPath(); ctx.moveTo(cx-ic*0.5,cy-ic*0.25); ctx.lineTo(cx-ic*0.15,cy); ctx.lineTo(cx-ic*0.5,cy+ic*0.25); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx+ic*0.5,cy-ic*0.25); ctx.lineTo(cx+ic*0.15,cy); ctx.lineTo(cx+ic*0.5,cy+ic*0.25); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx-ic*0.25,cy+ic*0.7); ctx.lineTo(cx+ic*0.25,cy+ic*0.7); ctx.stroke();
+  } else if (persona.iconType === 'ocean') {
+    // Ocean wave lines
+    for(let w=0;w<3;w++){
+      const oy=cy-ic*0.3+w*ic*0.3;
+      ctx.beginPath(); ctx.moveTo(cx-ic,oy);
+      ctx.bezierCurveTo(cx-ic*0.5,oy-ic*0.18,cx-ic*0.1,oy-ic*0.18,cx+ic*0.2,oy);
+      ctx.bezierCurveTo(cx+ic*0.55,oy+ic*0.18,cx+ic*0.8,oy+ic*0.18,cx+ic,oy);
+      ctx.globalAlpha=1-w*0.25; ctx.stroke();
+    }
+    ctx.globalAlpha=1;
+  } else if (persona.iconType === 'eng') {
+    // Gear / cog
+    const teeth=8, ir=ic*0.42, or=ic*0.72;
+    ctx.beginPath();
+    for(let i=0;i<teeth*2;i++){
+      const a=Math.PI*i/teeth, r=i%2===0?or:ir;
+      i===0?ctx.moveTo(cx+r*Math.cos(a),cy+r*Math.sin(a)):ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));
+    }
+    ctx.closePath(); ctx.stroke();
+    ctx.beginPath(); ctx.arc(cx,cy,ic*0.22,0,Math.PI*2); ctx.stroke();
+  } else if (persona.iconType === 'biz') {
+    // Bar chart upward trend + arrow
+    [[cx-ic*0.55,ic*0.5],[cx-ic*0.18,ic*0.25],[cx+ic*0.18,ic*0.65],[cx+ic*0.55,ic*0.1]].forEach(([bx,bh],i) => {
+      roundRect(ctx,bx-ic*0.14,cy-bh*0.9,ic*0.27,bh*0.9,3); ctx.fillStyle=col+'99'; ctx.fill();
+      ctx.strokeStyle='rgba(255,255,255,0.9)'; ctx.stroke();
+    });
+    // Arrow up
+    ctx.beginPath(); ctx.moveTo(cx-ic*0.5,cy-ic*0.55); ctx.lineTo(cx+ic*0.55,cy-ic*0.55);
+    ctx.moveTo(cx+ic*0.3,cy-ic*0.8); ctx.lineTo(cx+ic*0.55,cy-ic*0.55); ctx.lineTo(cx+ic*0.8,cy-ic*0.8);
+    ctx.stroke();
+  } else if (persona.iconType === 'social') {
+    // Three connected people
+    [[-ic*0.45,0],[0,-ic*0.15],[ic*0.45,0]].forEach(([ox,oy]) => {
+      ctx.beginPath(); ctx.arc(cx+ox,cy+oy-ic*0.25,ic*0.2,0,Math.PI*2); ctx.stroke();
+    });
+    ctx.beginPath();
+    ctx.moveTo(cx-ic*0.75,cy+ic*0.5); ctx.quadraticCurveTo(cx-ic*0.45,cy+ic*0.15,cx-ic*0.15,cy+ic*0.4);
+    ctx.moveTo(cx-ic*0.05,cy+ic*0.3); ctx.quadraticCurveTo(cx,cy+ic*0.1,cx+ic*0.05,cy+ic*0.3);
+    ctx.moveTo(cx+ic*0.15,cy+ic*0.4); ctx.quadraticCurveTo(cx+ic*0.45,cy+ic*0.15,cx+ic*0.75,cy+ic*0.5);
+    // connection lines
+    ctx.moveTo(cx-ic*0.25,cy-ic*0.2); ctx.lineTo(cx-ic*0.05,cy-ic*0.3);
+    ctx.moveTo(cx+ic*0.25,cy-ic*0.2); ctx.lineTo(cx+ic*0.05,cy-ic*0.3);
+    ctx.stroke();
+  } else {
+    // Anchor (marine)
+    ctx.beginPath(); ctx.arc(cx,cy-ic*0.35,ic*0.22,0,Math.PI*2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx,cy-ic*0.12); ctx.lineTo(cx,cy+ic*0.5); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx-ic*0.6,cy-ic*0.1); ctx.lineTo(cx+ic*0.6,cy-ic*0.1); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx-ic*0.55,cy+ic*0.5);
+    ctx.bezierCurveTo(cx-ic*0.55,cy+ic*0.72,cx,cy+ic*0.85,cx,cy+ic*0.72);
+    ctx.bezierCurveTo(cx,cy+ic*0.85,cx+ic*0.55,cy+ic*0.72,cx+ic*0.55,cy+ic*0.5); ctx.stroke();
+  }
+  ctx.restore();
+}
+
 function drawResultCard(name) {
   const canvas = document.getElementById('result-card-canvas');
-  const W = 900, H = 1600;
+  // Portrait story format — 9:16 ratio, good for Instagram/TikTok stories
+  const W = 1080, H = 1920;
   canvas.width = W; canvas.height = H;
   const ctx = canvas.getContext('2d');
   const persona = derivePersona();
   const top = allRanked[0], second = allRanked[1], third = allRanked[2];
   const ac = persona.colour;
 
-  // Background
-  const bg = ctx.createLinearGradient(0,0,0,H);
-  bg.addColorStop(0,'#0C1E3A'); bg.addColorStop(0.45,'#112244'); bg.addColorStop(1,'#0A0A0F');
-  ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
+  // ── BACKGROUND — deep navy gradient ──────────────────────────────
+  const bg = ctx.createLinearGradient(0,0,W*0.6,H);
+  bg.addColorStop(0,'#08172E');
+  bg.addColorStop(0.5,'#0D1F3C');
+  bg.addColorStop(1,'#060E1C');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
 
-  // Glow circles
-  [[W*0.15,H*0.08,280,ac,0.18],[W*0.9,H*0.35,220,'#C9922B',0.10],[W*0.05,H*0.85,300,ac,0.10]].forEach(([x,y,r,col,a]) => {
-    ctx.save(); ctx.globalAlpha = a;
-    const g = ctx.createRadialGradient(x,y,0,x,y,r);
-    g.addColorStop(0,col); g.addColorStop(1,'transparent');
-    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill(); ctx.restore();
-  });
-
-  // Grid
-  ctx.save(); ctx.globalAlpha=0.04; ctx.strokeStyle='#fff'; ctx.lineWidth=1;
-  for(let x=0;x<W;x+=60){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
-  for(let y=0;y<H;y+=60){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+  // ── NOISE TEXTURE — subtle grain ─────────────────────────────────
+  ctx.save();
+  ctx.globalAlpha=0.03;
+  for(let i=0;i<6000;i++){
+    ctx.fillStyle=Math.random()>0.5?'#fff':'#000';
+    ctx.fillRect(Math.random()*W, Math.random()*H, 1.5, 1.5);
+  }
   ctx.restore();
 
-  // Header
-  ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.font='500 28px sans-serif';
-  ctx.fillText('Universiti Malaysia Terengganu', 60, 70);
-  ctx.fillStyle=ac; ctx.font='700 28px sans-serif';
-  ctx.fillText('UMT Course Finder 2026', 60, 108);
-  ctx.save(); ctx.globalAlpha=0.25; ctx.strokeStyle='#fff'; ctx.lineWidth=1;
-  ctx.beginPath(); ctx.moveTo(60,130); ctx.lineTo(W-60,130); ctx.stroke(); ctx.restore();
+  // ── DIAGONAL ACCENT STRIPE — top right corner ────────────────────
+  ctx.save();
+  ctx.globalAlpha=0.07;
+  ctx.fillStyle=ac;
+  ctx.beginPath();
+  ctx.moveTo(W*0.55,0); ctx.lineTo(W,0); ctx.lineTo(W,H*0.35); ctx.lineTo(W*0.35,0);
+  ctx.closePath(); ctx.fill();
+  ctx.restore();
 
-  // Persona
-  ctx.font='110px serif'; ctx.fillStyle='#fff'; ctx.fillText(persona.emoji, 60, 290);
-  ctx.fillStyle=ac; ctx.font='700 30px sans-serif'; ctx.fillText('I AM A', 60, 345);
-  ctx.fillStyle='#fff'; ctx.font='400 78px Georgia,serif'; wrapText(ctx, persona.title, 60, 430, W-120, 88);
-  ctx.fillStyle='rgba(255,255,255,0.65)'; ctx.font='300 32px sans-serif'; wrapText(ctx, persona.tagline, 60, 530, W-120, 42);
+  // ── RADIAL GLOW — behind icon area ───────────────────────────────
+  const glowX=W/2, glowY=H*0.38;
+  const glow = ctx.createRadialGradient(glowX,glowY,0,glowX,glowY,W*0.55);
+  glow.addColorStop(0,ac+'28'); glow.addColorStop(0.6,ac+'08'); glow.addColorStop(1,'transparent');
+  ctx.fillStyle=glow; ctx.fillRect(0,0,W,H);
 
-  // Divider
+  // ── TOP BAR — gold accent line ────────────────────────────────────
+  const barGrad = ctx.createLinearGradient(0,0,W,0);
+  barGrad.addColorStop(0,'#C9922B'); barGrad.addColorStop(0.5,ac); barGrad.addColorStop(1,'#C9922B');
+  ctx.fillStyle=barGrad; ctx.fillRect(0,0,W,5);
+
+  // ── UMT LOGO AREA (top left) ──────────────────────────────────────
+  // Logo pill background
+  roundRect(ctx,52,36,320,68,34);
+  ctx.fillStyle='rgba(255,255,255,0.07)'; ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,0.15)'; ctx.lineWidth=1; ctx.stroke();
+  // Draw wave-mark logo
+  drawUMTLogo(ctx, 98, 70, 44);
+  // UMT text
+  ctx.fillStyle='#fff'; ctx.font='700 22px sans-serif'; ctx.fillText('UMT', 128, 63);
+  ctx.fillStyle='rgba(255,255,255,0.55)'; ctx.font='400 17px sans-serif';
+  ctx.fillText('Course Finder', 128, 85);
+
+  // ── JOM MASUK IPT BADGE (top right) ──────────────────────────────
+  ctx.save();
+  ctx.textAlign='right';
+  roundRect(ctx,W-212,36,160,68,34);
+  ctx.fillStyle='rgba(201,146,43,0.15)'; ctx.fill();
+  ctx.strokeStyle='rgba(201,146,43,0.4)'; ctx.lineWidth=1.5; ctx.stroke();
+  ctx.fillStyle='#C9922B'; ctx.font='700 19px sans-serif';
+  ctx.fillText('JOM MASUK', W-68, 63);
+  ctx.fillStyle='rgba(201,146,43,0.8)'; ctx.font='400 16px sans-serif';
+  ctx.fillText('IPT 2026', W-68, 84);
+  ctx.textAlign='left';
+  ctx.restore();
+
+  // ── THIN DIVIDER ─────────────────────────────────────────────────
+  ctx.save(); ctx.globalAlpha=0.12; ctx.strokeStyle='#fff'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(52,128); ctx.lineTo(W-52,128); ctx.stroke();
+  ctx.restore();
+
+  // ── PERSONA ICON — centred, large ────────────────────────────────
+  drawPersonaIcon(ctx, persona, W/2, H*0.285, 110);
+
+  // ── "I AM A" label ────────────────────────────────────────────────
+  ctx.fillStyle=ac;
+  ctx.font='600 28px sans-serif';
+  ctx.textAlign='center';
+  ctx.letterSpacing='6px';
+  ctx.fillText('I  A M  A', W/2, H*0.41);
+
+  // ── PERSONA TITLE — large serif centred ──────────────────────────
+  ctx.fillStyle='#ffffff';
+  ctx.font='400 96px Georgia,serif';
+  ctx.textAlign='center';
+  // Measure and wrap if needed
+  const titleWords = persona.title.split(' ');
+  if (ctx.measureText(persona.title).width < W-160) {
+    ctx.fillText(persona.title, W/2, H*0.475);
+  } else {
+    const mid = Math.ceil(titleWords.length/2);
+    ctx.fillText(titleWords.slice(0,mid).join(' '), W/2, H*0.46);
+    ctx.fillText(titleWords.slice(mid).join(' '),   W/2, H*0.515);
+  }
+
+  // ── TAGLINE ───────────────────────────────────────────────────────
+  ctx.fillStyle='rgba(255,255,255,0.55)';
+  ctx.font='300 30px sans-serif';
+  ctx.textAlign='center';
+  // Wrap tagline at ~680px
+  const tagWords = persona.tagline.split(' '); let tagLine=''; let tagY=H*0.545;
+  for(const w of tagWords){
+    const test=tagLine?tagLine+' '+w:w;
+    if(ctx.measureText(test).width>680&&tagLine){ctx.fillText(tagLine,W/2,tagY);tagLine=w;tagY+=42;}
+    else{tagLine=test;}
+  }
+  if(tagLine) ctx.fillText(tagLine,W/2,tagY);
+
+  // ── CENTRE DIVIDER with gold diamond ─────────────────────────────
+  const divY = H*0.615;
   ctx.save(); ctx.globalAlpha=0.2; ctx.strokeStyle='#fff'; ctx.lineWidth=1;
-  ctx.beginPath(); ctx.moveTo(60,608); ctx.lineTo(W-60,608); ctx.stroke(); ctx.restore();
+  ctx.beginPath(); ctx.moveTo(52,divY); ctx.lineTo(W/2-30,divY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(W/2+30,divY); ctx.lineTo(W-52,divY); ctx.stroke();
+  ctx.restore();
+  // Diamond
+  ctx.save(); ctx.fillStyle='#C9922B'; ctx.globalAlpha=0.9;
+  ctx.translate(W/2,divY); ctx.rotate(Math.PI/4);
+  ctx.fillRect(-8,-8,16,16); ctx.restore();
 
-  // Top match
-  ctx.fillStyle=ac; ctx.font='700 26px sans-serif'; ctx.fillText('✦  MY TOP PROGRAMME MATCH', 60, 662);
-  roundRect(ctx,60,682,W-120,190,20); ctx.fillStyle='rgba(255,255,255,0.07)'; ctx.fill();
-  roundRect(ctx,60,682,W-120,8,[20,20,0,0]); ctx.fillStyle=getCategoryColour(top?.category||''); ctx.fill();
-  ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.font='600 22px sans-serif';
-  ctx.fillText((top?.faculty||'').toUpperCase(), 88, 736);
-  ctx.fillStyle='#fff'; ctx.font='400 44px Georgia,serif';
-  wrapText(ctx, top?.name||'—', 88, 790, W-180, 50);
-  ctx.fillStyle='rgba(255,255,255,0.55)'; ctx.font='400 24px sans-serif';
-  ctx.fillText((top?.duration||'') + '  ·  Intake: '+(top?.intake||''), 88, 852);
+  // ── TOP MATCH CARD ────────────────────────────────────────────────
+  const cardX=52, cardY=H*0.635, cardW=W-104, cardH=240;
+  // Card background
+  roundRect(ctx,cardX,cardY,cardW,cardH,24);
+  const cardBg = ctx.createLinearGradient(cardX,cardY,cardX+cardW,cardY+cardH);
+  cardBg.addColorStop(0,'rgba(255,255,255,0.09)');
+  cardBg.addColorStop(1,'rgba(255,255,255,0.04)');
+  ctx.fillStyle=cardBg; ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,0.12)'; ctx.lineWidth=1; ctx.stroke();
+  // Colour accent top bar
+  roundRect(ctx,cardX,cardY,cardW,6,[24,24,0,0]);
+  ctx.fillStyle=getCategoryColour(top?.category||''); ctx.fill();
 
-  // 2nd & 3rd
-  ctx.fillStyle='rgba(255,255,255,0.45)'; ctx.font='700 24px sans-serif'; ctx.fillText('ALSO A GREAT FIT', 60, 930);
-  [[second,960],[third,1065]].forEach(([p,y]) => {
-    if(!p) return;
-    roundRect(ctx,60,y,W-120,88,14); ctx.fillStyle='rgba(255,255,255,0.05)'; ctx.fill();
-    roundRect(ctx,60,y,5,88,[14,0,0,14]); ctx.fillStyle=getCategoryColour(p.category||''); ctx.fill();
-    ctx.fillStyle='rgba(255,255,255,0.4)'; ctx.font='600 20px sans-serif';
-    ctx.fillText((p.faculty||'').toUpperCase(), 88, y+28);
-    ctx.fillStyle='#fff'; ctx.font='400 30px Georgia,serif';
-    const short = (p.name||'').length > 50 ? p.name.slice(0,48)+'…' : (p.name||'—');
-    ctx.fillText(short, 88, y+60);
+  // Label
+  ctx.textAlign='left';
+  ctx.fillStyle=ac; ctx.font='700 22px sans-serif';
+  ctx.fillText('✦  MY TOP PROGRAMME MATCH', cardX+32, cardY+50);
+
+  // Faculty
+  ctx.fillStyle='rgba(255,255,255,0.45)'; ctx.font='500 20px sans-serif';
+  ctx.fillText((top?.faculty||'').toUpperCase(), cardX+32, cardY+82);
+
+  // Programme name — auto size down if long
+  const topName = top?.name||'—';
+  let fontSize=44;
+  ctx.font=`400 ${fontSize}px Georgia,serif`;
+  while(ctx.measureText(topName).width > cardW-70 && fontSize>28) {
+    fontSize-=3; ctx.font=`400 ${fontSize}px Georgia,serif`;
+  }
+  ctx.fillStyle='#ffffff';
+  // wrap if still too wide after size reduction
+  const topNameY = cardY+138;
+  if(ctx.measureText(topName).width > cardW-70) {
+    const half=Math.ceil(topName.split(' ').length/2);
+    const l1=topName.split(' ').slice(0,half).join(' ');
+    const l2=topName.split(' ').slice(half).join(' ');
+    ctx.fillText(l1, cardX+32, topNameY);
+    ctx.fillText(l2, cardX+32, topNameY+fontSize+6);
+  } else {
+    ctx.fillText(topName, cardX+32, topNameY);
+  }
+
+  // Duration + intake
+  ctx.fillStyle='rgba(255,255,255,0.45)'; ctx.font='400 22px sans-serif';
+  ctx.fillText((top?.duration||'')+'  ·  '+( top?.intake||''), cardX+32, cardY+210);
+
+  // ── 2 RUNNER UP CARDS ─────────────────────────────────────────────
+  ctx.fillStyle='rgba(255,255,255,0.35)'; ctx.font='600 22px sans-serif'; ctx.textAlign='left';
+  ctx.fillText('ALSO A GREAT FIT', 52, H*0.635+260);
+
+  const r2Y = H*0.635+290;
+  [[second, 0],[third, 1]].forEach(([prog,idx]) => {
+    if(!prog) return;
+    const rx=52, ry=r2Y+idx*118, rw=W-104, rh=100;
+    roundRect(ctx,rx,ry,rw,rh,16);
+    ctx.fillStyle='rgba(255,255,255,0.05)'; ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.lineWidth=1; ctx.stroke();
+    // Left colour tab
+    roundRect(ctx,rx,ry,5,rh,[16,0,0,16]);
+    ctx.fillStyle=getCategoryColour(prog.category||''); ctx.fill();
+    // Rank number
+    ctx.fillStyle=ac; ctx.font='700 28px sans-serif';
+    ctx.fillText(`${idx+2}`, rx+24, ry+38);
+    ctx.fillStyle='rgba(255,255,255,0.35)'; ctx.font='500 18px sans-serif';
+    ctx.fillText((prog.faculty||'').toUpperCase(), rx+52, ry+30);
+    ctx.fillStyle='#fff'; ctx.font='400 28px Georgia,serif';
+    const sn=(prog.name||'').length>52?prog.name.slice(0,50)+'…':(prog.name||'—');
+    ctx.fillText(sn, rx+52, ry+62);
   });
 
-  // Name
-  ctx.save(); ctx.globalAlpha=0.18; ctx.strokeStyle='#fff'; ctx.lineWidth=1;
-  ctx.beginPath(); ctx.moveTo(60,1195); ctx.lineTo(W-60,1195); ctx.stroke(); ctx.restore();
-  ctx.fillStyle='rgba(255,255,255,0.45)'; ctx.font='600 24px sans-serif'; ctx.fillText('GENERATED FOR', 60, 1248);
-  ctx.fillStyle='#fff'; ctx.font='400 70px Georgia,serif'; ctx.fillText(name, 60, 1328);
-  const now = new Date();
-  const ds = now.toLocaleDateString('en-MY',{day:'numeric',month:'long',year:'numeric'});
-  ctx.fillStyle='rgba(255,255,255,0.35)'; ctx.font='400 24px sans-serif';
-  ctx.fillText(ds + '  ·  JOM MASUK IPT', 60, 1378);
+  // ── NAME SECTION ──────────────────────────────────────────────────
+  const nameY = r2Y + 260;
+  // Full width background strip
+  ctx.fillStyle='rgba(255,255,255,0.04)'; ctx.fillRect(0,nameY-20,W,160);
+  ctx.save(); ctx.globalAlpha=0.15; ctx.strokeStyle='#fff'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(0,nameY-20); ctx.lineTo(W,nameY-20); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0,nameY+138); ctx.lineTo(W,nameY+138); ctx.stroke();
+  ctx.restore();
 
-  // CTA bar
-  roundRect(ctx,60,1428,W-120,100,16);
-  const ctaBg = ctx.createLinearGradient(60,1428,W-60,1528);
-  ctaBg.addColorStop(0,ac); ctaBg.addColorStop(1,'#C9922B');
-  ctx.fillStyle=ctaBg; ctx.fill();
-  ctx.fillStyle='#fff'; ctx.font='600 28px sans-serif'; ctx.textAlign='center';
-  ctx.fillText('Discover your programme at umt.edu.my', W/2, 1488);
+  ctx.fillStyle='rgba(255,255,255,0.4)'; ctx.font='600 22px sans-serif'; ctx.textAlign='left';
+  ctx.fillText('RESULT GENERATED FOR', 52, nameY+20);
+  ctx.fillStyle='#ffffff'; ctx.font='400 76px Georgia,serif';
+  ctx.fillText(name, 52, nameY+100);
 
-  // Watermark
-  ctx.fillStyle='rgba(255,255,255,0.15)'; ctx.font='400 22px sans-serif'; ctx.textAlign='right';
-  ctx.fillText('UMT Course Finder · Jom Masuk IPT 2026', W-60, H-30);
+  const now=new Date();
+  const ds=now.toLocaleDateString('en-MY',{day:'numeric',month:'long',year:'numeric'});
+  ctx.fillStyle='rgba(255,255,255,0.3)'; ctx.font='400 22px sans-serif';
+  ctx.fillText(ds+'  ·  JOM MASUK IPT 2026', 52, nameY+132);
+
+  // ── BOTTOM CTA ────────────────────────────────────────────────────
+  const ctaY = nameY+175;
+  roundRect(ctx,52,ctaY,W-104,88,18);
+  const ctaGrad=ctx.createLinearGradient(52,ctaY,W-52,ctaY+88);
+  ctaGrad.addColorStop(0,ac); ctaGrad.addColorStop(1,'#C9922B');
+  ctx.fillStyle=ctaGrad; ctx.fill();
+  ctx.fillStyle='#fff'; ctx.font='600 30px sans-serif'; ctx.textAlign='center';
+  ctx.fillText('www.umt.edu.my  ·  Find Your Programme', W/2, ctaY+52);
+
+  // ── WATERMARK ────────────────────────────────────────────────────
+  ctx.fillStyle='rgba(255,255,255,0.12)'; ctx.font='400 20px sans-serif'; ctx.textAlign='center';
+  ctx.fillText('UMT Course Finder  ·  Universiti Malaysia Terengganu', W/2, H-28);
   ctx.textAlign='left';
 }
 

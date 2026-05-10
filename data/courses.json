@@ -128,7 +128,167 @@
         "analytical": 4,
         "detail": 3
       },
-      "semesters": 3
+      "semesters": 3,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "spm_stem_a",
+            "label": "SPM — STEM A (all 3 sciences C+)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "spm"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bm",
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "C"
+              },
+              {
+                "type": "sejarah_pass"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "B"
+              },
+              {
+                "type": "count_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.chem",
+                  "spm.fizik"
+                ],
+                "minGrade": "C+",
+                "count": 3
+              }
+            ],
+            "muetMin": "3.5"
+          },
+          {
+            "id": "spm_stem_b",
+            "label": "SPM — STEM B (2 sciences + elective C+)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "spm"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bm",
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "C"
+              },
+              {
+                "type": "sejarah_pass"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "B"
+              },
+              {
+                "type": "count_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.chem",
+                  "spm.fizik"
+                ],
+                "minGrade": "C+",
+                "count": 2
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.math",
+                  "spm.addmath",
+                  "spm.other",
+                  "spm.bi"
+                ],
+                "minGrade": "C+"
+              }
+            ],
+            "muetMin": "3.5"
+          },
+          {
+            "id": "spm_stem_c",
+            "label": "SPM — STEM C (Sains A + elective C+)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "spm"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bm",
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "C"
+              },
+              {
+                "type": "sejarah_pass"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.sains",
+                "minGrade": "A"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.math",
+                  "spm.addmath",
+                  "spm.other",
+                  "spm.bi"
+                ],
+                "minGrade": "C+"
+              }
+            ],
+            "muetMin": "3.5"
+          },
+          {
+            "id": "olevel",
+            "label": "O-Level (International)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "olevel"
+                ]
+              },
+              {
+                "type": "count_grade_min",
+                "fields": [
+                  "spm.math",
+                  "spm.fizik",
+                  "spm.chem"
+                ],
+                "minGrade": "C",
+                "count": 3
+              }
+            ],
+            "muetMin": "3.5"
+          }
+        ]
+      }
     },
     {
       "id": "diploma-perikanan",
@@ -201,7 +361,87 @@
         "adventurous": 3,
         "research": 2
       },
-      "semesters": 4
+      "semesters": 4,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "spm_sains",
+            "label": "SPM — Sains A + Maths C + BI E",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "spm"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bm",
+                "minGrade": "C"
+              },
+              {
+                "type": "sejarah_pass"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "E"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.sains",
+                "minGrade": "A"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "spm_bio",
+            "label": "SPM — Kimia/Fizik/Bio C + Maths C + BI E",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "spm"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bm",
+                "minGrade": "C"
+              },
+              {
+                "type": "sejarah_pass"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "E"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.chem",
+                  "spm.fizik"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "fisheries-degree",
@@ -260,7 +500,108 @@
         "gov": 3,
         "research": 3
       },
-      "semesters": 6
+      "semesters": 6,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (Bio/Fizik/Kimia/MathT C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.math"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera + SPM 2 sciences C",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.ekon",
+                  "pu.other1"
+                ],
+                "minGrade": "C+"
+              },
+              {
+                "type": "count_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.math",
+                  "spm.addmath"
+                ],
+                "minGrade": "C",
+                "count": 2
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi Sains (Bio/Fizik/Kimia/Maths C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.bio",
+                  "pu.fizik",
+                  "pu.chem",
+                  "pu.math"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma (CGPA 2.5)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.5
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "aquaculture",
@@ -318,7 +659,108 @@
         "research": 3,
         "tech": 2
       },
-      "semesters": 8
+      "semesters": 8,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (Bio/Fizik/Kimia/MathT B)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.math"
+                ],
+                "minGrade": "B"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera + SPM 2 sciences C",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.ekon",
+                  "pu.other1"
+                ],
+                "minGrade": "C+"
+              },
+              {
+                "type": "count_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.math",
+                  "spm.addmath"
+                ],
+                "minGrade": "C",
+                "count": 2
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Bio/Fizik/Kimia/Maths C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.bio",
+                  "pu.fizik",
+                  "pu.chem",
+                  "pu.math"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma (CGPA 2.0)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "crop-science",
@@ -376,7 +818,148 @@
         "research": 3,
         "gov": 2
       },
-      "semesters": 8
+      "semesters": 8,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (Fizik/Kimia/Bio D)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio"
+                ],
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera (CGPA 2.0 + SPM Bio/Fizik/Kimia/Sains B)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.sains"
+                ],
+                "minGrade": "B"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik_sains",
+            "label": "Matrikulasi Sains (Bio/Fizik/Kimia C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.bio",
+                  "pu.fizik",
+                  "pu.chem"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik_perak",
+            "label": "Matrikulasi Perakaunan (CGPA 2.0 + SPM Bio/Fizik/Kimia/Sains B)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.sains"
+                ],
+                "minGrade": "B"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains_sosial",
+                  "asasi_perakaunan"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stam",
+            "label": "STAM Jayyid + Bio/Fizik/Kimia/Sains B",
+            "conditions": [
+              {
+                "type": "stam_min",
+                "value": "jayyid"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.sains"
+                ],
+                "minGrade": "B"
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "food-technology",
@@ -435,7 +1018,90 @@
         "detail": 4,
         "research": 3
       },
-      "semesters": 8
+      "semesters": 8,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (Kimia C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.chem",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Kimia C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "pu.chem",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma + SPM Kimia/Bio/Fizik B",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.fizik",
+                  "spm.chem"
+                ],
+                "minGrade": "B"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stam",
+            "label": "STAM Jayyid + Sains B",
+            "conditions": [
+              {
+                "type": "stam_min",
+                "value": "jayyid"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.sains",
+                "minGrade": "B"
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "food-nutrition",
@@ -493,7 +1159,91 @@
         "caring": 3,
         "research": 3
       },
-      "semesters": 8
+      "semesters": 8,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (Kimia D)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.chem",
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Kimia C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "pu.chem",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma + SPM Kimia/Bio/Fizik/Sains B",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.sains"
+                ],
+                "minGrade": "B"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stam",
+            "label": "STAM Jayyid + Sains B",
+            "conditions": [
+              {
+                "type": "stam_min",
+                "value": "jayyid"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.sains",
+                "minGrade": "B"
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "agro-processing",
@@ -554,7 +1304,140 @@
         "engineering": 3,
         "research": 2
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (Fizik/Kimia/Bio D)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio"
+                ],
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera + SPM Bio/Fizik/Kimia/Sains B",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.sains"
+                ],
+                "minGrade": "B"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik_sains",
+            "label": "Matrikulasi Sains (Fizik/Kimia/Bio D)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.fizik",
+                  "pu.chem",
+                  "pu.bio"
+                ],
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik_perak",
+            "label": "Matrikulasi Perakaunan + SPM Bio/Fizik/Kimia/Sains B",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.sains"
+                ],
+                "minGrade": "B"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma (berkaitan, CGPA 2.0)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains_sosial",
+                  "asasi_perakaunan"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stam",
+            "label": "STAM Jayyid + Bio/Fizik/Kimia/Sains B",
+            "conditions": [
+              {
+                "type": "stam_min",
+                "value": "jayyid"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.sains"
+                ],
+                "minGrade": "B"
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "marine-science",
@@ -621,7 +1504,75 @@
         "research": 4,
         "outdoor": 4
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (Bio/Fizik/Kimia/MathT/MathM C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.math"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Bio/Fizik/Kimia/Maths C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.bio",
+                  "pu.fizik",
+                  "pu.chem",
+                  "pu.math"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma (CGPA 2.0)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "marine-biology",
@@ -680,7 +1631,75 @@
         "ngo": 4,
         "adventurous": 4
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (Bio/Fizik/Kimia/MathT C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.math"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Bio/Fizik/Kimia/Maths C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.bio",
+                  "pu.fizik",
+                  "pu.chem",
+                  "pu.math"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma (CGPA 3.0)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 3.0
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "marine-geoscience",
@@ -742,7 +1761,97 @@
         "research": 4,
         "outdoor": 3
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (Bio/Fizik/Kimia/MathT C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.math"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera (MathM/Geografi C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.mathm",
+                  "pu.other1"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi Sains/Sains Sosial (Bio/Fizik/Kimia/Maths C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.bio",
+                  "pu.fizik",
+                  "pu.chem",
+                  "pu.math"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma (CGPA 3.0)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 3.0
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "biology",
@@ -802,7 +1911,65 @@
         "analytical": 3,
         "detail": 3
       },
-      "semesters": 6
+      "semesters": 6,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (Bio C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bio",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Bio C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "pu.bio",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "chemistry",
@@ -860,7 +2027,65 @@
         "detail": 5,
         "research": 4
       },
-      "semesters": 6
+      "semesters": 6,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (Kimia C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.chem",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Kimia C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "pu.chem",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "analytical-chemistry",
@@ -920,7 +2145,65 @@
         "research": 3,
         "ngo": 2
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (Kimia C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.chem",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Kimia C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "pu.chem",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma (CGPA 2.0)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "nanophysics",
@@ -978,7 +2261,75 @@
         "research": 4,
         "creative": 3
       },
-      "semesters": 8
+      "semesters": 8,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (Fizik/MathT/Kimia/Bio/ICT C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.math",
+                  "spm.chem",
+                  "spm.bio"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Fizik/Maths/Kimia/Bio C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.fizik",
+                  "pu.math",
+                  "pu.chem",
+                  "pu.bio"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma (Sains & Teknologi, CGPA 2.0)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "biodiversity",
@@ -1038,7 +2389,93 @@
         "research": 4,
         "adventurous": 4
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (Bio C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bio",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera (2 subjects C + SPM Bio B)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "count_grade_min",
+                "fields": [
+                  "pu.mathm",
+                  "pu.ekon",
+                  "pu.other1"
+                ],
+                "minGrade": "C",
+                "count": 2
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bio",
+                "minGrade": "B"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi Sains (Bio C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "pu.bio",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "data-analytics",
@@ -1129,7 +2566,88 @@
         "tech_company": 4,
         "research": 3
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (MathT C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera (MathM C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "pu.mathm",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Matematik C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains",
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.math",
+                  "pu.mathm"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "financial-mathematics",
@@ -1189,7 +2707,97 @@
         "corp": 4,
         "data": 3
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (MathT C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera (MathM C + 1 other)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "pu.mathm",
+                "minGrade": "C"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.ekon",
+                  "pu.other1",
+                  "pu.other2"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Matematik C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains",
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.math",
+                  "pu.mathm"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "applied-mathematics",
@@ -1250,7 +2858,88 @@
         "data": 3,
         "tech": 2
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (MathT C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera (MathM C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "pu.mathm",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Matematik C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains",
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.math",
+                  "pu.mathm"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "cs-software-engineering",
@@ -1348,7 +3037,173 @@
         "creative": 3,
         "detail": 3
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (MathT C + elective C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.sains",
+                  "spm.other"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_any",
+            "label": "STPM (any 2 C) + SPM Maths C + science C",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains",
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "count_grade_min",
+                "fields": [
+                  "pu.math",
+                  "pu.mathm",
+                  "pu.bio",
+                  "pu.chem",
+                  "pu.fizik",
+                  "pu.ekon",
+                  "pu.other1"
+                ],
+                "minGrade": "C",
+                "count": 2
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.addmath",
+                  "spm.sains"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (CGPA 2.0 + AddMaths C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.addmath",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik_alt",
+            "label": "Matrikulasi/Asasi (CGPA 2.0 + Maths C + elective C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.addmath",
+                  "spm.sains"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma CS/IT (CGPA 2.5)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.5
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stam",
+            "label": "STAM Jayyid + AddMaths C / (Maths C + elective C)",
+            "conditions": [
+              {
+                "type": "stam_min",
+                "value": "jayyid"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.addmath",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "cs-maritime-informatics",
@@ -1420,7 +3275,156 @@
         "tech_company": 3,
         "sea": 3
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (MathT C + elective C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.other"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_any",
+            "label": "STPM (any 2 C) + SPM Maths C + science C",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains",
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "count_grade_min",
+                "fields": [
+                  "pu.math",
+                  "pu.mathm",
+                  "pu.bio",
+                  "pu.chem",
+                  "pu.fizik",
+                  "pu.ekon",
+                  "pu.other1"
+                ],
+                "minGrade": "C",
+                "count": 2
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.addmath",
+                  "spm.sains"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (CGPA 2.0 + AddMaths C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.addmath",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik_alt",
+            "label": "Matrikulasi/Asasi (CGPA 2.0 + Maths C + elective C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.addmath",
+                  "spm.sains"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma CS/IT (CGPA 2.5)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.5
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "cs-mobile-computing",
@@ -1518,7 +3522,174 @@
         "analytical": 3,
         "detail": 3
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (MathT C + elective C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.other"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_any",
+            "label": "STPM (any 2 C) + SPM Maths C + science C",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains",
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "count_grade_min",
+                "fields": [
+                  "pu.math",
+                  "pu.mathm",
+                  "pu.bio",
+                  "pu.chem",
+                  "pu.fizik",
+                  "pu.ekon",
+                  "pu.other1"
+                ],
+                "minGrade": "C",
+                "count": 2
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.addmath",
+                  "spm.sains"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (CGPA 2.0 + AddMaths C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.addmath",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik_alt",
+            "label": "Matrikulasi/Asasi (CGPA 2.0 + Maths C + elective C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.addmath",
+                  "spm.sains"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma_cs",
+            "label": "Diploma Komputeran (CGPA 2.5)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.5
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma_st",
+            "label": "Diploma Sains & Tech (CGPA 2.75)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.75
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "environmental-technology",
@@ -1582,7 +3753,127 @@
         "gov": 3,
         "engineering": 3
       },
-      "semesters": 8
+      "semesters": 8,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (MathT/Fizik/Kimia/Bio C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.math",
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera + SPM Fizik/Kimia/Bio/AddMaths C",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.mathm",
+                  "pu.ekon",
+                  "pu.other1"
+                ],
+                "minGrade": "C"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.addmath"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Fizik/Engineering/Maths C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.fizik",
+                  "pu.math",
+                  "pu.other1"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma (CGPA 2.0)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stam",
+            "label": "STAM Jayyid + Fizik/Kimia/Bio/AddMaths C",
+            "conditions": [
+              {
+                "type": "stam_min",
+                "value": "jayyid"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.addmath"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "electronics-instrumentation",
@@ -1648,7 +3939,169 @@
         "detail": 4,
         "research": 3
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (MathT/Fizik/Kimia/Bio C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.math",
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera + Maths C+ + Fizik/Kimia/Bio C",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.mathm",
+                  "pu.ekon",
+                  "pu.other1"
+                ],
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C+"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.sains",
+                  "spm.addmath"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Maths/Fizik/Kimia/Bio C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.math",
+                  "pu.fizik",
+                  "pu.chem",
+                  "pu.bio"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik_perak",
+            "label": "Matrikulasi Perakaunan + Maths C+",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C+"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.sains",
+                  "spm.addmath"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma (CGPA 2.0)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains_sosial",
+                  "asasi_perakaunan"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stam",
+            "label": "STAM Jayyid + Maths C+ + science C",
+            "conditions": [
+              {
+                "type": "stam_min",
+                "value": "jayyid"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C+"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.sains",
+                  "spm.addmath"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "maritime-technology",
@@ -1717,7 +4170,110 @@
         "analytical": 3,
         "tech": 3
       },
-      "semesters": 8
+      "semesters": 8,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (MathT/Fizik C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.math",
+                  "spm.fizik"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera + Maths/AddMaths C+ + science C",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.mathm",
+                  "pu.ekon",
+                  "pu.other1"
+                ],
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C+"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.sains",
+                  "spm.addmath"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi Sains/Kejuruteraan",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.math",
+                  "pu.fizik",
+                  "pu.other1"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma berkaitan (CGPA 2.5)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.5
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "maritime-technology-dual-degree",
@@ -1786,7 +4342,74 @@
         "tech": 4,
         "global": 3
       },
-      "semesters": 8
+      "semesters": 8,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (MathT/Fizik C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.math",
+                  "spm.fizik"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi Sains/Kejuruteraan",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.math",
+                  "pu.fizik",
+                  "pu.bio",
+                  "pu.chem",
+                  "pu.other1"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma berkaitan (CGPA 2.75)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.75
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "naval-architecture",
@@ -1888,7 +4511,137 @@
         "creative": 4,
         "analytical": 4
       },
-      "semesters": 8
+      "semesters": 8,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (MathT/Fizik C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.math",
+                  "spm.fizik"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera + Maths C+ + science C",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.mathm",
+                  "pu.ekon",
+                  "pu.other1"
+                ],
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C+"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.sains",
+                  "spm.addmath"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Maths/Fizik/Engineering C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.math",
+                  "pu.fizik",
+                  "pu.other1"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma (CGPA 2.5)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.5
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stam",
+            "label": "STAM Jayyid + Maths C+ + science C",
+            "conditions": [
+              {
+                "type": "stam_min",
+                "value": "jayyid"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C+"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.sains",
+                  "spm.addmath"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "renewable-energy",
@@ -1948,7 +4701,168 @@
         "ngo": 3,
         "research": 3
       },
-      "semesters": 8
+      "semesters": 8,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (Bio/Fizik/Kimia/MathT C + SPM science C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.bio",
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.math"
+                ],
+                "minGrade": "C"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.addmath"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera (2 C + Fizik/Kimia/AddMaths C + Maths C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "count_grade_min",
+                "fields": [
+                  "pu.mathm",
+                  "pu.ekon",
+                  "pu.other1"
+                ],
+                "minGrade": "C",
+                "count": 2
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.addmath"
+                ],
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik_sains",
+            "label": "Matrikulasi Sains (Fizik/Maths/Kimia/Bio C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.fizik",
+                  "pu.math",
+                  "pu.chem",
+                  "pu.bio"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik_perak",
+            "label": "Matrikulasi Perakaunan/Sains Sosial (2 biz C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "count_grade_min",
+                "fields": [
+                  "pu.ekon",
+                  "pu.other1",
+                  "pu.other2"
+                ],
+                "minGrade": "C",
+                "count": 2
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma berkaitan (CGPA 2.0)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stam",
+            "label": "STAM Jayyid + Fizik/Kimia/Bio/AddMaths C",
+            "conditions": [
+              {
+                "type": "stam_min",
+                "value": "jayyid"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.addmath"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "electrical-technology",
@@ -2012,7 +4926,72 @@
         "analytical": 4,
         "detail": 3
       },
-      "semesters": 8
+      "semesters": 8,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (MathT/Fizik C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.math",
+                  "spm.fizik"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Maths/Fizik/Engineering C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.math",
+                  "pu.fizik",
+                  "pu.other1"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma berkaitan (CGPA 2.5)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.5
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "ohs-environment",
@@ -2071,7 +5050,139 @@
         "outdoor": 3,
         "helping": 3
       },
-      "semesters": 8
+      "semesters": 8,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (2 of Kimia/Bio/Fizik/MathT C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "count_grade_min",
+                "fields": [
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.fizik",
+                  "spm.math"
+                ],
+                "minGrade": "C",
+                "count": 2
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera (2 biz C + Maths C+ + science C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "count_grade_min",
+                "fields": [
+                  "pu.mathm",
+                  "pu.ekon",
+                  "pu.other1"
+                ],
+                "minGrade": "C",
+                "count": 2
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C+"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.addmath"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Maths/Fizik/Engineering C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.math",
+                  "pu.fizik",
+                  "pu.other1"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma berkaitan (CGPA 2.5)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.5
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stam",
+            "label": "STAM Jayyid + Maths C+ + science C",
+            "conditions": [
+              {
+                "type": "stam_min",
+                "value": "jayyid"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C+"
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.fizik",
+                  "spm.chem",
+                  "spm.bio",
+                  "spm.addmath"
+                ],
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "maritime-management",
@@ -2136,7 +5247,94 @@
         "gov": 3,
         "business_act": 4
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera (Ekon/Geog/Perak B- + MathM C + SPM BI E)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.ekon",
+                  "pu.other1",
+                  "pu.other2"
+                ],
+                "minGrade": "B-"
+              },
+              {
+                "type": "grade_min",
+                "field": "pu.mathm",
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "E"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Ekon/Perak/Bisnes B- + Maths C + BI E)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains",
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.ekon",
+                  "pu.other1"
+                ],
+                "minGrade": "B-"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "E"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma (CGPA 3.0)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 3.0
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "maritime-operations",
@@ -2197,7 +5395,96 @@
         "corp": 3,
         "adventurous": 3
       },
-      "semesters": 6
+      "semesters": 6,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm",
+            "label": "STPM (CGPA 2.75 + Maths C + SPM Maths C + BI C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains",
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.75
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (CGPA 2.75 + SPM Maths C + BI C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains",
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.75
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma (CGPA 2.75 + SPM Maths C + BI C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.75
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "nautical-science",
@@ -2290,7 +5577,113 @@
         "gov": 3,
         "analytical": 3
       },
-      "semesters": 8
+      "semesters": 8,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sains",
+            "label": "STPM Sains (MathT/Fizik C + SPM BI C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "spm.math",
+                  "spm.fizik"
+                ],
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0",
+            "interviewRequired": true
+          },
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera/Asasi (Maths/Fizik C + SPM BI C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera",
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.math",
+                  "pu.fizik"
+                ],
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0",
+            "interviewRequired": true
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (Maths/Fizik C + SPM BI C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.math",
+                  "pu.fizik"
+                ],
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0",
+            "interviewRequired": true
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma berkaitan (CGPA 2.75)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.75
+              }
+            ],
+            "muetMin": "2.0",
+            "interviewRequired": true
+          }
+        ]
+      }
     },
     {
       "id": "natural-resource-economics",
@@ -2352,7 +5745,98 @@
         "corp": 3,
         "gov": 3
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera (Ekon/Maths/Perak B- + BI D + Maths C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.ekon",
+                  "pu.math",
+                  "pu.mathm",
+                  "pu.other1"
+                ],
+                "minGrade": "B-"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "D"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (2 of Maths/Ekon B- + Maths C + BI D)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains",
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "count_grade_min",
+                "fields": [
+                  "pu.math",
+                  "pu.fizik",
+                  "pu.ekon",
+                  "pu.other1"
+                ],
+                "minGrade": "B-",
+                "count": 2
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "counselling",
@@ -2407,7 +5891,121 @@
         "gov": 3,
         "analytical": 2
       },
-      "semesters": 8
+      "semesters": 8,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera (CGPA 2.67 + BI D)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.67
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0",
+            "interviewRequired": true
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (B- in 2 + Maths C + BI E)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains",
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "count_grade_min",
+                "fields": [
+                  "pu.fizik",
+                  "pu.ekon",
+                  "pu.other1"
+                ],
+                "minGrade": "B-",
+                "count": 2
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "E"
+              }
+            ],
+            "muetMin": "2.0",
+            "interviewRequired": true
+          },
+          {
+            "id": "stam",
+            "label": "STAM Jayyid + Maths D + BI D",
+            "conditions": [
+              {
+                "type": "stam_min",
+                "value": "jayyid"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "D"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0",
+            "interviewRequired": true
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma (CGPA 2.67 + Maths D + BI D)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.67
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "D"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0",
+            "interviewRequired": true
+          }
+        ]
+      }
     },
     {
       "id": "finance",
@@ -2490,7 +6088,80 @@
         "analytical": 4,
         "detail": 4
       },
-      "semesters": 6
+      "semesters": 6,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera (Ekon/Perak/PngPerniagaan/MathM B-)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.ekon",
+                  "pu.mathm",
+                  "pu.other1"
+                ],
+                "minGrade": "B-"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (CGPA 2.67 + Maths C + BI D)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains",
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.67
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma Kewangan (CGPA 2.67)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.67
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "marketing",
@@ -2550,7 +6221,91 @@
         "leader": 3,
         "tech_company": 3
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera (CGPA 2.67 + BI D)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.67
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (CGPA 2.67 + BI D)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains",
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.67
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.bi",
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stam",
+            "label": "STAM Jayyid + Maths D",
+            "conditions": [
+              {
+                "type": "stam_min",
+                "value": "jayyid"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "policy-studies",
@@ -2610,7 +6365,91 @@
         "research": 3,
         "analytical": 3
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera (CGPA 2.67 + Maths D)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.67
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (CGPA 2.67 + Maths D)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains",
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.67
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stam",
+            "label": "STAM Jayyid + Maths D",
+            "conditions": [
+              {
+                "type": "stam_min",
+                "value": "jayyid"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "tourism-management",
@@ -2670,7 +6509,91 @@
         "creative": 3,
         "helping": 3
       },
-      "semesters": 6
+      "semesters": 6,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera (CGPA 2.67 + Maths D)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.67
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (CGPA 2.67 + Maths D)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains",
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.67
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "stam",
+            "label": "STAM Jayyid + Maths D",
+            "conditions": [
+              {
+                "type": "stam_min",
+                "value": "jayyid"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "D"
+              }
+            ],
+            "muetMin": "2.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 2.0
+              }
+            ],
+            "muetMin": "2.0"
+          }
+        ]
+      }
     },
     {
       "id": "accounting",
@@ -2765,7 +6688,103 @@
         "detail": 5,
         "analytical": 5
       },
-      "semesters": 7
+      "semesters": 7,
+      "eligibilityRules": {
+        "routes": [
+          {
+            "id": "stpm_sastera",
+            "label": "STPM Sastera (Ekon/Perak/PngPerniagaan B- + Maths C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "any_grade_min",
+                "fields": [
+                  "pu.ekon",
+                  "pu.mathm",
+                  "pu.other1"
+                ],
+                "minGrade": "B-"
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "3.0"
+          },
+          {
+            "id": "stpm_mathm",
+            "label": "STPM (MathM C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "stpm_sastera"
+                ]
+              },
+              {
+                "type": "grade_min",
+                "field": "pu.mathm",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "3.0"
+          },
+          {
+            "id": "matrik",
+            "label": "Matrikulasi/Asasi (CGPA 3.00 + Maths C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_sains",
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 3.0
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "3.0"
+          },
+          {
+            "id": "diploma",
+            "label": "Diploma Perakaunan (CGPA 3.00 + Maths C)",
+            "conditions": [
+              {
+                "type": "qual_in",
+                "values": [
+                  "asasi_perakaunan",
+                  "asasi_sains_sosial"
+                ]
+              },
+              {
+                "type": "cgpa_min",
+                "value": 3.0
+              },
+              {
+                "type": "grade_min",
+                "field": "spm.math",
+                "minGrade": "C"
+              }
+            ],
+            "muetMin": "3.0"
+          }
+        ]
+      }
     }
   ]
 }

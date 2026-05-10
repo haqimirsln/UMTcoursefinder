@@ -555,12 +555,12 @@ button,.btn-primary,.btn-secondary,.btn-quiz,.btn-card-detail,.btn-card-wa,.btn-
           </div>
           <div class="quiz-nav">
             <div class="quiz-step-label">Step 1 of 5</div>
-            <button class="btn-quiz btn-quiz-next" onclick="nextStep(0)">Next →</button>
+            <button class="btn-quiz btn-quiz-next" onclick="smartNext(0)">Next →</button>
           </div>
         </div>
 
         <!-- Step 1: Subjects -->
-        <div class="quiz-step" id="step-1">
+        <div class="quiz-step" id="step-2">
           <div class="quiz-q">Which subjects did you enjoy most?</div>
           <div class="quiz-hint">Select all that apply</div>
           <div class="opts-grid" id="opts-1">
@@ -574,14 +574,14 @@ button,.btn-primary,.btn-secondary,.btn-quiz,.btn-card-detail,.btn-card-wa,.btn-
             <div class="opt" data-val="geo" onclick="toggleOpt(this,1)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span class="opt-label">Geography &amp; Earth</span><span class="opt-check"></span></div>
           </div>
           <div class="quiz-nav">
-            <button class="btn-quiz btn-quiz-back" onclick="prevStep(1)">← Back</button>
-            <div class="quiz-step-label">Step 2 of 5</div>
-            <button class="btn-quiz btn-quiz-next" onclick="nextStep(1)">Next →</button>
+            <button class="btn-quiz btn-quiz-back" onclick="smartBack(2)">← Back</button>
+            <div class="quiz-step-label">Step 3 of 5</div>
+            <button class="btn-quiz btn-quiz-next" onclick="smartNext(2)">Next →</button>
           </div>
         </div>
 
         <!-- Step 2: Activities -->
-        <div class="quiz-step" id="step-2">
+        <div class="quiz-step" id="step-3">
           <div class="quiz-q">What activities excite you?</div>
           <div class="quiz-hint">Pick your top interests</div>
           <div class="opts-grid" id="opts-2">
@@ -597,14 +597,14 @@ button,.btn-primary,.btn-secondary,.btn-quiz,.btn-card-detail,.btn-card-wa,.btn-
             <div class="opt" data-val="helping" onclick="toggleOpt(this,2)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><span class="opt-label">Helping People</span><span class="opt-check"></span></div>
           </div>
           <div class="quiz-nav">
-            <button class="btn-quiz btn-quiz-back" onclick="prevStep(2)">← Back</button>
-            <div class="quiz-step-label">Step 3 of 5</div>
-            <button class="btn-quiz btn-quiz-next" onclick="nextStep(2)">Next →</button>
+            <button class="btn-quiz btn-quiz-back" onclick="smartBack(3)">← Back</button>
+            <div class="quiz-step-label">Step 4 of 5</div>
+            <button class="btn-quiz btn-quiz-next" onclick="smartNext(3)">Next →</button>
           </div>
         </div>
 
         <!-- Step 3: Work environment -->
-        <div class="quiz-step" id="step-3">
+        <div class="quiz-step" id="step-4">
           <div class="quiz-q">Where do you see yourself working?</div>
           <div class="quiz-hint">Choose all that feel right</div>
           <div class="opts-grid" id="opts-3">
@@ -618,14 +618,14 @@ button,.btn-primary,.btn-secondary,.btn-quiz,.btn-card-detail,.btn-card-wa,.btn-
             <div class="opt" data-val="hospitality" onclick="toggleOpt(this,3)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 22V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14"/><path d="M10 22V12h4v10"/></svg></span><span class="opt-label">Tourism / Hospitality</span><span class="opt-check"></span></div>
           </div>
           <div class="quiz-nav">
-            <button class="btn-quiz btn-quiz-back" onclick="prevStep(3)">← Back</button>
-            <div class="quiz-step-label">Step 4 of 5</div>
-            <button class="btn-quiz btn-quiz-next" onclick="nextStep(3)">Next →</button>
+            <button class="btn-quiz btn-quiz-back" onclick="smartBack(4)">← Back</button>
+            <div class="quiz-step-label">Step 5 of 5</div>
+            <button class="btn-quiz btn-quiz-next" onclick="smartNext(4)">Next →</button>
           </div>
         </div>
 
         <!-- Step 4: Personality -->
-        <div class="quiz-step" id="step-4">
+        <div class="quiz-step" id="step-5">
           <div class="quiz-q">How would you describe your personality?</div>
           <div class="quiz-hint">Pick the ones that resonate</div>
           <div class="opts-grid" id="opts-4">
@@ -637,28 +637,28 @@ button,.btn-primary,.btn-secondary,.btn-quiz,.btn-card-detail,.btn-card-wa,.btn-
             <div class="opt" data-val="detail" onclick="toggleOpt(this,4)"><span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span class="opt-label">Detail-oriented</span><span class="opt-check"></span></div>
           </div>
           <div class="quiz-nav">
-            <button class="btn-quiz btn-quiz-back" onclick="prevStep(4)">← Back</button>
+            <button class="btn-quiz btn-quiz-back" onclick="smartBack(5)">← Back</button>
             <div class="quiz-step-label">Step 4 of 5</div>
-            <button class="btn-quiz btn-quiz-next" onclick="nextStep(4)">Next →</button>
+            <button class="btn-quiz btn-quiz-next" onclick="smartNext(5)">Next →</button>
           </div>
         </div>
 
         <!-- Step 5: Results / Eligibility (NEW) -->
         
-<div class="quiz-step" id="step-5">
-  <div class="quiz-q" id="q4b-title">Do you have your results?</div>
-  <div class="quiz-hint" id="q4b-hint">This lets us check exact eligibility for each programme</div>
+<div class="quiz-step" id="step-1">
+  <div class="quiz-q">Do you have your exam results ready?</div>
+  <div class="quiz-hint">Yes = enter grades, get exact eligibility. No = answer interest questions instead.</div>
 
   <div class="stream-cards" id="results-choice-cards">
-    <div class="stream-card" data-hasresult="no" onclick="selectHasResult(this)">
-      <div class="stream-icon navy">📋</div>
-      <div class="stream-card-title">Not yet / Skip</div>
-      <div class="stream-card-desc">I'll get matched based on interests. I can check requirements later.</div>
-    </div>
     <div class="stream-card" data-hasresult="yes" onclick="selectHasResult(this)">
       <div class="stream-icon gold">📝</div>
-      <div class="stream-card-title">Yes, enter my results</div>
-      <div class="stream-card-desc">Get exact eligibility checks for every programme.</div>
+      <div class="stream-card-title">Yes, I have my results</div>
+      <div class="stream-card-desc">Enter your grades for an exact eligibility check per programme.</div>
+    </div>
+    <div class="stream-card" data-hasresult="no" onclick="selectHasResult(this)">
+      <div class="stream-icon navy">💬</div>
+      <div class="stream-card-title">Not yet — match by interest</div>
+      <div class="stream-card-desc">Answer a few quick questions about your interests instead.</div>
     </div>
   </div>
 
@@ -1012,11 +1012,12 @@ button,.btn-primary,.btn-secondary,.btn-quiz,.btn-card-detail,.btn-card-wa,.btn-
   </div>
 
   <div class="quiz-nav">
-    <button class="btn-quiz btn-quiz-back" onclick="prevStep(4)">← Back</button>
-    <div class="quiz-step-label">Step 5 of 5</div>
-    <button class="btn-quiz btn-quiz-submit" onclick="submitQuiz()">Find My Programmes →</button>
+    <button class="btn-quiz btn-quiz-back" onclick="smartBack(1)">← Back</button>
+    <div class="quiz-step-label" id="step1-nav-label">Step 2 of 5</div>
+    <button class="btn-quiz btn-quiz-next" id="step1-btn-next" onclick="smartNext(1)" style="display:none">Next →</button>
+    <button class="btn-quiz btn-quiz-submit" id="step1-btn-submit" onclick="submitQuiz()" style="display:none">Find My Programmes →</button>
   </div>
-</div>
+</div></div>
 
 
       </div>
@@ -1264,6 +1265,62 @@ function setStep(n) {
 
 function nextStep(from) { setStep(from + 1); }
 function prevStep(from) { setStep(from - 1); }
+
+// ── Smart navigation — handles results-first branching ────────────
+// Flow A (has results): 0 → 1 (enter results) → submit
+// Flow B (no results):  0 → 1 (pick no) → 2 → 3 → 4 → 5 → submit
+let hasResultChosen = false; // tracks which branch
+
+function smartNext(from) {
+  if (from === 0) {
+    // After stream selection, always go to step-1 (results question)
+    if (!selectedStream) { showToast('Please select your education level first.'); return; }
+    setStep(1);
+    return;
+  }
+  if (from === 1) {
+    // Step 1: "have results?" — if yes, submit; if no, go to personality
+    if (!hasResultChosen) { showToast('Please select an option above.'); return; }
+    const hasResult = document.querySelector('#results-choice-cards .stream-card.selected')?.dataset?.hasresult;
+    if (hasResult === 'yes') {
+      submitQuiz();
+    } else {
+      setStep(2); // personality path
+    }
+    return;
+  }
+  // Personality steps 2→3→4→5→submit
+  if (from === 5) { submitQuiz(); return; }
+  setStep(from + 1);
+}
+
+function smartBack(from) {
+  if (from <= 1) { setStep(0); return; }
+  if (from === 2) { setStep(1); return; } // back from personality to results question
+  setStep(from - 1);
+}
+
+function selectHasResult(el) {
+  document.querySelectorAll('#results-choice-cards .stream-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  hasResultChosen = true;
+  const hasResult = el.dataset.hasresult;
+  const isHigh = selectedStream === 'highschool';
+
+  document.getElementById('spm-detail-block').style.display    = (hasResult === 'yes' && isHigh) ? '' : 'none';
+  document.getElementById('preuni-detail-block').style.display = (hasResult === 'yes' && !isHigh) ? '' : 'none';
+
+  // Show the right action button
+  const btnNext   = document.getElementById('step1-btn-next');
+  const btnSubmit = document.getElementById('step1-btn-submit');
+  if (hasResult === 'yes') {
+    if (btnNext)   btnNext.style.display   = 'none';
+    if (btnSubmit) btnSubmit.style.display = '';
+  } else {
+    if (btnNext)   btnNext.style.display   = '';
+    if (btnSubmit) btnSubmit.style.display = 'none';
+  }
+}
 
 function selectStream(el) {
   document.querySelectorAll('.stream-card').forEach(c => c.classList.remove('selected'));
@@ -2413,6 +2470,12 @@ function retakeQuiz() {
   selectedStream = '';
   compareList = [];
   currentFilter = 'all';
+  hasResultChosen = false;
+  // Reset step-1 buttons
+  const btnNext   = document.getElementById('step1-btn-next');
+  const btnSubmit = document.getElementById('step1-btn-submit');
+  if (btnNext)   btnNext.style.display   = 'none';
+  if (btnSubmit) btnSubmit.style.display = 'none';
   document.querySelectorAll('.opt.selected, .spm-subj.selected, .stream-card.selected').forEach(el => el.classList.remove('selected'));
   // Reset old fields (kept for backward compat)
   try { document.getElementById('spm-as') && (document.getElementById('spm-as').value = ''); } catch(e){}
@@ -3006,13 +3069,6 @@ function checkEligibility(programId, r) {
 }
 
 // ── UI handlers for new Step 4b ──────────────────────────────────
-function selectHasResult(el) {
-  document.querySelectorAll('#results-choice-cards .stream-card').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  const hasResult = el.dataset.hasresult;
-  document.getElementById('spm-detail-block').style.display = (hasResult === 'yes' && selectedStream === 'highschool') ? '' : 'none';
-  document.getElementById('preuni-detail-block').style.display = (hasResult === 'yes' && selectedStream === 'preuniversity') ? '' : 'none';
-}
 
 function onAliranChange() {
   const al = document.getElementById('spm-aliran').value;

@@ -1459,6 +1459,28 @@ function submitQuiz() {
   })();
   // ─────────────────────────────────────────────────────────────────────────
 
+  // ── Infer interests from grades when personality steps were skipped ──────
+  // If all selections are empty (result-only path), derive tags from what
+  // subjects the student actually took so scores are meaningful not all-zero
+  const allSelEmpty = [1,2,3,4].every(s => selections[s].length === 0);
+  if (allSelEmpty) {
+    const g = id => (document.getElementById(id) || {}).value || '';
+    const inferred = [];
+    if (gradeGte(g('spm-bio'),   'C') || gradeGte((document.getElementById('pu-bio')||{}).value||'','C')) inferred.push('bio','ocean','nature');
+    if (gradeGte(g('spm-chem'),  'C') || gradeGte((document.getElementById('pu-chem')||{}).value||'','C')) inferred.push('chem','food');
+    if (gradeGte(g('spm-fizik'), 'C') || gradeGte((document.getElementById('pu-fizik')||{}).value||'','C')) inferred.push('phys','engineering','energy');
+    if (gradeGte(g('spm-math'),  'C') || gradeGte((document.getElementById('pu-math')||{}).value||'','C')) inferred.push('math','analytical','data');
+    if (gradeGte(g('spm-addmath'),'C'))  inferred.push('math','coding','tech');
+    // Pre-uni qual signals
+    const puQual = (document.getElementById('preuni-qual')||{}).value||'';
+    if (['asasi_perakaunan','asasi_sains_sosial'].includes(puQual)) inferred.push('biz','corp','social');
+    if (puQual === 'asasi_sains') inferred.push('bio','ocean','phys','tech');
+    if (['stpm_sastera'].includes(puQual)) inferred.push('biz','social','corp');
+    if (['stpm_sains'].includes(puQual)) inferred.push('bio','ocean','phys','engineering');
+    // De-duplicate and assign to selections[1] so computeScores picks them up
+    selections[1] = [...new Set(inferred)];
+  }
+
   document.getElementById('progress').style.width = '100%';
   document.getElementById('calc-label').textContent = t('calc.label');
   document.getElementById('calc-sub').textContent = t('calc.sub');
@@ -1475,7 +1497,9 @@ function submitQuiz() {
         if (a.eligible === false && b.eligible !== false) return 1;
         if (b.eligible === false && a.eligible !== false) return -1;
         return b.score - a.score;
-      }); // inject eligibility per programme
+      });
+    // Clear any grade-inferred selections so retake starts fresh
+    if (allSelEmpty) selections[1] = [];
     overlay.classList.remove('show');
     renderResults(allRanked, 'all');
   }, 1800);
@@ -1762,13 +1786,16 @@ function renderResults(ranked, filter) {
   // FIX #4: Do NOT reset compareList here anymore
   updateCompareBar();
 
-  const maxScore = ranked[0]?.score || 1;
+  const maxScore = ranked[0]?.score || 0;
+  const resultOnlyPath = maxScore === 0; // student entered results but skipped interests
 
   // TOP MATCH HERO
   const heroContainer = document.getElementById('top-match-hero');
   const topPick = ranked[0];
   if (topPick && heroContainer) {
-    const topPct = maxScore > 0 ? Math.round((topPick.score / maxScore) * 100) : 0;
+    const topPct = resultOnlyPath
+      ? (topPick.eligible === false ? 0 : 100)
+      : Math.round((topPick.score / maxScore) * 100);
     const topWa = encodeURIComponent(`Hello UMT, I'm interested in ${topPick.name}. Please share more information. Thank you!`);
     heroContainer.style.display = '';
     heroContainer.innerHTML = `
@@ -1803,7 +1830,7 @@ function renderResults(ranked, filter) {
             </svg>
             <div class="top-match-score-num">${topPct}<span style="font-size:1rem">%</span></div>
           </div>
-          <div class="top-match-score-label">${t('results.matchScore')}</div>
+          <div class="top-match-score-label">${resultOnlyPath ? 'Eligible' : t('results.matchScore')}</div>
           <div class="top-match-pills">
             <span class="top-match-pill">${topPick.duration}</span>
             <span class="top-match-pill">${topPick.intake || 'See details'}</span>
@@ -1814,7 +1841,16 @@ function renderResults(ranked, filter) {
   }
 
   toShow.forEach((p, i) => {
-    const pct = maxScore > 0 ? Math.round((p.score / maxScore) * 100) : 0;
+    const pct = resultOnlyPath
+      ? (p.eligible === false ? 0 : 100)
+      : (maxScore > 0 ? Math.round((p.score / maxScore) * 100) : 0);
+
+    const matchDisplay = resultOnlyPath
+      ? (p.eligible === false
+          ? `<span class="match-score" style="color:#B01E2C">Not eligible</span>`
+          : `<span class="match-score" style="color:#166534">Eligible</span>`)
+      : (p.score > 0 ? `<span class="match-score">${pct}% match</span>` : '');
+
     const waMsg = encodeURIComponent(`Hello UMT, I'm interested in ${p.name}. Please share information about admission and intake. Thank you!`);
     const waLink = `https://api.whatsapp.com/send?phone=60096684279&text=${waMsg}`;
 
@@ -1822,8 +1858,6 @@ function renderResults(ranked, filter) {
     card.className = 'course-card';
     card.id = 'card-' + p.id;
     card.style.animationDelay = (i * 0.06) + 's';
-
-    const matchDisplay = p.score > 0 ? `<span class="match-score">${pct}% match</span>` : '';
     const accentCat = p.type === 'asasi' ? 'Foundation' : p.type === 'diploma' ? 'Diploma' : p.category;
 
     // Eligibility badge — only shown when user entered results

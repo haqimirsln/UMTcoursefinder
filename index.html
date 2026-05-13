@@ -516,8 +516,8 @@ button,.btn-primary,.btn-secondary,.btn-quiz,.btn-card-detail,.btn-card-wa,.btn-
       <div class="step-card"><div class="step-num">3</div><div class="step-h">Share Your Goals</div><p class="body-sm">Where do you see yourself working? More data = better match.</p></div>
       <div class="step-card"><div class="step-num">4</div><div class="step-h">Share Your Personality</div><p class="body-sm">Analytical, creative, leader? Helps us refine your matches.</p></div>
       <div class="step-card"><div class="step-num">5</div><div class="step-h">Enter Results &amp; Get Matched</div><p class="body-sm">Optional but powerful enter your SPM/STPM/STAM grades for exact eligibility checks on every programme.</p></div>
-      <div class="step-card"><div class="step-num">6</div><div class="step-h">Explore &amp; Apply</div><p class="body-sm">Full programme details semesters, careers, fees, requirements then apply directly.</p></div>
-    </div>
+       
+          </div>
   </div>
 </section>
 <div class="divider"></div>
@@ -2548,7 +2548,7 @@ const TRANSLATIONS = {
     'hero.sub': 'Answer a few questions about your qualifications, interests and personality. We\'ll match you with the right UMT programme — whether you\'re an SPM leaver or pre-university graduate.',
     'how.kicker': 'Simple Process',
     'how.title': 'How it works',
-    'how.sub': 'Six steps — tailored to whether you\'ve done SPM or pre-university.',
+    'how.sub': 'Six steps  tailored to whether you\'ve done SPM or pre-university.',
     'quiz.kicker': 'Course Recommender',
     'quiz.title': 'Find your perfect programme',
     'quiz.sub': '5 steps · About 2 minutes · No wrong answers',
@@ -2767,7 +2767,7 @@ function applyTranslations() {
   if (howHeader) {
     setTextSafe('#how .section-header .label-sm', t('how.kicker'));
     setTextSafe('#how .section-header h2', t('how.title'));
-    setTextSafe('#how .section-header p', bm ? 'Lima langkah — disesuaikan mengikut kelayakan anda.' : "Five steps — tailored to whether you've done SPM or pre-university.");
+    setTextSafe('#how .section-header p', bm ? 'Lima langkah — disesuaikan mengikut kelayakan anda.' : "Five steps  tailored to whether you've done SPM or pre-university.");
   }
   setAllTextSafe('.step-card .step-h', bm
     ? ['Pilih Tahap Anda', 'Pilih Minat Anda', 'Kongsi Matlamat Anda', 'Kongsi Personaliti Anda', 'Masukkan Keputusan & Dapatkan Padanan', 'Terokai & Mohon']
